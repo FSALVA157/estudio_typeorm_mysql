@@ -22,6 +22,6 @@
     "scripts": {
         "build": "tsc",
         "start": "ts-node src/index.ts",
-        "dev": "tsc-watch --onSuccess \"ts-node src/index.js\""
+        "dev": "tsc-watch --onSuccess \"ts-node src/index.ts\""
     }
 }
