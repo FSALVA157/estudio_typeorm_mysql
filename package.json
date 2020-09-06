@@ -21,7 +21,8 @@
     },
     "scripts": {
         "build": "tsc",
-        "start": "ts-node src/index.ts",
+        "postinstall": "npm run build",
+        "start": "npm run  dist/index.js",
         "dev": "tsc-watch --onSuccess \"ts-node src/index.ts\""
     }
 }
