@@ -5,26 +5,31 @@ export const Routes = [{
     method: "get",
     route: "/usuarios",
     controller: UsuarioController,
-    action: "all"
+    action: "all",
+    entity: "Usuario"
 }, {
     method: "get",
     route: "/usuarios/:id",
     controller: UsuarioController,
-    action: "one"
+    action: "one",
+    entity: "Usuario"
 }, {
     method: "post",
     route: "/usuarios",
     controller: UsuarioController,
-    action: "save"
+    action: "save",
+    entity: "Usuario"
 }, {
     method: "delete",
     route: "/usuarios/:id",
     controller: UsuarioController,
-    action: "remove"
+    action: "remove",
+    entity: "Usuario"
 },{
     method: "put",
     route: "/usuarios/:id",
     controller: UsuarioController,
-    action: "update"
+    action: "update",
+    entity: "Usuario"
 }
 ];

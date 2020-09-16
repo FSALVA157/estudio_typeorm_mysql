@@ -36,7 +36,6 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var typeorm_1 = require("typeorm");
-//import {Usuario} from "../entity/Usuario";
 var Usuario_1 = require("../entity/Usuario");
 var UsuarioController = /** @class */ (function () {
     function UsuarioController() {

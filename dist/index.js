@@ -42,17 +42,19 @@ var express = require("express");
 var bodyParser = require("body-parser");
 var routes_1 = require("./routes/routes");
 var path = require("path");
+var errors_1 = require("./middleware/errors");
+var class_validator_1 = require("class-validator");
+var Usuario_1 = require("./entity/Usuario");
+var Error404_1 = require("./errors/Error404");
+process.on('unhandledRejection', function (error) {
+    console.log(error);
+    throw error;
+});
+process.on('uncaughtException', function (error) {
+    console.log(error);
+    throw error;
+});
 var opciones;
-// read connection options from ormconfig file (or ENV variables)
-//const connectionOptions = async () => await getConnectionOptions();
-// const connectionOptions = getConnectionOptions().then;
-//var connectionOptions:ConnectionOptions = null;
-// const  puerto : number = process.env.PORT || 3000;
-// do something with connectionOptions,
-// for example append a custom naming strategy or a custom logger
-// Object.assign(connectionOptions, {port: puerto});
-// create a connection using modified connection options
-//const connection = await createConnection(connectionOptions);
 var connectionOptions = function () { return __awaiter(_this, void 0, void 0, function () {
     var response;
     return __generator(this, function (_a) {
@@ -81,53 +83,81 @@ typeorm_1.createConnection(opciones).then(function (connection) { return __await
         //middlewares
         //alternativo podria haber usado la linea: app.use(express.json())
         app.use(bodyParser.json());
-        // register express routes from defined application routes
-        routes_1.Routes.forEach(function (route) {
-            app[route.method](route.route, function (req, res, next) {
-                var result = (new route.controller)[route.action](req, res, next);
-                if (result instanceof Promise) {
-                    result.then(function (result) { return result !== null && result !== undefined ? res.send(result) : undefined; });
-                }
-                else if (result !== null && result !== undefined) {
-                    res.json(result);
-                }
-            });
-        });
-        // setup express app here
-        // process.env.PORT = '3005';
-        // console.log('el puerto global es ',process.env.PORT);
+        //middlwwares de errores
         app.set('port', process.env.PORT || 3000);
         puerto_activo = app.get('port');
         app.listen(puerto_activo);
-        // insert new users for test
-        // await connection.manager.save(connection.manager.create(Usuario, {
-        //     dni_usuario : 21633633,
-        //     nombre : "xxavier",
-        //     apellido : "argentino",
-        //     tipo_id : 1,
-        //     domicilio_procesal : 'domicilio 1',
-        //     matricula : 'm2121',
-        //     usuario : 'xxav',
-        //     password : 'xx123456',
-        //     estudio_id : 1,
-        //     email : 'xxav@hotmail.com',
-        //     nivel_usuario_id : 1,
-        //     fecha_alta : new Date('30/08/2020')
-        // }));
-        // await connection.manager.save(connection.manager.create(Usuario, {
-        //     dni_usuario : 212121,
-        //     nombre : "Carlos",
-        //     apellido : "Gardel",
-        //     tipo_id : 2,
-        //     domicilio_procesal : 'domicilio 3',
-        //     matricula : 'm8888',
-        //     usuario : 'gardel',
-        //     password : 'gar123456',
-        //     estudio_id : 1,
-        //     email : 'gardel@hotmail.com',
-        //     nivel_usuario_id : 2,
-        //     fecha_alta : new Date('30/08/2020')
-        // }));
+        // register express routes from defined application routes
+        routes_1.Routes.forEach(function (route) {
+            app[route.method](route.route, function (req, res, next) {
+                //funcion que efectua la consulta deseada
+                function getDatos() {
+                    var result = (new route.controller)[route.action](req, res, next);
+                    if (result instanceof Promise) {
+                        result.then(function (result) {
+                            if (result !== null && result !== undefined) {
+                                res.send(result);
+                            }
+                            else {
+                                // res.status(500).json({message:'No Existe el Registro solicitado'});
+                                throw new Error404_1.Error404();
+                            }
+                        }).catch(function (err) {
+                            console.log("ERROR DISPARADO: ");
+                            // next(err);
+                            next(err);
+                        });
+                    }
+                    else if (result !== null && result !== undefined) {
+                        res.json(result);
+                    }
+                    else {
+                        throw new Error404_1.Error404();
+                    }
+                }
+                try {
+                    if (route.method === 'post') {
+                        console.log('EL MODELO UTILIZADO ES ', route.entity);
+                        try {
+                            var data = void 0;
+                            switch (route.entity) {
+                                case 'Usuario':
+                                    data = new Usuario_1.Usuario(req);
+                                    break;
+                                default:
+                                    break;
+                            }
+                            class_validator_1.validate(data, { validationError: { target: false } }).then(function (errors) {
+                                if (errors.length > 0) {
+                                    console.log('EXISTEN ERRORES', errors);
+                                    throw errors;
+                                }
+                                else {
+                                    console.log('NO HAY ERRORES');
+                                    getDatos();
+                                }
+                            })
+                                .catch(function (err) {
+                                console.log('PASANDO POR EL CATCH DE VALIDACION');
+                                next(err);
+                            });
+                        }
+                        catch (error) {
+                            console.log('PASANDO POR CATCH DE IF THEN');
+                            throw error;
+                        }
+                    }
+                    else {
+                        getDatos();
+                    }
+                }
+                catch (error) {
+                    console.log('ERROR DISPARADO 2');
+                    next(error);
+                }
+            });
+        });
+        app.use(errors_1.middleware);
         console.log("Express iniciado en puerto " + puerto_activo + ". Open http://localhost:" + puerto_activo + "/usuarios para ver los resultados");
         return [2 /*return*/];
     });

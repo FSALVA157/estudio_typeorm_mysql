@@ -10,8 +10,25 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var typeorm_1 = require("typeorm");
+var class_validator_1 = require("class-validator");
 var Usuario = /** @class */ (function () {
-    function Usuario() {
+    //constructor
+    function Usuario(req) {
+        if (req) {
+            this.dni_usuario = req.body.dni_usuario;
+            this.nombre = req.body.nombre;
+            this.apellido = req.body.apellido;
+            this.tipo_id = req.body.tipo_id;
+            this.domicilio_procesal = req.body.domicilio_procesal;
+            this.matricula = req.body.matricula;
+            this.usuario = req.body.usuario;
+            this.password = req.body.password;
+            this.estudio_id = req.body.estudio_id;
+            this.email = req.body.email;
+            this.nivel_usuario_id = req.body.nivel_usuario_id;
+            this.fecha_alta = req.body.fecha_alta;
+            this.fecha_baja = req.body.fecha_baja;
+        }
     }
     __decorate([
         typeorm_1.PrimaryGeneratedColumn(),
@@ -19,6 +36,8 @@ var Usuario = /** @class */ (function () {
     ], Usuario.prototype, "id_usuario", void 0);
     __decorate([
         typeorm_1.Column({ type: "int", unsigned: true }),
+        class_validator_1.IsInt({ message: 'El dni debe ser un número entero' }),
+        class_validator_1.Min(1000000, { message: 'El valor que intenta asignar a Dni no es válido' }),
         __metadata("design:type", Number)
     ], Usuario.prototype, "dni_usuario", void 0);
     __decorate([
@@ -26,6 +45,7 @@ var Usuario = /** @class */ (function () {
             type: "varchar",
             length: 50,
         }),
+        class_validator_1.Length(4, 50, { message: 'El nombre debe tener entre $constraint1 y $constraint2 caracteres' }),
         __metadata("design:type", String)
     ], Usuario.prototype, "nombre", void 0);
     __decorate([
@@ -33,10 +53,12 @@ var Usuario = /** @class */ (function () {
             type: "varchar",
             length: 50,
         }),
+        class_validator_1.Length(4, 50, { message: 'El apellido debe tener entre $constraint1 y $constraint2 caracteres en este momento tu texto tiene una longitud de $value letras' }),
         __metadata("design:type", String)
     ], Usuario.prototype, "apellido", void 0);
     __decorate([
         typeorm_1.Column({ type: "int", unsigned: true }),
+        class_validator_1.IsInt({ message: 'El tipo debe ser una clave entera' }),
         __metadata("design:type", Number)
     ], Usuario.prototype, "tipo_id", void 0);
     __decorate([
@@ -44,6 +66,7 @@ var Usuario = /** @class */ (function () {
             type: "varchar",
             length: 100,
         }),
+        class_validator_1.Length(10, 100, { message: 'El domicilio debe tener entre $constraint1 y $constraint2 caracteres en este momento tu texto tiene una longitud de $value letras' }),
         __metadata("design:type", String)
     ], Usuario.prototype, "domicilio_procesal", void 0);
     __decorate([
@@ -52,6 +75,8 @@ var Usuario = /** @class */ (function () {
             length: 30,
             nullable: true
         }),
+        class_validator_1.IsAlphanumeric(),
+        class_validator_1.MinLength(4),
         __metadata("design:type", String)
     ], Usuario.prototype, "matricula", void 0);
     __decorate([
@@ -63,6 +88,7 @@ var Usuario = /** @class */ (function () {
         __metadata("design:type", String)
     ], Usuario.prototype, "usuario", void 0);
     __decorate([
+        class_validator_1.Length(4, 50, { message: 'El usuario debe tener entre $constraint1 y $constraint2 caracteres en este momento tu texto tiene una longitud de $value letras' }),
         typeorm_1.Column({
             type: "varchar",
             length: 50,
@@ -72,6 +98,7 @@ var Usuario = /** @class */ (function () {
     ], Usuario.prototype, "password", void 0);
     __decorate([
         typeorm_1.Column({ type: "int", unsigned: true }),
+        class_validator_1.IsInt({ message: 'El estudio debe ser una clave entera' }),
         __metadata("design:type", Number)
     ], Usuario.prototype, "estudio_id", void 0);
     __decorate([
@@ -80,10 +107,12 @@ var Usuario = /** @class */ (function () {
             length: 50,
             unique: true
         }),
+        class_validator_1.IsEmail(),
         __metadata("design:type", String)
     ], Usuario.prototype, "email", void 0);
     __decorate([
         typeorm_1.Column({ type: "int", unsigned: true }),
+        class_validator_1.IsInt({ message: 'El nivel debe ser una clave entera' }),
         __metadata("design:type", Number)
     ], Usuario.prototype, "nivel_usuario_id", void 0);
     __decorate([
@@ -99,7 +128,8 @@ var Usuario = /** @class */ (function () {
         __metadata("design:type", Date)
     ], Usuario.prototype, "fecha_baja", void 0);
     Usuario = __decorate([
-        typeorm_1.Entity()
+        typeorm_1.Entity(),
+        __metadata("design:paramtypes", [Object])
     ], Usuario);
     return Usuario;
 }());
