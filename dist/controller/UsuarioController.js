@@ -7,97 +7,141 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __generator = (this && this.__generator) || function (thisArg, body) {
-    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
-    function verb(n) { return function (v) { return step([n, v]); }; }
-    function step(op) {
-        if (f) throw new TypeError("Generator is already executing.");
-        while (_) try {
-            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
-            if (y = 0, t) op = [op[0] & 2, t.value];
-            switch (op[0]) {
-                case 0: case 1: t = op; break;
-                case 4: _.label++; return { value: op[1], done: false };
-                case 5: _.label++; y = op[1]; op = [0]; continue;
-                case 7: op = _.ops.pop(); _.trys.pop(); continue;
-                default:
-                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
-                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
-                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
-                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
-                    if (t[2]) _.ops.pop();
-                    _.trys.pop(); continue;
-            }
-            op = body.call(thisArg, _);
-        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
-        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
-    }
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-var typeorm_1 = require("typeorm");
-var Usuario_1 = require("../entity/Usuario");
-var UsuarioController = /** @class */ (function () {
-    function UsuarioController() {
+const typeorm_1 = require("typeorm");
+const Usuario_1 = require("../entity/Usuario");
+class UsuarioController {
+    constructor() {
         this.userRepository = typeorm_1.getRepository(Usuario_1.Usuario);
     }
-    UsuarioController.prototype.all = function (request, response, next) {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.userRepository.find()];
-                    case 1: return [2 /*return*/, _a.sent()];
+    all(request, response, next) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let offset = Number(request.query.offset) || 0;
+            let limit = Number(request.query.limit) || 10;
+            let fields = ["id_usuario", "dni_usuario", "nombre", "apellido", "tipo_id", "domicilio_procesal", "matricula", "usuario", "estudio_id", "email", "nivel_usuario_id", "estado", "fecha_alta", "fecha_baja"];
+            if (request.query.fields) {
+                let reqFields = request.query.fields;
+                fields = reqFields.toString().split(",");
+            }
+            ;
+            //funcion que devuelve la expresion de las consultas de parametros strings con funciones avanzadas de filtros (LIKE,NOT,IN)
+            function ExpresionAvanzada(campo) {
+                if (campo.toUpperCase() == 'NULL') {
+                    return typeorm_1.IsNull();
                 }
+                else if (campo.toUpperCase() == 'NOT NULL') {
+                    return typeorm_1.Not(typeorm_1.IsNull());
+                }
+                if (campo.toUpperCase().startsWith('NOT ')) {
+                    campo = campo.slice(4);
+                    if (campo.toUpperCase().startsWith('LIKE ')) {
+                        campo = campo.slice(5);
+                        return typeorm_1.Not(typeorm_1.Like('%' + campo + '%'));
+                    }
+                    else {
+                        //campo = campo.slice(4);
+                        return typeorm_1.Not(campo);
+                    }
+                }
+                else {
+                    if (campo.toUpperCase().startsWith('LIKE ')) {
+                        campo = campo.slice(5);
+                        return typeorm_1.Like('%' + campo + '%');
+                    }
+                    else {
+                        return campo;
+                    }
+                }
+            }
+            let arreglo = request.query;
+            let cond = new Object();
+            for (const campo in arreglo) {
+                if (Object.prototype.hasOwnProperty.call(arreglo, campo)) {
+                    //console.log(`${campo} = ${arreglo[campo]}`);
+                    //const element = arreglo[campo];
+                    let nombreCampo = campo.toString();
+                    switch (nombreCampo) {
+                        case 'id_usuario':
+                            cond[nombreCampo] = Number(arreglo[campo]);
+                            break;
+                        case 'dni_usuario':
+                            cond[nombreCampo] = Number(arreglo[campo]);
+                            break;
+                        case 'nombre':
+                            cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
+                            break;
+                        case 'apellido':
+                            cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
+                            break;
+                        case 'tipo_id':
+                            cond[nombreCampo] = Number(arreglo[campo]);
+                            break;
+                        case 'domicilio_procesal':
+                            cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
+                            break;
+                        case 'matricula':
+                            cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
+                            break;
+                        case 'usuario':
+                            cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
+                            break;
+                        case 'estudio_id':
+                            cond[nombreCampo] = Number(arreglo[campo]);
+                            break;
+                        case 'email':
+                            cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
+                            break;
+                        case 'nivel_usuario_id':
+                            cond[nombreCampo] = Number(arreglo[campo]);
+                            break;
+                        case 'estado':
+                            cond[nombreCampo] = Number(arreglo[campo]);
+                            break;
+                        case 'fecha_alta':
+                            cond[nombreCampo] = arreglo[campo];
+                            break;
+                        case 'fecha_baja':
+                            cond[nombreCampo] = arreglo[campo];
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+            console.log('EL ARREGLO NUEVO ES ESTE', cond);
+            return yield this.userRepository.find({
+                select: fields,
+                order: {
+                    apellido: "ASC"
+                },
+                skip: offset,
+                take: limit,
+                where: cond
             });
         });
-    };
-    UsuarioController.prototype.one = function (request, response, next) {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.userRepository.findOne(request.params.id)];
-                    case 1: return [2 /*return*/, _a.sent()];
-                }
-            });
+    }
+    one(request, response, next) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield this.userRepository.findOne(request.params.id);
         });
-    };
-    UsuarioController.prototype.save = function (request, response, next) {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.userRepository.save(request.body)];
-                    case 1: return [2 /*return*/, _a.sent()];
-                }
-            });
+    }
+    save(request, response, next) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield this.userRepository.save(request.body);
         });
-    };
-    UsuarioController.prototype.remove = function (request, response, next) {
-        return __awaiter(this, void 0, void 0, function () {
-            var userToRemove;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.userRepository.findOne(request.params.id)];
-                    case 1:
-                        userToRemove = _a.sent();
-                        return [4 /*yield*/, this.userRepository.remove(userToRemove)];
-                    case 2: return [2 /*return*/, _a.sent()];
-                }
-            });
+    }
+    remove(request, response, next) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let userToRemove = yield this.userRepository.findOne(request.params.id);
+            return yield this.userRepository.remove(userToRemove);
         });
-    };
-    UsuarioController.prototype.update = function (request, response, next) {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.userRepository.update(request.params.id, request.body)];
-                    case 1: 
-                    //const nuevoUsuario = this.userRepository.create();
-                    return [2 /*return*/, _a.sent()];
-                }
-            });
+    }
+    update(request, response, next) {
+        return __awaiter(this, void 0, void 0, function* () {
+            //const nuevoUsuario = this.userRepository.create();
+            return yield this.userRepository.update(request.params.id, request.body);
         });
-    };
-    return UsuarioController;
-}());
+    }
+}
 exports.UsuarioController = UsuarioController;
 //# sourceMappingURL=UsuarioController.js.map

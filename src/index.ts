@@ -1,4 +1,5 @@
 import "reflect-metadata";
+import 'es6-shim';
 import { createConnection, getConnectionOptions, Entity, ConnectionOptions, AdvancedConsoleLogger } from 'typeorm';
 import * as express from "express";
 import * as bodyParser from "body-parser";
@@ -33,16 +34,16 @@ var opciones:ConnectionOptions;
         return response;
     };
     
-    const cop = connectionOptions().then(options => {
-        console.warn('valor del __dirname',__dirname);
-        const entities_dir = path.resolve(__dirname, 'entity/**/*{.ts,.js}');
-        console.warn('LAS ENTITIES ESTAN EN ',entities_dir);
+     const cop = connectionOptions().then(options => {
+    //     console.warn('valor del __dirname',__dirname);
+         const entities_dir = path.resolve(__dirname, 'entity/**/*{.ts,.js}');
+    //     console.warn('LAS ENTITIES ESTAN EN ',entities_dir);
         
         opciones =  options;
-        console.log('mensaje antes',opciones.entities);
+    //    console.log('mensaje antes',opciones.entities);
         //Object.assign(opciones, { entities: ["src/entity/**/*{.js,.ts}"] }); 
         Object.assign(opciones, { entities: [`${entities_dir}`] });
-        console.log('mensaje despues',opciones.entities);
+      //  console.log('mensaje despues',opciones.entities);
     });
     
     
@@ -67,6 +68,8 @@ var opciones:ConnectionOptions;
         const puerto_activo = app.get('port');
         app.listen(puerto_activo);
         
+
+        
         
         // register express routes from defined application routes
         Routes.forEach(route => {
@@ -80,7 +83,8 @@ var opciones:ConnectionOptions;
                     if (result instanceof Promise) {
                       result.then(result => {
                           if(result !== null && result !== undefined) {
-                              res.send(result);
+                           //   res.send(result);
+                           res.status(200).json(result);
                           } else{
                             // res.status(500).json({message:'No Existe el Registro solicitado'});
                             throw new Error404();
@@ -95,7 +99,7 @@ var opciones:ConnectionOptions;
                       });
                       
                   } else if (result !== null && result !== undefined) {
-                      res.json(result);
+                    res.status(200).json(result);
                   }else{
                       throw new Error404();
                       
@@ -119,12 +123,12 @@ var opciones:ConnectionOptions;
                                             
                                          validate(data,{validationError:{target:false}}).then(errors => {
                                                                                if(errors.length > 0){
-                                                                                    console.log('EXISTEN ERRORES',errors);
+                                                                                    //console.log('EXISTEN ERRORES',errors);
                                                                                     throw errors;
                                                                                 
                                                                                                                                                        
                                                                                  }else{
-                                                                                      console.log('NO HAY ERRORES');
+                                                                                      //console.log('NO HAY ERRORES');
                                                                                       getDatos();
                                                                                   }
                                                                              })

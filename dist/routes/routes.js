@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var UsuarioController_1 = require("../controller/UsuarioController");
+const UsuarioController_1 = require("../controller/UsuarioController");
 exports.Routes = [{
         method: "get",
         route: "/usuarios",

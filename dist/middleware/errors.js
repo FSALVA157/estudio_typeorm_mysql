@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.middleware = function (err, req, res, next) {
+exports.middleware = (err, req, res, next) => {
     console.log('INGRESANDO A MIDDLEWARE');
     if (err instanceof Array) {
         res.status(400).json(err);
