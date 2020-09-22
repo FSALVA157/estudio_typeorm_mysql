@@ -1,0 +1,1 @@
+{"version":3,"file":"DocumentacionController.js","sourceRoot":"","sources":["../../src/controller/DocumentacionController.ts"],"names":[],"mappings":";;AAGA,6BAA8B;AAE9B,MAAa,uBAAuB;IAE/B,GAAG,CAAC,OAAgB,EAAE,QAAkB,EAAE,IAAkB;QAEzD,OAAO,QAAQ,CAAC,QAAQ,CAAC,IAAI,CAAC,IAAI,CAAC,SAAS,EAAC,kBAAkB,CAAC,CAAC,CAAC;QAClE,yDAAyD;IAC7D,CAAC;CAEJ;AARD,0DAQC"}

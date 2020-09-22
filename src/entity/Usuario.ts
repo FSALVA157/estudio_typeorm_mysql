@@ -46,6 +46,7 @@ export class Usuario {
         length: 30,
         nullable:true
            })
+    @IsOptional()
     @IsAlphanumeric()
     @MinLength(4)
     matricula: string;
@@ -55,7 +56,6 @@ export class Usuario {
         length: 50,
         unique: true
            })
-           
     @Length(4,50,{message:'El usuario debe tener entre $constraint1 y $constraint2 caracteres en este momento tu texto tiene una longitud de $value letras'})
     usuario: string;
 
@@ -86,7 +86,6 @@ export class Usuario {
    estado: boolean;
 
    @Column({type: "date"})
-   //@Transform((value) => new Date(value),{toClassOnly:true})
    @IsISO8601()
    @Matches(/^\d{4}([\-/.])(0?[1-9]|1[1-2])\1(3[01]|[12][0-9]|0?[1-9])$/,{message:'El dato debe respetar el formato yyyy/mm/dd'})
    @Transform(()=>Date)
@@ -94,7 +93,9 @@ export class Usuario {
 
     @Column({type: "date",nullable:true})
     @IsOptional()
-    @IsDateString()
+    @IsISO8601()
+    @Matches(/^\d{4}([\-/.])(0?[1-9]|1[1-2])\1(3[01]|[12][0-9]|0?[1-9])$/,{message:'El dato debe respetar el formato yyyy/mm/dd'})
+    @Transform(()=>Date)
     fecha_baja: Date;
 
 

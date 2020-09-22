@@ -54,6 +54,9 @@ typeorm_1.createConnection(opciones).then((connection) => __awaiter(this, void 0
     // start express server
     const puerto_activo = app.get('port');
     app.listen(puerto_activo);
+    app.get('/', (req, res) => {
+        res.sendFile(path.join(__dirname, 'views/index.html'));
+    });
     // register express routes from defined application routes
     routes_1.Routes.forEach(route => {
         app[route.method](route.route, (req, res, next) => {

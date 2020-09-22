@@ -69,7 +69,9 @@ var opciones:ConnectionOptions;
         app.listen(puerto_activo);
         
 
-        
+        app.get('/',(req,res) => {
+                res.sendFile(path.join(__dirname,'views/index.html'));
+        });
         
         // register express routes from defined application routes
         Routes.forEach(route => {

@@ -53,6 +53,15 @@ class UsuarioController {
                     }
                 }
             }
+            function ExpresionAvanzadaFechas(campo) {
+                if (campo.toUpperCase() == 'NULL') {
+                    return typeorm_1.IsNull();
+                }
+                else if (campo.toUpperCase() == 'NOT NULL') {
+                    return typeorm_1.Not(typeorm_1.IsNull());
+                }
+                return campo;
+            }
             let arreglo = request.query;
             let cond = new Object();
             for (const campo in arreglo) {
@@ -98,10 +107,11 @@ class UsuarioController {
                             cond[nombreCampo] = Number(arreglo[campo]);
                             break;
                         case 'fecha_alta':
-                            cond[nombreCampo] = arreglo[campo];
+                            cond[nombreCampo] = ExpresionAvanzadaFechas(arreglo[campo]);
                             break;
                         case 'fecha_baja':
-                            cond[nombreCampo] = arreglo[campo];
+                            cond[nombreCampo] = ExpresionAvanzadaFechas(arreglo[campo]);
+                            //cond[nombreCampo] = arreglo[campo];
                             break;
                         default:
                             break;

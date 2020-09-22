@@ -1,6 +1,7 @@
-import {getRepository,Like,Not,IsNull} from "typeorm";
+import {getRepository,Like,Not,IsNull,Between} from "typeorm";
 import {NextFunction, Request, Response} from "express";
 import{Usuario} from '../entity/Usuario';
+import {Transform} from 'class-transformer';
 
 export class UsuarioController {
 
@@ -15,9 +16,9 @@ export class UsuarioController {
             let reqFields = request.query.fields;
             fields = reqFields.toString().split(",");
         };
-
+                
         //funcion que devuelve la expresion de las consultas de parametros strings con funciones avanzadas de filtros (LIKE,NOT,IN)
-
+    
         function ExpresionAvanzada(campo:String){
             
             if(campo.toUpperCase() == 'NULL'){
@@ -25,7 +26,7 @@ export class UsuarioController {
             }else if(campo.toUpperCase() == 'NOT NULL'){
                 return Not(IsNull());
             }
-
+    
             if(campo.toUpperCase().startsWith('NOT ')){
                 campo = campo.slice(4);
                 if(campo.toUpperCase().startsWith('LIKE ')){
@@ -42,11 +43,22 @@ export class UsuarioController {
                 }else{
                     return campo;
                 }
-
+    
             }
-
+    
         }
         
+        function ExpresionAvanzadaFechas(campo:string){
+            
+            if(campo.toUpperCase() == 'NULL'){
+                return IsNull();
+            }else if(campo.toUpperCase() == 'NOT NULL'){
+                return Not(IsNull());
+            }
+    
+            return campo;            
+    
+        }
         let arreglo: {} =  request.query;
         
         let cond = new Object();
@@ -93,10 +105,11 @@ export class UsuarioController {
                         cond[nombreCampo] = Number(arreglo[campo]);
                         break;    
                     case 'fecha_alta':
-                        cond[nombreCampo] = arreglo[campo];
+                        cond[nombreCampo] = ExpresionAvanzadaFechas(arreglo[campo]);
                         break; 
                     case 'fecha_baja':
-                        cond[nombreCampo] = arreglo[campo];
+                        cond[nombreCampo] = ExpresionAvanzadaFechas(arreglo[campo]);
+                        //cond[nombreCampo] = arreglo[campo];
                         break;       
 
 
@@ -116,6 +129,8 @@ export class UsuarioController {
             skip:offset,
             take:limit,
             where: cond
+            
+            
         });
     }
 
