@@ -1,17 +1,17 @@
-import {getRepository,Like,Not,IsNull,Between} from "typeorm";
+import {getRepository,Like,Not,IsNull} from "typeorm";
 import {NextFunction, Request, Response} from "express";
-import{Usuario} from '../entity/Usuario';
-import {Transform} from 'class-transformer';
+import{Cliente} from '../entity/Cliente';
 
-export class UsuarioController {
 
-    private userRepository = getRepository(Usuario);
+export class ClienteController {
+
+    private clientRepository = getRepository(Cliente);
 
     async all(request: Request, response: Response, next: NextFunction) {
         let offset:number = Number(request.query.offset) || 0;
         let limit:number = Number(request.query.limit) || 10;
         
-        let fields:any =  ["id_usuario","dni_usuario","nombre","apellido","tipo_id","domicilio_procesal","matricula","usuario","estudio_id","email","nivel_usuario_id","estado","fecha_alta","fecha_baja"];
+        let fields:any =  ["id_cliente","dni_cuit","categoria_id","razon_social","nombre","apellido","domicilio_real","domicilio_alternativo","provincia_id","departamento_id","localidad_id","telefono_celular","telefono_alternativo","ocupacion","email","fecha_alta"];
         if(request.query.fields){
             let reqFields = request.query.fields;
             fields = reqFields.toString().split(",");
@@ -64,14 +64,21 @@ export class UsuarioController {
         let cond = new Object();
         for (const campo in arreglo) {
             if (Object.prototype.hasOwnProperty.call(arreglo, campo)) {
-                
+                //console.log(`${campo} = ${arreglo[campo]}`);
+                //const element = arreglo[campo];
                 let nombreCampo = campo.toString();
                 switch (nombreCampo) {
-                    case 'id_usuario':
+                    case 'id_cliente':
                         cond[nombreCampo] = Number(arreglo[campo]);
                         break;
-                    case 'dni_usuario':
+                    case 'dni_cuit':
                         cond[nombreCampo] = Number(arreglo[campo]);
+                        break;
+                    case 'categoria_id':
+                        cond[nombreCampo] = Number(arreglo[campo]);
+                        break;
+                    case 'razon_social':
+                        cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);  
                         break;
                     case 'nombre':
                         cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);  
@@ -79,48 +86,46 @@ export class UsuarioController {
                     case 'apellido':
                         cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);  
                         break;
-                    case 'tipo_id':
+                    case 'domicilio_real':
+                        cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);  
+                        break;
+                    case 'domicilio_alternativo':
+                        cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);  
+                        break;
+                    case 'provincia_id':
                         cond[nombreCampo] = Number(arreglo[campo]);
                         break;     
-                    case 'domicilio_procesal':
+                    case 'departamento_id':
+                        cond[nombreCampo] = Number(arreglo[campo]);
+                        break;     
+                    case 'localidad_id':
+                        cond[nombreCampo] = Number(arreglo[campo]);
+                        break;     
+                    case 'telefono_celular':
                         cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
                         break;
-                    case 'matricula':
-                        cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);  
-                        break;    
-                    case 'usuario':
-                        cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);  
-                        break;    
-                    case 'estudio_id':
-                        cond[nombreCampo] = Number(arreglo[campo]);
+                    case 'telefono_alternativo':
+                        cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
                         break;
+                    case 'ocupacion':
+                        cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);  
+                        break;    
                     case 'email':
                         cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);  
-                        break;    
-                    case 'nivel_usuario_id':
-                        cond[nombreCampo] = Number(arreglo[campo]);
-                        break;
-                    case 'estado':
-                        cond[nombreCampo] = Number(arreglo[campo]);
                         break;    
                     case 'fecha_alta':
                         cond[nombreCampo] = ExpresionAvanzadaFechas(arreglo[campo]);
                         break; 
-                    case 'fecha_baja':
-                        cond[nombreCampo] = ExpresionAvanzadaFechas(arreglo[campo]);
-                        //cond[nombreCampo] = arreglo[campo];
-                        break;       
-
-
+                    
                     default:
                         break;
                 }
                 
             }
         }
-     //   console.log('EL ARREGLO NUEVO ES ESTE',cond);
+        console.log('EL ARREGLO NUEVO ES ESTE',cond);
                 
-        return await this.userRepository.find({
+        return await this.clientRepository.find({
             select:fields,
             order:{
                 apellido:"ASC"
@@ -135,21 +140,21 @@ export class UsuarioController {
 
     async one(request: Request, response: Response, next: NextFunction) {
         
-        return await this.userRepository.findOne(request.params.id);
+        return await this.clientRepository.findOne(request.params.id);
     }
 
     async save(request: Request, response: Response, next: NextFunction) {
-        return await this.userRepository.save(request.body);
+        return await this.clientRepository.save(request.body);
     }
 
     async remove(request: Request, response: Response, next: NextFunction) {
-        let userToRemove = await this.userRepository.findOne(request.params.id);
-       return  await this.userRepository.remove(userToRemove);
+        let userToRemove = await this.clientRepository.findOne(request.params.id);
+       return  await this.clientRepository.remove(userToRemove);
     }
 
     async update(request: Request, response: Response, next: NextFunction) {
         //const nuevoUsuario = this.userRepository.create();
-        return await this.userRepository.update(request.params.id,request.body);
+        return await this.clientRepository.update(request.params.id,request.body);
     }
 
 }

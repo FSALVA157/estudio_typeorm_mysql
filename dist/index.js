@@ -18,7 +18,8 @@ const path = require("path");
 const errors_1 = require("./middleware/errors");
 const class_validator_1 = require("class-validator");
 const Usuario_1 = require("./entity/Usuario");
-const Error404_1 = require("./errors/Error404");
+const Cliente_1 = require("./entity/Cliente");
+const Error400_1 = require("./errors/Error400");
 process.on('unhandledRejection', (error) => {
     console.log(error);
     throw error;
@@ -71,7 +72,7 @@ typeorm_1.createConnection(opciones).then((connection) => __awaiter(this, void 0
                         }
                         else {
                             // res.status(500).json({message:'No Existe el Registro solicitado'});
-                            throw new Error404_1.Error404();
+                            throw new Error400_1.Error400();
                         }
                     }).catch(err => {
                         console.log("ERROR DISPARADO: ");
@@ -83,21 +84,42 @@ typeorm_1.createConnection(opciones).then((connection) => __awaiter(this, void 0
                     res.status(200).json(result);
                 }
                 else {
-                    throw new Error404_1.Error404();
+                    throw new Error400_1.Error400();
                 }
             }
             try {
                 if (route.method === 'post') {
                     console.log('EL MODELO UTILIZADO ES ', route.entity);
+                    const errorSobreescritura = new Error400_1.Error400({
+                        code: 'PELIGRO_SOBREESCRITURA',
+                        name: 'Error en el Cuerpo del Request',
+                        status: 412,
+                        message: 'En POST esta prohibido incluir el id_automatico',
+                    });
                     try {
                         let data;
                         switch (route.entity) {
                             case 'Usuario':
                                 data = new Usuario_1.Usuario(req);
-                                break;
+                                //console.log(req);
+                                if (req.body.id_usuario) {
+                                    throw errorSobreescritura;
+                                }
+                                else {
+                                    break;
+                                }
+                            case 'Cliente':
+                                data = new Cliente_1.Cliente(req);
+                                if (req.body.id_cliente) {
+                                    throw errorSobreescritura;
+                                }
+                                else {
+                                    break;
+                                }
                             default:
                                 break;
                         }
+                        ;
                         class_validator_1.validate(data, { validationError: { target: false } }).then(errors => {
                             if (errors.length > 0) {
                                 //console.log('EXISTEN ERRORES',errors);

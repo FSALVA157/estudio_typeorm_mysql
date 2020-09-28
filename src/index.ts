@@ -9,7 +9,8 @@ import * as path  from "path";
 import {middleware} from "./middleware/errors";
 import {validate} from 'class-validator';
 import { Usuario } from './entity/Usuario';
-import { Error404 } from './errors/Error404';
+import { Cliente } from './entity/Cliente';
+import { Error400 } from './errors/Error400';
 
 
 
@@ -89,7 +90,7 @@ var opciones:ConnectionOptions;
                            res.status(200).json(result);
                           } else{
                             // res.status(500).json({message:'No Existe el Registro solicitado'});
-                            throw new Error404();
+                            throw new Error400();
                               
                           }  
                       }
@@ -103,7 +104,7 @@ var opciones:ConnectionOptions;
                   } else if (result !== null && result !== undefined) {
                     res.status(200).json(result);
                   }else{
-                      throw new Error404();
+                      throw new Error400();
                       
                   }
 
@@ -111,18 +112,41 @@ var opciones:ConnectionOptions;
 
                 try {
                     if(route.method === 'post'){
-                        console.log('EL MODELO UTILIZADO ES ',route.entity);
+                        //console.log('EL MODELO UTILIZADO ES ',route.entity);
+
+                        const errorSobreescritura = new Error400({
+                           code: 'PELIGRO_SOBREESCRITURA',
+                           name: 'Error en el Cuerpo del Request',
+                           status : 412,
+                           message : 'En POST esta prohibido incluir el id_automatico',
+                      });
+
                              try {
                                  let data;
                                         switch (route.entity) {
                                             case 'Usuario':
                                                 data = new Usuario(req);
-                                                break;
+                                                //console.log(req);
+                                                if(req.body.id_usuario){
+                                                   throw errorSobreescritura;
+                                                }else{
+                                                    break;
+
+                                                }
+                                            case 'Cliente':
+                                                data = new Cliente(req);
+                                                if(req.body.id_cliente){
+                                                    throw errorSobreescritura;
+                                                 }else{
+                                                     break;
+ 
+                                                 }
                                         
                                             default:
                                                 break;
-                                        }
-                                            
+                                        };
+
+                                                                      
                                          validate(data,{validationError:{target:false}}).then(errors => {
                                                                                if(errors.length > 0){
                                                                                     //console.log('EXISTEN ERRORES',errors);
@@ -131,7 +155,7 @@ var opciones:ConnectionOptions;
                                                                                                                                                        
                                                                                  }else{
                                                                                       //console.log('NO HAY ERRORES');
-                                                                                      getDatos();
+                                                                                    getDatos();
                                                                                   }
                                                                              })
                                                                              .catch(err => {

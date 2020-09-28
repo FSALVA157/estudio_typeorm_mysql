@@ -9,16 +9,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
-const Usuario_1 = require("../entity/Usuario");
-class UsuarioController {
+const Cliente_1 = require("../entity/Cliente");
+class ClienteController {
     constructor() {
-        this.userRepository = typeorm_1.getRepository(Usuario_1.Usuario);
+        this.clientRepository = typeorm_1.getRepository(Cliente_1.Cliente);
     }
     all(request, response, next) {
         return __awaiter(this, void 0, void 0, function* () {
             let offset = Number(request.query.offset) || 0;
             let limit = Number(request.query.limit) || 10;
-            let fields = ["id_usuario", "dni_usuario", "nombre", "apellido", "tipo_id", "domicilio_procesal", "matricula", "usuario", "estudio_id", "email", "nivel_usuario_id", "estado", "fecha_alta", "fecha_baja"];
+            let fields = ["id_cliente", "dni_cuil", "categoria_id", "razon_social", "nombre", "apellido", "domicilio_real", "domicilio_alternativo", "provincia_id", "departament_id", "localidad_id", "telefono_celular", "telefono_alternativo", "ocupacion", "email", "fecha_alta"];
             if (request.query.fields) {
                 let reqFields = request.query.fields;
                 fields = reqFields.toString().split(",");
@@ -66,13 +66,21 @@ class UsuarioController {
             let cond = new Object();
             for (const campo in arreglo) {
                 if (Object.prototype.hasOwnProperty.call(arreglo, campo)) {
+                    //console.log(`${campo} = ${arreglo[campo]}`);
+                    //const element = arreglo[campo];
                     let nombreCampo = campo.toString();
                     switch (nombreCampo) {
-                        case 'id_usuario':
+                        case 'id_cliente':
                             cond[nombreCampo] = Number(arreglo[campo]);
                             break;
-                        case 'dni_usuario':
+                        case 'dni_cuit':
                             cond[nombreCampo] = Number(arreglo[campo]);
+                            break;
+                        case 'categoria_id':
+                            cond[nombreCampo] = Number(arreglo[campo]);
+                            break;
+                        case 'razon_social':
+                            cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
                             break;
                         case 'nombre':
                             cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
@@ -80,44 +88,43 @@ class UsuarioController {
                         case 'apellido':
                             cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
                             break;
-                        case 'tipo_id':
+                        case 'domicilio_real':
+                            cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
+                            break;
+                        case 'domicilio_alternativo':
+                            cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
+                            break;
+                        case 'provincia_id':
                             cond[nombreCampo] = Number(arreglo[campo]);
                             break;
-                        case 'domicilio_procesal':
-                            cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
-                            break;
-                        case 'matricula':
-                            cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
-                            break;
-                        case 'usuario':
-                            cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
-                            break;
-                        case 'estudio_id':
+                        case 'departamento_id':
                             cond[nombreCampo] = Number(arreglo[campo]);
+                            break;
+                        case 'localidad_id':
+                            cond[nombreCampo] = Number(arreglo[campo]);
+                            break;
+                        case 'telefono_celular':
+                            cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
+                            break;
+                        case 'telefono_alternativo':
+                            cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
+                            break;
+                        case 'ocupacion':
+                            cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
                             break;
                         case 'email':
                             cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
                             break;
-                        case 'nivel_usuario_id':
-                            cond[nombreCampo] = Number(arreglo[campo]);
-                            break;
-                        case 'estado':
-                            cond[nombreCampo] = Number(arreglo[campo]);
-                            break;
                         case 'fecha_alta':
                             cond[nombreCampo] = ExpresionAvanzadaFechas(arreglo[campo]);
-                            break;
-                        case 'fecha_baja':
-                            cond[nombreCampo] = ExpresionAvanzadaFechas(arreglo[campo]);
-                            //cond[nombreCampo] = arreglo[campo];
                             break;
                         default:
                             break;
                     }
                 }
             }
-            //   console.log('EL ARREGLO NUEVO ES ESTE',cond);
-            return yield this.userRepository.find({
+            console.log('EL ARREGLO NUEVO ES ESTE', cond);
+            return yield this.clientRepository.find({
                 select: fields,
                 order: {
                     apellido: "ASC"
@@ -130,26 +137,26 @@ class UsuarioController {
     }
     one(request, response, next) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.userRepository.findOne(request.params.id);
+            return yield this.clientRepository.findOne(request.params.id);
         });
     }
     save(request, response, next) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.userRepository.save(request.body);
+            return yield this.clientRepository.save(request.body);
         });
     }
     remove(request, response, next) {
         return __awaiter(this, void 0, void 0, function* () {
-            let userToRemove = yield this.userRepository.findOne(request.params.id);
-            return yield this.userRepository.remove(userToRemove);
+            let userToRemove = yield this.clientRepository.findOne(request.params.id);
+            return yield this.clientRepository.remove(userToRemove);
         });
     }
     update(request, response, next) {
         return __awaiter(this, void 0, void 0, function* () {
             //const nuevoUsuario = this.userRepository.create();
-            return yield this.userRepository.update(request.params.id, request.body);
+            return yield this.clientRepository.update(request.params.id, request.body);
         });
     }
 }
-exports.UsuarioController = UsuarioController;
-//# sourceMappingURL=UsuarioController.js.map
+exports.ClienteController = ClienteController;
+//# sourceMappingURL=ClienteController copy.js.map

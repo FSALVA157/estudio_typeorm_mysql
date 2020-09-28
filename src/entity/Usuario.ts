@@ -1,7 +1,6 @@
 import {Entity, PrimaryGeneratedColumn, Column} from "typeorm";
-import { UsuarioController } from '../controller/UsuarioController';
-import{IsInt, Min, IsAlpha, Length, isInt, IsAlphanumeric, MinLength, IsEmail, IsBoolean, IsDate, IsDateString, IsOptional, isDate, IsISO8601, Matches} from 'class-validator';
-import {Transform, Type} from 'class-transformer';
+import{IsInt, Min, Length, IsAlphanumeric, MinLength, IsEmail, IsOptional, IsISO8601, Matches} from 'class-validator';
+import {Transform} from 'class-transformer';
 
 @Entity()
 export class Usuario {
