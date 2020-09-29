@@ -63,31 +63,31 @@ export class Cliente {
     domicilio_alternativo: string;
 
     @Column({
-        type: "int",
-        unsigned: true,
-        nullable:true
-     })
-    @IsInt({message:'La provincia es una clave entera'})
-    @IsOptional()
-    provincia_id: number;
+        type: "varchar",
+        length: 50,
+        nullable: true
+           })
+   @Length(3,50,{message:'La razón social debe tener entre $constraint1 y $constraint2 caracteres'})
+   @IsOptional()
+    provincia: string;
 
     @Column({
-        type: "int",
-        unsigned: true,
-        nullable:true
-     })
-    @IsInt({message:'El departamento es una clave entera'})
-    @IsOptional()
-    departamento_id: number;
+        type: "varchar",
+        length: 50,
+        nullable: true
+           })
+   @Length(3,50,{message:'La razón social debe tener entre $constraint1 y $constraint2 caracteres'})
+   @IsOptional()
+    departamento: string;
 
     @Column({
-        type: "int",
-        unsigned: true,
-        nullable:true
-     })
-    @IsInt({message:'La localidad es una clave entera'})
-    @IsOptional()
-    localidad_id: number;
+        type: "varchar",
+        length: 50,
+        nullable: true
+           })
+   @Length(3,50,{message:'La razón social debe tener entre $constraint1 y $constraint2 caracteres'})
+   @IsOptional()
+    localidad: string;
 
     @Column({
         type: "varchar",
@@ -142,9 +142,9 @@ export class Cliente {
             this.apellido = req.body.apellido;
             this.domicilio_real = req.body.domicilio_real;
             this.domicilio_alternativo = req.body.domicilio_alternativo;
-            this.provincia_id = req.body.provincia_id;
-            this.departamento_id = req.body.departamento_id;
-            this.localidad_id = req.body.localidad_id;
+            this.provincia = req.body.provincia_id;
+            this.departamento = req.body.departamento_id;
+            this.localidad = req.body.localidad_id;
             this.telefono_celular = req.body.telefono_celular;
             this.telefono_alternativo = req.body.telefono_alternativo;
             this.ocupacion = req.body.ocupacion;

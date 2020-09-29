@@ -23,9 +23,9 @@ let Cliente = class Cliente {
             this.apellido = req.body.apellido;
             this.domicilio_real = req.body.domicilio_real;
             this.domicilio_alternativo = req.body.domicilio_alternativo;
-            this.provincia_id = req.body.provincia_id;
-            this.departamento_id = req.body.departamento_id;
-            this.localidad_id = req.body.localidad_id;
+            this.provincia = req.body.provincia_id;
+            this.departamento = req.body.departamento_id;
+            this.localidad = req.body.localidad_id;
             this.telefono_celular = req.body.telefono_celular;
             this.telefono_alternativo = req.body.telefono_alternativo;
             this.ocupacion = req.body.ocupacion;
@@ -101,34 +101,34 @@ __decorate([
 ], Cliente.prototype, "domicilio_alternativo", void 0);
 __decorate([
     typeorm_1.Column({
-        type: "int",
-        unsigned: true,
+        type: "varchar",
+        length: 50,
         nullable: true
     }),
-    class_validator_1.IsInt({ message: 'La provincia es una clave entera' }),
+    class_validator_1.Length(3, 50, { message: 'La razón social debe tener entre $constraint1 y $constraint2 caracteres' }),
     class_validator_1.IsOptional(),
-    __metadata("design:type", Number)
-], Cliente.prototype, "provincia_id", void 0);
+    __metadata("design:type", String)
+], Cliente.prototype, "provincia", void 0);
 __decorate([
     typeorm_1.Column({
-        type: "int",
-        unsigned: true,
+        type: "varchar",
+        length: 50,
         nullable: true
     }),
-    class_validator_1.IsInt({ message: 'El departamento es una clave entera' }),
+    class_validator_1.Length(3, 50, { message: 'La razón social debe tener entre $constraint1 y $constraint2 caracteres' }),
     class_validator_1.IsOptional(),
-    __metadata("design:type", Number)
-], Cliente.prototype, "departamento_id", void 0);
+    __metadata("design:type", String)
+], Cliente.prototype, "departamento", void 0);
 __decorate([
     typeorm_1.Column({
-        type: "int",
-        unsigned: true,
+        type: "varchar",
+        length: 50,
         nullable: true
     }),
-    class_validator_1.IsInt({ message: 'La localidad es una clave entera' }),
+    class_validator_1.Length(3, 50, { message: 'La razón social debe tener entre $constraint1 y $constraint2 caracteres' }),
     class_validator_1.IsOptional(),
-    __metadata("design:type", Number)
-], Cliente.prototype, "localidad_id", void 0);
+    __metadata("design:type", String)
+], Cliente.prototype, "localidad", void 0);
 __decorate([
     typeorm_1.Column({
         type: "varchar",

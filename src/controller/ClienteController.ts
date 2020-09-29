@@ -11,7 +11,7 @@ export class ClienteController {
         let offset:number = Number(request.query.offset) || 0;
         let limit:number = Number(request.query.limit) || 10;
         
-        let fields:any =  ["id_cliente","dni_cuit","categoria_id","razon_social","nombre","apellido","domicilio_real","domicilio_alternativo","provincia_id","departamento_id","localidad_id","telefono_celular","telefono_alternativo","ocupacion","email","fecha_alta"];
+        let fields:any =  ["id_cliente","dni_cuit","categoria_id","razon_social","nombre","apellido","domicilio_real","domicilio_alternativo","provincia","departamento","localidad","telefono_celular","telefono_alternativo","ocupacion","email","fecha_alta"];
         if(request.query.fields){
             let reqFields = request.query.fields;
             fields = reqFields.toString().split(",");
@@ -92,14 +92,14 @@ export class ClienteController {
                     case 'domicilio_alternativo':
                         cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);  
                         break;
-                    case 'provincia_id':
-                        cond[nombreCampo] = Number(arreglo[campo]);
+                    case 'provincia':
+                        cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
                         break;     
-                    case 'departamento_id':
-                        cond[nombreCampo] = Number(arreglo[campo]);
+                    case 'departamento':
+                        cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
                         break;     
-                    case 'localidad_id':
-                        cond[nombreCampo] = Number(arreglo[campo]);
+                    case 'localidad':
+                        cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
                         break;     
                     case 'telefono_celular':
                         cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
