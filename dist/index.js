@@ -51,13 +51,20 @@ typeorm_1.createConnection(opciones).then((connection) => __awaiter(this, void 0
     app.use(bodyParser.json());
     //middlwwares de errores
     app.set('port', process.env.PORT || 3000);
-    // ...
+    // middleware de cabeceras y cors
+    app.use((req, res, next) => {
+        res.header('Access-Control-Allow-Origin', '*');
+        res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
+        res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+        res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
+        next();
+    });
     // start express server
     const puerto_activo = app.get('port');
     app.listen(puerto_activo);
-    app.get('/', (req, res) => {
-        res.sendFile(path.join(__dirname, 'views/index.html'));
-    });
+    // app.get('/',(req,res) => {
+    //         res.sendFile(path.join(__dirname,'views/index.html'));
+    // });
     // register express routes from defined application routes
     routes_1.Routes.forEach(route => {
         app[route.method](route.route, (req, res, next) => {
@@ -89,7 +96,7 @@ typeorm_1.createConnection(opciones).then((connection) => __awaiter(this, void 0
             }
             try {
                 if (route.method === 'post') {
-                    console.log('EL MODELO UTILIZADO ES ', route.entity);
+                    //console.log('EL MODELO UTILIZADO ES ',route.entity);
                     const errorSobreescritura = new Error400_1.Error400({
                         code: 'PELIGRO_SOBREESCRITURA',
                         name: 'Error en el Cuerpo del Request',

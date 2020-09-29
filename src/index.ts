@@ -61,7 +61,14 @@ var opciones:ConnectionOptions;
         //middlwwares de errores
         app.set('port',process.env.PORT || 3000);
         
-        // ...
+        // middleware de cabeceras y cors
+        app.use((req, res, next) => {
+            res.header('Access-Control-Allow-Origin', '*');
+            res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
+            res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+            res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
+            next();
+        });
         
         
         
@@ -70,9 +77,9 @@ var opciones:ConnectionOptions;
         app.listen(puerto_activo);
         
 
-        app.get('/',(req,res) => {
-                res.sendFile(path.join(__dirname,'views/index.html'));
-        });
+        // app.get('/',(req,res) => {
+        //         res.sendFile(path.join(__dirname,'views/index.html'));
+        // });
         
         // register express routes from defined application routes
         Routes.forEach(route => {
