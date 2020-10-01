@@ -1,6 +1,7 @@
-import {Entity, PrimaryGeneratedColumn, Column} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column,ManyToOne, JoinColumn} from "typeorm";
 import{IsInt, Min, Length, IsAlphanumeric, MinLength, IsEmail,  IsOptional, IsISO8601, Matches} from 'class-validator';
 import {Transform} from 'class-transformer';
+import { CategoriaCliente } from './CategoriaCliente';
 
 @Entity()
 export class Cliente {
@@ -18,10 +19,16 @@ export class Cliente {
 
     @Column({
         type: "int",
-        unsigned: true
-     })
+       })
     @IsInt({message:'La Categoria debe ser una clave entera'})
     categoria_id: number;
+
+    @ManyToOne(type => CategoriaCliente,{eager:true})
+    @JoinColumn({
+        name: 'categoria_id',
+        referencedColumnName: 'id_categoria_cli'
+    })
+    cliente_categoria: CategoriaCliente;
     
     @Column({
         type: "varchar",
@@ -50,7 +57,7 @@ export class Cliente {
         type: "varchar",
         length: 100,
          })
-    @Length(10,100,{message:'El domicilio real debe tener entre $constraint1 y $constraint2 caracteres'})
+    @Length(5,100,{message:'El domicilio real debe tener entre $constraint1 y $constraint2 caracteres'})
     domicilio_real: string;
 
     @Column({
@@ -59,7 +66,7 @@ export class Cliente {
         nullable:true
            })
     @IsOptional()
-    @Length(10,100,{message:'El domicilio alternativo debe tener entre $constraint1 y $constraint2 caracteres'})
+    @Length(5,100,{message:'El domicilio alternativo debe tener entre $constraint1 y $constraint2 caracteres'})
     domicilio_alternativo: string;
 
     @Column({

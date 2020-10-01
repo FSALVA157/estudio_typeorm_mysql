@@ -84,7 +84,7 @@ typeorm_1.createConnection(opciones).then((connection) => __awaiter(this, void 0
                             throw new Error400_1.Error400();
                         }
                     }).catch(err => {
-                        console.log("ERROR DISPARADO: ");
+                        console.log("ERROR DISPARADO: ", err);
                         // next(err);
                         next(err);
                     });

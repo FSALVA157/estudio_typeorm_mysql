@@ -10,11 +10,18 @@ export class ClienteController {
     async all(request: Request, response: Response, next: NextFunction) {
         let offset:number = Number(request.query.offset) || 0;
         let limit:number = Number(request.query.limit) || 10;
-        
-        let fields:any =  ["id_cliente","dni_cuit","categoria_id","razon_social","nombre","apellido","domicilio_real","domicilio_alternativo","provincia","departamento","localidad","telefono_celular","telefono_alternativo","ocupacion","email","fecha_alta"];
+        let fields:any = null;
+        // let fields:any =  ["id_cliente","dni_cuit","categoria_id","razon_social","nombre","apellido","domicilio_real","domicilio_alternativo","provincia","departamento","localidad","telefono_celular","telefono_alternativo","ocupacion","email","fecha_alta"];
         if(request.query.fields){
             let reqFields = request.query.fields;
             fields = reqFields.toString().split(",");
+                       
+            if(!fields.includes('id_cliente')){
+                fields.push('id_cliente')
+            }
+            if(!fields.includes('apellido')){
+                fields.push('apellido')
+            }
         };
                 
         //funcion que devuelve la expresion de las consultas de parametros strings con funciones avanzadas de filtros (LIKE,NOT,IN)
@@ -123,19 +130,34 @@ export class ClienteController {
                 
             }
         }
-        console.log('EL ARREGLO NUEVO ES ESTE',cond);
+        
+        let reglas:Object;
+        if(fields != null){
+            
+            reglas = {
                 
-        return await this.clientRepository.find({
-            select:fields,
-            order:{
-                apellido:"ASC"
-            },
-            skip:offset,
-            take:limit,
-            where: cond
-            
-            
-        });
+                order:{
+                    apellido:"ASC"
+                },
+                select:fields,
+                skip:offset,
+                take:limit,
+                where: cond
+               };
+        
+        }else{
+            reglas = {
+                order:{
+                    apellido:"ASC"
+                },
+                skip:offset,
+                take:limit,
+                where: cond
+               };
+        }
+
+           return await this.clientRepository.find(reglas);     
+       
     }
 
     async one(request: Request, response: Response, next: NextFunction) {

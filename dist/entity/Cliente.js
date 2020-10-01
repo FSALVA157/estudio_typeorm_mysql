@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
 const class_validator_1 = require("class-validator");
 const class_transformer_1 = require("class-transformer");
+const CategoriaCliente_1 = require("./CategoriaCliente");
 let Cliente = class Cliente {
     //constructor
     constructor(req) {
@@ -50,11 +51,18 @@ __decorate([
 __decorate([
     typeorm_1.Column({
         type: "int",
-        unsigned: true
     }),
     class_validator_1.IsInt({ message: 'La Categoria debe ser una clave entera' }),
     __metadata("design:type", Number)
 ], Cliente.prototype, "categoria_id", void 0);
+__decorate([
+    typeorm_1.ManyToOne(type => CategoriaCliente_1.CategoriaCliente, { eager: true }),
+    typeorm_1.JoinColumn({
+        name: 'categoria_id',
+        referencedColumnName: 'id_categoria_cli'
+    }),
+    __metadata("design:type", CategoriaCliente_1.CategoriaCliente)
+], Cliente.prototype, "cliente_categoria", void 0);
 __decorate([
     typeorm_1.Column({
         type: "varchar",
@@ -86,7 +94,7 @@ __decorate([
         type: "varchar",
         length: 100,
     }),
-    class_validator_1.Length(10, 100, { message: 'El domicilio real debe tener entre $constraint1 y $constraint2 caracteres' }),
+    class_validator_1.Length(5, 100, { message: 'El domicilio real debe tener entre $constraint1 y $constraint2 caracteres' }),
     __metadata("design:type", String)
 ], Cliente.prototype, "domicilio_real", void 0);
 __decorate([
@@ -96,7 +104,7 @@ __decorate([
         nullable: true
     }),
     class_validator_1.IsOptional(),
-    class_validator_1.Length(10, 100, { message: 'El domicilio alternativo debe tener entre $constraint1 y $constraint2 caracteres' }),
+    class_validator_1.Length(5, 100, { message: 'El domicilio alternativo debe tener entre $constraint1 y $constraint2 caracteres' }),
     __metadata("design:type", String)
 ], Cliente.prototype, "domicilio_alternativo", void 0);
 __decorate([

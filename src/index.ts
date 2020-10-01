@@ -104,7 +104,7 @@ var opciones:ConnectionOptions;
                           }  
                       }
                       ).catch(err=>{
-                          console.log("ERROR DISPARADO: ");
+                          console.log("ERROR DISPARADO: ",err);
                          // next(err);
                          next(err);
                          

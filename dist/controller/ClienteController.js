@@ -18,10 +18,17 @@ class ClienteController {
         return __awaiter(this, void 0, void 0, function* () {
             let offset = Number(request.query.offset) || 0;
             let limit = Number(request.query.limit) || 10;
-            let fields = ["id_cliente", "dni_cuit", "categoria_id", "razon_social", "nombre", "apellido", "domicilio_real", "domicilio_alternativo", "provincia", "departamento", "localidad", "telefono_celular", "telefono_alternativo", "ocupacion", "email", "fecha_alta"];
+            let fields = null;
+            // let fields:any =  ["id_cliente","dni_cuit","categoria_id","razon_social","nombre","apellido","domicilio_real","domicilio_alternativo","provincia","departamento","localidad","telefono_celular","telefono_alternativo","ocupacion","email","fecha_alta"];
             if (request.query.fields) {
                 let reqFields = request.query.fields;
                 fields = reqFields.toString().split(",");
+                if (!fields.includes('id_cliente')) {
+                    fields.push('id_cliente');
+                }
+                if (!fields.includes('apellido')) {
+                    fields.push('apellido');
+                }
             }
             ;
             //funcion que devuelve la expresion de las consultas de parametros strings con funciones avanzadas de filtros (LIKE,NOT,IN)
@@ -123,16 +130,29 @@ class ClienteController {
                     }
                 }
             }
-            console.log('EL ARREGLO NUEVO ES ESTE', cond);
-            return yield this.clientRepository.find({
-                select: fields,
-                order: {
-                    apellido: "ASC"
-                },
-                skip: offset,
-                take: limit,
-                where: cond
-            });
+            let reglas;
+            if (fields != null) {
+                reglas = {
+                    order: {
+                        apellido: "ASC"
+                    },
+                    select: fields,
+                    skip: offset,
+                    take: limit,
+                    where: cond
+                };
+            }
+            else {
+                reglas = {
+                    order: {
+                        apellido: "ASC"
+                    },
+                    skip: offset,
+                    take: limit,
+                    where: cond
+                };
+            }
+            return yield this.clientRepository.find(reglas);
         });
     }
     one(request, response, next) {
