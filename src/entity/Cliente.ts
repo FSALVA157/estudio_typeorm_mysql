@@ -168,7 +168,11 @@ export class Cliente {
     @Length(5,50,{message:'el contacto alternativo debe tener entre $constraint1 y $constraint2 caracteres'})
     contacto_alt: string;
    
-   @Column({type: "date"})
+   @Column({
+       type: "date",
+       nullable:true
+    })
+   @IsOptional()
    @IsISO8601()
    @Matches(/^\d{4}([\-/.])(0?[1-9]|1[1-2])\1(3[01]|[12][0-9]|0?[1-9])$/,{message:'El dato debe respetar el formato yyyy-mm-dd'})
    @Transform(()=>Date)
