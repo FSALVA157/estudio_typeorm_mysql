@@ -26,9 +26,9 @@ class ClienteController {
                 if (!fields.includes('id_cliente')) {
                     fields.push('id_cliente');
                 }
-                if (!fields.includes('apellido')) {
-                    fields.push('apellido');
-                }
+                // if(!fields.includes('apellido')){
+                //     fields.push('apellido')
+                // }
             }
             ;
             //funcion que devuelve la expresion de las consultas de parametros strings con funciones avanzadas de filtros (LIKE,NOT,IN)
@@ -134,7 +134,7 @@ class ClienteController {
             if (fields != null) {
                 reglas = {
                     order: {
-                        apellido: "ASC"
+                        id_cliente: "ASC"
                     },
                     select: fields,
                     skip: offset,
@@ -145,7 +145,7 @@ class ClienteController {
             else {
                 reglas = {
                     order: {
-                        apellido: "ASC"
+                        id_cliente: "ASC"
                     },
                     skip: offset,
                     take: limit,
