@@ -165,7 +165,7 @@ export class Cliente {
         nullable:true
            })
     @IsOptional()
-    @Length(5,50,{message:'el contacto alternativo debe tener entre $constraint1 y $constraint2 caracteres'})
+    @Length(5,200,{message:'el contacto alternativo debe tener entre $constraint1 y $constraint2 caracteres'})
     contacto_alt: string;
    
    @Column({
