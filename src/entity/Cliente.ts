@@ -147,7 +147,7 @@ export class Cliente {
         nullable: true
             })
     @IsOptional()
-    @MinLength(9)
+    @MinLength(7)
     telefono: string;
 
     @Column({
