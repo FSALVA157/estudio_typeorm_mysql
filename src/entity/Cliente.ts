@@ -20,22 +20,24 @@ export class Cliente {
         name: 'categoria_id',
         referencedColumnName: 'id_categoria_cli'
     })
-    cliente_categoria: CategoriaCliente;
+    categoria: CategoriaCliente;
 
     @Column({
         type: "varchar",
         length: 100,
         nullable: true
            })
-    @Length(10,50,{message:'La razón social debe tener entre $constraint1 y $constraint2 caracteres'})
     @IsOptional()
+    @Length(4,50,{message:'La razón social debe tener entre $constraint1 y $constraint2 caracteres'})
     razon_social: string;
     
     @Column({
         type: "varchar",
-        length: 14
+        length: 14,
+        nullable:true
        
      })
+     @IsOptional()
     @Length(7,14,{message:'El cuit o cuit debe tener entre $constraint1 y $constraint2 caracteres'})
     cuit: string;
 
@@ -79,29 +81,31 @@ export class Cliente {
         type: "varchar",
         length: 50,
          })
-   @Length(4,50,{message:'El nombre debe tener entre $constraint1 y $constraint2 caracteres'})
+   @Length(2,50,{message:'El nombre debe tener entre $constraint1 y $constraint2 caracteres'})
    nombre: string;
 
    @Column({
         type: "varchar",
         length: 50,
             })
-   @Length(4,50,{message:'El apellido debe tener entre $constraint1 y $constraint2 caracteres'})
+   @Length(2,50,{message:'El apellido debe tener entre $constraint1 y $constraint2 caracteres'})
    apellido: string;
    
    @Column({
        type: "varchar",
-       length: 14
-       
+       length: 14,
+       nullable:true
     })
+    @IsOptional()
     @Length(7,14,{message:'El dni o cuit debe tener entre $constraint1 y $constraint2 caracteres'})
     dni: string;
     
     @Column({
         type: "varchar",
-        length: 50
-        
+        length: 50,
+        nullable:true       
            })
+    @IsOptional()
     @IsEmail()
     email: string;
     

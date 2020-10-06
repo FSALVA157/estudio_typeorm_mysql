@@ -1,11 +1,11 @@
 import {getRepository,Like,Not,IsNull} from "typeorm";
 import {NextFunction, Request, Response} from "express";
-import{Cliente} from '../entity/Cliente';
+import{Caso} from '../entity/Caso';
 
 
-export class ClienteController {
+export class CasoController {
 
-    private clientRepository = getRepository(Cliente);
+    private casoRepository = getRepository(Caso);
 
     async all(request: Request, response: Response, next: NextFunction) {
         let offset:number = Number(request.query.offset) || 0;
@@ -16,8 +16,8 @@ export class ClienteController {
             let reqFields = request.query.fields;
             fields = reqFields.toString().split(",");
                        
-            if(!fields.includes('id_cliente')){
-                fields.push('id_cliente')
+            if(!fields.includes('id_caso')){
+                fields.push('id_caso');
             }
             // if(!fields.includes('apellido')){
             //     fields.push('apellido')
@@ -75,69 +75,63 @@ export class ClienteController {
                 //const element = arreglo[campo];
                 let nombreCampo = campo.toString();
                 switch (nombreCampo) {
-                    case 'id_cliente':
+                    case 'id_caso':
                         cond[nombreCampo] = Number(arreglo[campo]);
                         break;
-                    case 'categoria_id':
+                    case 'cliente_id':
                         cond[nombreCampo] = Number(arreglo[campo]);
                         break;
-                    case 'razon_social':
-                        cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);  
-                        break;
-                    case 'cuit':
-                        cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);  
-                        break;
-                    case 'domicilio_cliente':
-                        cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);  
-                        break;
-                    case 'provincia_cliente':
-                        cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
-                        break;     
-                    case 'departamento_cliente':
-                        cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
-                        break;     
-                    case 'localidad_cliente':
-                        cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
-                        break;     
-                    case 'nombre':
-                        cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);  
-                        break;
-                    case 'apellido':
-                        cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);  
-                        break;
-                    case 'dni':
-                        cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);  
-                        break;
-                    case 'email':
-                        cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);  
-                        break;    
-                   case 'provincia_representante':
-                        cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
-                        break;     
-                    case 'departamento_representante':
-                        cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
-                        break;     
-                    case 'localidad_representante':
-                        cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
-                        break;     
-                    case 'domicilio_representante':
-                        cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);  
-                        break;
-                    case 'telefono':
-                        cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
-                        break;
-                    case 'telefono_alt':
-                        cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
-                        break;
-                    case 'contacto_alt':
-                        cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);  
-                        break;    
-                    case 'fecha_alta':
+                    case 'fecha_inicio':
                         cond[nombreCampo] = ExpresionAvanzadaFechas(arreglo[campo]);
+                        break; 
+                    case 'detalle':
+                        cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);  
                         break;
-                    case 'visible':
+                    case 'expediente_nro':
+                        cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);  
+                        break;
+                    case 'contraparte_datos':
+                        cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);  
+                        break;
+                    case 'jurisdiccion_id':
+                        cond[nombreCampo] = Number(arreglo[campo]);
+                        break;
+                    case 'distrito_id':
+                        cond[nombreCampo] = Number(arreglo[campo]);
+                        break;
+                    case 'fuero_id':
+                        cond[nombreCampo] = Number(arreglo[campo]);
+                        break;
+                    case 'juzgado_id':
+                        cond[nombreCampo] = Number(arreglo[campo]);
+                        break;
+                    case 'caracter_letrado_id':
+                        cond[nombreCampo] = Number(arreglo[campo]);
+                        break;
+                    case 'caracter_cliente_id':
+                        cond[nombreCampo] = Number(arreglo[campo]);
+                        break;
+                    case 'mesa':
+                        cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);  
+                        break;
+                    case 'objeto_id':
+                        cond[nombreCampo] = Number(arreglo[campo]);
+                        break;
+                    case 'instancia_id':
+                        cond[nombreCampo] = Number(arreglo[campo]);
+                        break;
+                    case 'caratula':
+                        cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);  
+                        break;
+                    case 'estado':
                         cond[nombreCampo] = Number(arreglo[campo]);
                         break;    
+                    case 'etapa':
+                        cond[nombreCampo] = Number(arreglo[campo]);
+                        break;                           
+                    case 'fecha_fin':
+                        cond[nombreCampo] = ExpresionAvanzadaFechas(arreglo[campo]);
+                        break; 
                     
                     default:
                         break;
@@ -152,7 +146,7 @@ export class ClienteController {
             reglas = {
                 
                 order:{
-                    id_cliente:"ASC"
+                    id_caso:"ASC"
                 },
                 select:fields,
                 skip:offset,
@@ -163,7 +157,7 @@ export class ClienteController {
         }else{
             reglas = {
                 order:{
-                    id_cliente:"ASC"
+                    id_caso:"ASC"
                 },
                 skip:offset,
                 take:limit,
@@ -171,27 +165,27 @@ export class ClienteController {
                };
         }
 
-           return await this.clientRepository.find(reglas);     
+           return await this.casoRepository.find(reglas);     
        
     }
 
     async one(request: Request, response: Response, next: NextFunction) {
         
-        return await this.clientRepository.findOne(request.params.id);
+        return await this.casoRepository.findOne(request.params.id);
     }
 
     async save(request: Request, response: Response, next: NextFunction) {
-        return await this.clientRepository.save(request.body);
+        return await this.casoRepository.save(request.body);
     }
 
     async remove(request: Request, response: Response, next: NextFunction) {
-        let userToRemove = await this.clientRepository.findOne(request.params.id);
-       return  await this.clientRepository.remove(userToRemove);
+        let userToRemove = await this.casoRepository.findOne(request.params.id);
+       return  await this.casoRepository.remove(userToRemove);
     }
 
     async update(request: Request, response: Response, next: NextFunction) {
         //const nuevoUsuario = this.userRepository.create();
-        return await this.clientRepository.update(request.params.id,request.body);
+        return await this.casoRepository.update(request.params.id,request.body);
     }
 
 }

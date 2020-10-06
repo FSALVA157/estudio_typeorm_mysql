@@ -1,7 +1,13 @@
-import {Entity, PrimaryGeneratedColumn, Column,} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn} from "typeorm";
 import{IsInt, Length,  IsOptional, IsISO8601, Matches} from 'class-validator';
 import {Transform} from 'class-transformer';
-import { CategoriaCliente } from './CategoriaCliente';
+import { Jurisdiccion } from './Jurisdiccion';
+import { Distrito } from './Distrito';
+import { Fuero } from './Fuero';
+import { Juzgado } from './Juzgado';
+import { Objeto } from './Objeto';
+import { Cliente } from './Cliente';
+import { TipoProceso } from './TipoProceso';
 
 @Entity()
 export class Caso {
@@ -15,9 +21,17 @@ export class Caso {
     @IsInt({message:'La clave de cliente debe ser un entero'})
     cliente_id: number;
 
+    //relacion con tabla clientes
+    @ManyToOne(type => Cliente,{eager : true})
+    @JoinColumn({
+        name : 'cliente_id',
+        referencedColumnName : 'id_cliente'
+    })
+    cliente : Cliente;
+
     @Column({type: "date"})
     @IsISO8601()
-    @Matches(/^\d{4}([\-/.])(0?[1-9]|1[1-2])\1(3[01]|[12][0-9]|0?[1-9])$/,{message:'La fecha   debe respetar el formato yyyy-mm-dd'})
+    @Matches(/^\d{4}([\-/.])(0?[1-9]|1[0-1-2])\1(3[01]|[12][0-9]|0?[1-9])$/,{message:'La fecha   debe respetar el formato yyyy-mm-dd'})
     @Transform(()=>Date)
     fecha_inicio: Date;
 
@@ -58,6 +72,14 @@ export class Caso {
     @IsInt({message:'La clave jurisdiccion debe ser un entero'})
     jurisdiccion_id: number;
 
+   // relacion con tabla jurisdiccion
+    @ManyToOne(type => Jurisdiccion,{eager:true})
+    @JoinColumn({
+        name: 'jurisdiccion_id',
+        referencedColumnName: 'id_jurisdiccion'
+    })
+    jurisdiccion: Jurisdiccion;
+
     @Column({
         type: "int",
         nullable:true
@@ -65,6 +87,14 @@ export class Caso {
     @IsOptional()
     @IsInt({message:'El distrito debe ser un entero'})
     distrito_id: number;
+
+    //relacion con tabla distrito
+    @ManyToOne(type => Distrito,{eager:true})
+    @JoinColumn({
+        name: 'distrito_id',
+        referencedColumnName: 'id_distrito'
+    })
+    distrito : Distrito;
 
     @Column({
         type: "int",
@@ -74,6 +104,14 @@ export class Caso {
     @IsInt({message:'El fuero debe ser un entero'})
     fuero_id: number;
 
+    //relacion con tabla fuero
+    @ManyToOne(type => Fuero,{eager:true})
+    @JoinColumn({
+        name : 'fuero_id',
+        referencedColumnName: 'id_fuero'
+    })
+    fuero : Fuero;
+
     @Column({
         type: "int",
         nullable:true
@@ -81,6 +119,14 @@ export class Caso {
     @IsOptional()
     @IsInt({message:'El juzgado debe ser un entero'})
     juzgado_id: number;
+
+    @ManyToOne(type => Juzgado,{eager:true})
+    @JoinColumn({
+        name : 'juzgado_id',
+        referencedColumnName : 'id_juzgado'
+    })
+    juzgado : Juzgado;
+
 
     @Column({
         type: "int",
@@ -110,6 +156,29 @@ export class Caso {
     @IsOptional()
     @IsInt({message:'El objeto es una clave entera'})
     objeto_id: number;
+
+    @ManyToOne(type => Objeto,{eager : true})
+    @JoinColumn({
+        name : 'objeto_id',
+        referencedColumnName : 'id_objeto'
+    })
+    objeto : Objeto;
+
+    @Column({
+        type: "int",
+        nullable:true
+    })
+    @IsOptional()
+    @IsInt({message:'El tipo de proceso es una clave entera'})
+    tipo_proceso_id: number;
+
+    @ManyToOne(type => TipoProceso,{eager : true})
+    @JoinColumn({
+        name : 'tipo_proceso_id',
+        referencedColumnName : 'id_tipo_proceso'
+    })
+    tipo : TipoProceso;
+
 
     @Column({
         type: "int",
@@ -145,7 +214,7 @@ export class Caso {
     })
     @IsOptional()
     @IsISO8601()
-    @Matches(/^\d{4}([\-/.])(0?[1-9]|1[1-2])\1(3[01]|[12][0-9]|0?[1-9])$/,{message:'La fecha   debe respetar el formato yyyy-mm-dd'})
+    @Matches(/^\d{4}([\-/.])(0?[1-9]|1[0-1-2])\1(3[01]|[12][0-9]|0?[1-9])$/,{message:'La fecha   debe respetar el formato yyyy-mm-dd'})
     @Transform(()=>Date)
     fecha_fin: Date;
 
@@ -171,6 +240,7 @@ export class Caso {
             this.caratula = req.body.caratula;
             this.estado = req.body.estado;
             this.etapa = req.body.estapa;
+            this.fecha_fin = req.body.fecha_fin;
       }
 
     }

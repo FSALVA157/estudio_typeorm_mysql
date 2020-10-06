@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const ClienteController_1 = require("../controller/ClienteController");
 const UsuarioController_1 = require("../controller/UsuarioController");
+const CasoController_1 = require("../controller/CasoController");
 exports.Routes = [{
         method: "get",
         route: "/usuarios",
@@ -63,6 +64,37 @@ exports.Routes = [{
         controller: ClienteController_1.ClienteController,
         action: "update",
         entity: "Cliente"
+    },
+    {
+        method: "get",
+        route: "/casos",
+        controller: CasoController_1.CasoController,
+        action: "all",
+        entity: "Caso"
+    }, {
+        method: "get",
+        route: "/casos/:id",
+        controller: CasoController_1.CasoController,
+        action: "one",
+        entity: "Caso"
+    }, {
+        method: "post",
+        route: "/casos",
+        controller: CasoController_1.CasoController,
+        action: "save",
+        entity: "Caso"
+    }, {
+        method: "delete",
+        route: "/casos/:id",
+        controller: CasoController_1.CasoController,
+        action: "remove",
+        entity: "Caso"
+    }, {
+        method: "put",
+        route: "/casos/:id",
+        controller: CasoController_1.CasoController,
+        action: "update",
+        entity: "Caso"
     }
 ];
 //# sourceMappingURL=routes.js.map

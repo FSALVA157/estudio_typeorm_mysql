@@ -58,22 +58,24 @@ __decorate([
         referencedColumnName: 'id_categoria_cli'
     }),
     __metadata("design:type", CategoriaCliente_1.CategoriaCliente)
-], Cliente.prototype, "cliente_categoria", void 0);
+], Cliente.prototype, "categoria", void 0);
 __decorate([
     typeorm_1.Column({
         type: "varchar",
         length: 100,
         nullable: true
     }),
-    class_validator_1.Length(10, 50, { message: 'La razón social debe tener entre $constraint1 y $constraint2 caracteres' }),
     class_validator_1.IsOptional(),
+    class_validator_1.Length(4, 50, { message: 'La razón social debe tener entre $constraint1 y $constraint2 caracteres' }),
     __metadata("design:type", String)
 ], Cliente.prototype, "razon_social", void 0);
 __decorate([
     typeorm_1.Column({
         type: "varchar",
-        length: 14
+        length: 14,
+        nullable: true
     }),
+    class_validator_1.IsOptional(),
     class_validator_1.Length(7, 14, { message: 'El cuit o cuit debe tener entre $constraint1 y $constraint2 caracteres' }),
     __metadata("design:type", String)
 ], Cliente.prototype, "cuit", void 0);
@@ -122,7 +124,7 @@ __decorate([
         type: "varchar",
         length: 50,
     }),
-    class_validator_1.Length(4, 50, { message: 'El nombre debe tener entre $constraint1 y $constraint2 caracteres' }),
+    class_validator_1.Length(2, 50, { message: 'El nombre debe tener entre $constraint1 y $constraint2 caracteres' }),
     __metadata("design:type", String)
 ], Cliente.prototype, "nombre", void 0);
 __decorate([
@@ -130,22 +132,26 @@ __decorate([
         type: "varchar",
         length: 50,
     }),
-    class_validator_1.Length(4, 50, { message: 'El apellido debe tener entre $constraint1 y $constraint2 caracteres' }),
+    class_validator_1.Length(2, 50, { message: 'El apellido debe tener entre $constraint1 y $constraint2 caracteres' }),
     __metadata("design:type", String)
 ], Cliente.prototype, "apellido", void 0);
 __decorate([
     typeorm_1.Column({
         type: "varchar",
-        length: 14
+        length: 14,
+        nullable: true
     }),
+    class_validator_1.IsOptional(),
     class_validator_1.Length(7, 14, { message: 'El dni o cuit debe tener entre $constraint1 y $constraint2 caracteres' }),
     __metadata("design:type", String)
 ], Cliente.prototype, "dni", void 0);
 __decorate([
     typeorm_1.Column({
         type: "varchar",
-        length: 50
+        length: 50,
+        nullable: true
     }),
+    class_validator_1.IsOptional(),
     class_validator_1.IsEmail(),
     __metadata("design:type", String)
 ], Cliente.prototype, "email", void 0);

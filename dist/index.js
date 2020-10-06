@@ -20,6 +20,7 @@ const class_validator_1 = require("class-validator");
 const Usuario_1 = require("./entity/Usuario");
 const Cliente_1 = require("./entity/Cliente");
 const Error400_1 = require("./errors/Error400");
+const Caso_1 = require("./entity/Caso");
 process.on('unhandledRejection', (error) => {
     console.log(error);
     throw error;
@@ -118,8 +119,18 @@ typeorm_1.createConnection(opciones).then((connection) => __awaiter(this, void 0
                                     break;
                                 }
                             case 'Cliente':
+                                //console.log(req);
                                 data = new Cliente_1.Cliente(req);
                                 if (req.body.id_cliente) {
+                                    throw errorSobreescritura;
+                                }
+                                else {
+                                    break;
+                                }
+                            case 'Caso':
+                                //console.log(req);
+                                data = new Caso_1.Caso(req);
+                                if (req.body.id_caso) {
                                     throw errorSobreescritura;
                                 }
                                 else {
@@ -145,7 +156,7 @@ typeorm_1.createConnection(opciones).then((connection) => __awaiter(this, void 0
                         });
                     }
                     catch (error) {
-                        console.log('PASANDO POR CATCH DE IF THEN');
+                        console.log('PASANDO POR CATCH DE IF THEN', error);
                         throw error;
                     }
                 }

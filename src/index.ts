@@ -11,6 +11,7 @@ import {validate} from 'class-validator';
 import { Usuario } from './entity/Usuario';
 import { Cliente } from './entity/Cliente';
 import { Error400 } from './errors/Error400';
+import { Caso } from './entity/Caso';
 
 
 
@@ -143,6 +144,7 @@ var opciones:ConnectionOptions;
 
                                                 }
                                             case 'Cliente':
+                                                //console.log(req);
                                                 data = new Cliente(req);
                                                 if(req.body.id_cliente){
                                                     throw errorSobreescritura;
@@ -150,6 +152,15 @@ var opciones:ConnectionOptions;
                                                      break;
  
                                                  }
+                                            case 'Caso':
+                                                //console.log(req);
+                                                data = new Caso(req);
+                                                if(req.body.id_caso){
+                                                    throw errorSobreescritura;
+                                                    }else{
+                                                        break;
+    
+                                                    }
                                         
                                             default:
                                                 break;
@@ -175,7 +186,7 @@ var opciones:ConnectionOptions;
                                                                         
                             
                         } catch (error) {
-                                console.log('PASANDO POR CATCH DE IF THEN');
+                                console.log('PASANDO POR CATCH DE IF THEN',error);
                                 throw error;
                         }
             

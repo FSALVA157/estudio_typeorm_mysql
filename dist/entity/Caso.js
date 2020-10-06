@@ -12,6 +12,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
 const class_validator_1 = require("class-validator");
 const class_transformer_1 = require("class-transformer");
+const Jurisdiccion_1 = require("./Jurisdiccion");
+const Distrito_1 = require("./Distrito");
+const Fuero_1 = require("./Fuero");
+const Juzgado_1 = require("./Juzgado");
+const Objeto_1 = require("./Objeto");
+const Cliente_1 = require("./Cliente");
+const TipoProceso_1 = require("./TipoProceso");
 let Caso = class Caso {
     //constructor
     constructor(req) {
@@ -33,6 +40,7 @@ let Caso = class Caso {
             this.caratula = req.body.caratula;
             this.estado = req.body.estado;
             this.etapa = req.body.estapa;
+            this.fecha_fin = req.body.fecha_fin;
         }
     }
 };
@@ -48,9 +56,17 @@ __decorate([
     __metadata("design:type", Number)
 ], Caso.prototype, "cliente_id", void 0);
 __decorate([
+    typeorm_1.ManyToOne(type => Cliente_1.Cliente, { eager: true }),
+    typeorm_1.JoinColumn({
+        name: 'cliente_id',
+        referencedColumnName: 'id_cliente'
+    }),
+    __metadata("design:type", Cliente_1.Cliente)
+], Caso.prototype, "cliente", void 0);
+__decorate([
     typeorm_1.Column({ type: "date" }),
     class_validator_1.IsISO8601(),
-    class_validator_1.Matches(/^\d{4}([\-/.])(0?[1-9]|1[1-2])\1(3[01]|[12][0-9]|0?[1-9])$/, { message: 'La fecha   debe respetar el formato yyyy-mm-dd' }),
+    class_validator_1.Matches(/^\d{4}([\-/.])(0?[1-9]|1[0-1-2])\1(3[01]|[12][0-9]|0?[1-9])$/, { message: 'La fecha   debe respetar el formato yyyy-mm-dd' }),
     class_transformer_1.Transform(() => Date),
     __metadata("design:type", Date)
 ], Caso.prototype, "fecha_inicio", void 0);
@@ -96,6 +112,14 @@ __decorate([
     __metadata("design:type", Number)
 ], Caso.prototype, "jurisdiccion_id", void 0);
 __decorate([
+    typeorm_1.ManyToOne(type => Jurisdiccion_1.Jurisdiccion, { eager: true }),
+    typeorm_1.JoinColumn({
+        name: 'jurisdiccion_id',
+        referencedColumnName: 'id_jurisdiccion'
+    }),
+    __metadata("design:type", Jurisdiccion_1.Jurisdiccion)
+], Caso.prototype, "jurisdiccion", void 0);
+__decorate([
     typeorm_1.Column({
         type: "int",
         nullable: true
@@ -104,6 +128,14 @@ __decorate([
     class_validator_1.IsInt({ message: 'El distrito debe ser un entero' }),
     __metadata("design:type", Number)
 ], Caso.prototype, "distrito_id", void 0);
+__decorate([
+    typeorm_1.ManyToOne(type => Distrito_1.Distrito, { eager: true }),
+    typeorm_1.JoinColumn({
+        name: 'distrito_id',
+        referencedColumnName: 'id_distrito'
+    }),
+    __metadata("design:type", Distrito_1.Distrito)
+], Caso.prototype, "distrito", void 0);
 __decorate([
     typeorm_1.Column({
         type: "int",
@@ -114,6 +146,14 @@ __decorate([
     __metadata("design:type", Number)
 ], Caso.prototype, "fuero_id", void 0);
 __decorate([
+    typeorm_1.ManyToOne(type => Fuero_1.Fuero, { eager: true }),
+    typeorm_1.JoinColumn({
+        name: 'fuero_id',
+        referencedColumnName: 'id_fuero'
+    }),
+    __metadata("design:type", Fuero_1.Fuero)
+], Caso.prototype, "fuero", void 0);
+__decorate([
     typeorm_1.Column({
         type: "int",
         nullable: true
@@ -122,6 +162,14 @@ __decorate([
     class_validator_1.IsInt({ message: 'El juzgado debe ser un entero' }),
     __metadata("design:type", Number)
 ], Caso.prototype, "juzgado_id", void 0);
+__decorate([
+    typeorm_1.ManyToOne(type => Juzgado_1.Juzgado, { eager: true }),
+    typeorm_1.JoinColumn({
+        name: 'juzgado_id',
+        referencedColumnName: 'id_juzgado'
+    }),
+    __metadata("design:type", Juzgado_1.Juzgado)
+], Caso.prototype, "juzgado", void 0);
 __decorate([
     typeorm_1.Column({
         type: "int",
@@ -155,6 +203,31 @@ __decorate([
     class_validator_1.IsInt({ message: 'El objeto es una clave entera' }),
     __metadata("design:type", Number)
 ], Caso.prototype, "objeto_id", void 0);
+__decorate([
+    typeorm_1.ManyToOne(type => Objeto_1.Objeto, { eager: true }),
+    typeorm_1.JoinColumn({
+        name: 'objeto_id',
+        referencedColumnName: 'id_objeto'
+    }),
+    __metadata("design:type", Objeto_1.Objeto)
+], Caso.prototype, "objeto", void 0);
+__decorate([
+    typeorm_1.Column({
+        type: "int",
+        nullable: true
+    }),
+    class_validator_1.IsOptional(),
+    class_validator_1.IsInt({ message: 'El tipo de proceso es una clave entera' }),
+    __metadata("design:type", Number)
+], Caso.prototype, "tipo_proceso_id", void 0);
+__decorate([
+    typeorm_1.ManyToOne(type => TipoProceso_1.TipoProceso, { eager: true }),
+    typeorm_1.JoinColumn({
+        name: 'tipo_proceso_id',
+        referencedColumnName: 'id_tipo_proceso'
+    }),
+    __metadata("design:type", TipoProceso_1.TipoProceso)
+], Caso.prototype, "tipo", void 0);
 __decorate([
     typeorm_1.Column({
         type: "int",
@@ -194,7 +267,7 @@ __decorate([
     }),
     class_validator_1.IsOptional(),
     class_validator_1.IsISO8601(),
-    class_validator_1.Matches(/^\d{4}([\-/.])(0?[1-9]|1[1-2])\1(3[01]|[12][0-9]|0?[1-9])$/, { message: 'La fecha   debe respetar el formato yyyy-mm-dd' }),
+    class_validator_1.Matches(/^\d{4}([\-/.])(0?[1-9]|1[0-1-2])\1(3[01]|[12][0-9]|0?[1-9])$/, { message: 'La fecha   debe respetar el formato yyyy-mm-dd' }),
     class_transformer_1.Transform(() => Date),
     __metadata("design:type", Date)
 ], Caso.prototype, "fecha_fin", void 0);
