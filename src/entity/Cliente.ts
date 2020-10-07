@@ -33,12 +33,12 @@ export class Cliente {
     
     @Column({
         type: "varchar",
-        length: 14,
+        length: 20,
         nullable:true
        
      })
      @IsOptional()
-    @Length(7,14,{message:'El cuit o cuit debe tener entre $constraint1 y $constraint2 caracteres'})
+    @Length(7,20,{message:'El cuit o cuit debe tener entre $constraint1 y $constraint2 caracteres'})
     cuit: string;
 
     @Column({
@@ -93,11 +93,11 @@ export class Cliente {
    
    @Column({
        type: "varchar",
-       length: 14,
+       length: 20,
        nullable:true
     })
     @IsOptional()
-    @Length(7,14,{message:'El dni o cuit debe tener entre $constraint1 y $constraint2 caracteres'})
+    @Length(7,20,{message:'El dni debe tener entre $constraint1 y $constraint2 caracteres'})
     dni: string;
     
     @Column({

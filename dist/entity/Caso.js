@@ -19,6 +19,8 @@ const Juzgado_1 = require("./Juzgado");
 const Objeto_1 = require("./Objeto");
 const Cliente_1 = require("./Cliente");
 const TipoProceso_1 = require("./TipoProceso");
+const EstadoCaso_1 = require("./EstadoCaso");
+const Instancia_1 = require("./Instancia");
 let Caso = class Caso {
     //constructor
     constructor(req) {
@@ -27,7 +29,11 @@ let Caso = class Caso {
             this.fecha_inicio = req.body.fecha_inicio;
             this.detalle = req.body.detalle;
             this.expediente_nro = req.body.expediente_nro;
-            this.contraparte_datos = req.body.contraparte_datos;
+            this.contraparte_nombre = req.body.contraparte_nombre;
+            this.contraparte_dni = req.body.contraparte_dni;
+            this.contraparte_dom_real = req.body.contraparte_dom_real;
+            this.contraparte_dom_proc = req.body.contraparte_dom_proc;
+            this.contraparte_telefono = req.body.contraparte_telefono;
             this.jurisdiccion_id = req.body.jurisdiccion_id;
             this.distrito_id = req.body.distrito_id;
             this.fuero_id = req.body.fuero_id;
@@ -94,13 +100,53 @@ __decorate([
 __decorate([
     typeorm_1.Column({
         type: "varchar",
-        length: 500,
+        length: 100,
         nullable: true
     }),
     class_validator_1.IsOptional(),
-    class_validator_1.Length(5, 500, { message: 'El nombre de la otra parte debe tener entre $constraint1 y $constraint2 caracteres' }),
+    class_validator_1.Length(5, 100, { message: 'El nombre de la contraparte debe tener entre $constraint1 y $constraint2 caracteres' }),
     __metadata("design:type", String)
-], Caso.prototype, "contraparte_datos", void 0);
+], Caso.prototype, "contraparte_nombre", void 0);
+__decorate([
+    typeorm_1.Column({
+        type: "varchar",
+        length: 20,
+        nullable: true
+    }),
+    class_validator_1.IsOptional(),
+    class_validator_1.Length(7, 20, { message: 'El dni de la contraparte debe tener entre $constraint1 y $constraint2 caracteres' }),
+    __metadata("design:type", String)
+], Caso.prototype, "contraparte_dni", void 0);
+__decorate([
+    typeorm_1.Column({
+        type: "varchar",
+        length: 100,
+        nullable: true
+    }),
+    class_validator_1.IsOptional(),
+    class_validator_1.Length(5, 100, { message: 'El domicilio real de la contraparte  debe tener entre $constraint1 y $constraint2 caracteres' }),
+    __metadata("design:type", String)
+], Caso.prototype, "contraparte_dom_real", void 0);
+__decorate([
+    typeorm_1.Column({
+        type: "varchar",
+        length: 100,
+        nullable: true
+    }),
+    class_validator_1.IsOptional(),
+    class_validator_1.Length(5, 100, { message: 'El domicilio procesal de la contraparte  debe tener entre $constraint1 y $constraint2 caracteres' }),
+    __metadata("design:type", String)
+], Caso.prototype, "contraparte_dom_proc", void 0);
+__decorate([
+    typeorm_1.Column({
+        type: "varchar",
+        length: 50,
+        nullable: true
+    }),
+    class_validator_1.IsOptional(),
+    class_validator_1.MinLength(7),
+    __metadata("design:type", String)
+], Caso.prototype, "contraparte_telefono", void 0);
 __decorate([
     typeorm_1.Column({
         type: "int",
@@ -238,6 +284,14 @@ __decorate([
     __metadata("design:type", Number)
 ], Caso.prototype, "instancia_id", void 0);
 __decorate([
+    typeorm_1.ManyToOne(type => Instancia_1.Instancia, { eager: true }),
+    typeorm_1.JoinColumn({
+        name: 'instancia_id',
+        referencedColumnName: 'id_instancia'
+    }),
+    __metadata("design:type", Instancia_1.Instancia)
+], Caso.prototype, "instancia", void 0);
+__decorate([
     typeorm_1.Column({
         type: "varchar",
         length: 100,
@@ -248,8 +302,22 @@ __decorate([
     __metadata("design:type", String)
 ], Caso.prototype, "caratula", void 0);
 __decorate([
-    typeorm_1.Column({ default: true }),
-    __metadata("design:type", Boolean)
+    typeorm_1.Column({
+        type: "int",
+        default: 1,
+        nullable: true
+    }),
+    class_validator_1.IsOptional(),
+    class_validator_1.IsInt({ message: 'El estado del caso es una clave entera' }),
+    __metadata("design:type", Number)
+], Caso.prototype, "estado_id", void 0);
+__decorate([
+    typeorm_1.ManyToOne(type => EstadoCaso_1.EstadoCaso, { eager: true }),
+    typeorm_1.JoinColumn({
+        name: 'estado_id',
+        referencedColumnName: 'id_estado'
+    }),
+    __metadata("design:type", TipoProceso_1.TipoProceso)
 ], Caso.prototype, "estado", void 0);
 __decorate([
     typeorm_1.Column({

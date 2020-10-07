@@ -1,5 +1,5 @@
 import {Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn} from "typeorm";
-import{IsInt, Length,  IsOptional, IsISO8601, Matches} from 'class-validator';
+import{IsInt, Length,  IsOptional, IsISO8601, Matches, MinLength} from 'class-validator';
 import {Transform} from 'class-transformer';
 import { Jurisdiccion } from './Jurisdiccion';
 import { Distrito } from './Distrito';
@@ -8,6 +8,8 @@ import { Juzgado } from './Juzgado';
 import { Objeto } from './Objeto';
 import { Cliente } from './Cliente';
 import { TipoProceso } from './TipoProceso';
+import { EstadoCaso } from './EstadoCaso';
+import { Instancia } from './Instancia';
 
 @Entity()
 export class Caso {
@@ -56,12 +58,48 @@ export class Caso {
 
     @Column({
         type: "varchar",
-        length: 500,
+        length: 100,
         nullable: true
          })
     @IsOptional()
-    @Length(5,500,{message:'El nombre de la otra parte debe tener entre $constraint1 y $constraint2 caracteres'})
-    contraparte_datos: string;
+    @Length(5,100,{message:'El nombre de la contraparte debe tener entre $constraint1 y $constraint2 caracteres'})
+    contraparte_nombre: string;
+
+    @Column({
+        type: "varchar",
+        length: 20,
+        nullable:true
+     })
+     @IsOptional()
+     @Length(7,20,{message:'El dni de la contraparte debe tener entre $constraint1 y $constraint2 caracteres'})
+     contraparte_dni: string;
+
+     @Column({
+        type: "varchar",
+        length: 100,
+        nullable:true
+           })
+    @IsOptional()
+    @Length(5,100,{message:'El domicilio real de la contraparte  debe tener entre $constraint1 y $constraint2 caracteres'})
+    contraparte_dom_real: string;
+
+    @Column({
+        type: "varchar",
+        length: 100,
+        nullable:true
+           })
+    @IsOptional()
+    @Length(5,100,{message:'El domicilio procesal de la contraparte  debe tener entre $constraint1 y $constraint2 caracteres'})
+    contraparte_dom_proc: string;
+
+    @Column({
+        type: "varchar",
+        length: 50,
+        nullable: true
+            })
+    @IsOptional()
+    @MinLength(7)
+    contraparte_telefono: string;
 
     @Column({
         type: "int",
@@ -188,6 +226,13 @@ export class Caso {
     @IsInt({message:'La instancia debe ser un entero'})
     instancia_id: number;
 
+    @ManyToOne(type => Instancia,{eager : true})
+    @JoinColumn({
+    name : 'instancia_id',
+    referencedColumnName : 'id_instancia'
+    })
+    instancia : Instancia;
+
     @Column({
         type: "varchar",
         length: 100,
@@ -197,8 +242,22 @@ export class Caso {
    @IsOptional()
    caratula: string;
 
-   @Column({default:true })
-   estado: boolean;
+   @Column({
+    type: "int",
+    default: 1,
+    nullable:true
+    })
+    @IsOptional()
+    @IsInt({message:'El estado del caso es una clave entera'})
+    estado_id: number;
+    
+    @ManyToOne(type => EstadoCaso,{eager : true})
+    @JoinColumn({
+    name : 'estado_id',
+    referencedColumnName : 'id_estado'
+    })
+    estado : TipoProceso;
+    
 
    @Column({
     type: "int",
@@ -227,7 +286,11 @@ export class Caso {
             this.fecha_inicio = req.body.fecha_inicio;
             this.detalle = req.body.detalle;
             this.expediente_nro = req.body.expediente_nro;
-            this.contraparte_datos = req.body.contraparte_datos;
+            this.contraparte_nombre = req.body.contraparte_nombre;
+            this.contraparte_dni = req.body.contraparte_dni;
+            this.contraparte_dom_real = req.body.contraparte_dom_real;
+            this.contraparte_dom_proc = req.body.contraparte_dom_proc;
+            this.contraparte_telefono = req.body.contraparte_telefono;
             this.jurisdiccion_id = req.body.jurisdiccion_id;
             this.distrito_id = req.body.distrito_id;
             this.fuero_id = req.body.fuero_id;

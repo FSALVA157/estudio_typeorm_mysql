@@ -72,11 +72,11 @@ __decorate([
 __decorate([
     typeorm_1.Column({
         type: "varchar",
-        length: 14,
+        length: 20,
         nullable: true
     }),
     class_validator_1.IsOptional(),
-    class_validator_1.Length(7, 14, { message: 'El cuit o cuit debe tener entre $constraint1 y $constraint2 caracteres' }),
+    class_validator_1.Length(7, 20, { message: 'El cuit o cuit debe tener entre $constraint1 y $constraint2 caracteres' }),
     __metadata("design:type", String)
 ], Cliente.prototype, "cuit", void 0);
 __decorate([
@@ -138,11 +138,11 @@ __decorate([
 __decorate([
     typeorm_1.Column({
         type: "varchar",
-        length: 14,
+        length: 20,
         nullable: true
     }),
     class_validator_1.IsOptional(),
-    class_validator_1.Length(7, 14, { message: 'El dni o cuit debe tener entre $constraint1 y $constraint2 caracteres' }),
+    class_validator_1.Length(7, 20, { message: 'El dni debe tener entre $constraint1 y $constraint2 caracteres' }),
     __metadata("design:type", String)
 ], Cliente.prototype, "dni", void 0);
 __decorate([
