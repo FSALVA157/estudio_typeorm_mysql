@@ -7,6 +7,7 @@ const CaracterLetradoController_1 = require("../controller/CaracterLetradoContro
 const DistritoController_1 = require("../controller/DistritoController");
 const EstadoCasoController_1 = require("../controller/EstadoCasoController");
 const FueroController_1 = require("../controller/FueroController");
+const InstanciaController_1 = require("../controller/InstanciaController");
 exports.Routes = [{
         method: "get",
         route: "/usuarios",
@@ -220,6 +221,36 @@ exports.Routes = [{
         controller: FueroController_1.FueroController,
         action: "update",
         entity: "Fuero"
+    }, {
+        method: "get",
+        route: "/instancias",
+        controller: InstanciaController_1.InstanciaController,
+        action: "all",
+        entity: "Instancia"
+    }, {
+        method: "get",
+        route: "/instancias/:id",
+        controller: InstanciaController_1.InstanciaController,
+        action: "one",
+        entity: "Instancia"
+    }, {
+        method: "post",
+        route: "/instancias",
+        controller: InstanciaController_1.InstanciaController,
+        action: "save",
+        entity: "Instancia"
+    }, {
+        method: "delete",
+        route: "/instancias/:id",
+        controller: InstanciaController_1.InstanciaController,
+        action: "remove",
+        entity: "Instancia"
+    }, {
+        method: "put",
+        route: "/instancias/:id",
+        controller: InstanciaController_1.InstanciaController,
+        action: "update",
+        entity: "Instancia"
     }
 ];
 //# sourceMappingURL=routes.js.map
