@@ -13,7 +13,7 @@ export class TipoProceso {
         length: 50,
         unique:true
      })
-    @Length(3,50,{message:'El distrito debe tener entre $constraint1 y $constraint2 caracteres'})
+    @Length(3,50,{message:'El tipo de proceso debe tener entre $constraint1 y $constraint2 caracteres'})
     tipo_proceso: string;
 
         //constructor

@@ -29,7 +29,7 @@ __decorate([
         length: 50,
         unique: true
     }),
-    class_validator_1.Length(3, 50, { message: 'El distrito debe tener entre $constraint1 y $constraint2 caracteres' }),
+    class_validator_1.Length(3, 50, { message: 'El tipo de proceso debe tener entre $constraint1 y $constraint2 caracteres' }),
     __metadata("design:type", String)
 ], TipoProceso.prototype, "tipo_proceso", void 0);
 TipoProceso = __decorate([

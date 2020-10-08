@@ -10,6 +10,7 @@ const FueroController_1 = require("../controller/FueroController");
 const InstanciaController_1 = require("../controller/InstanciaController");
 const JuzgadoController_1 = require("../controller/JuzgadoController");
 const ObjetoController_1 = require("../controller/ObjetoController");
+const TipoProcesoController_1 = require("../controller/TipoProcesoController");
 exports.Routes = [{
         method: "get",
         route: "/usuarios",
@@ -313,6 +314,36 @@ exports.Routes = [{
         controller: ObjetoController_1.ObjetoController,
         action: "update",
         entity: "Objeto"
+    }, {
+        method: "get",
+        route: "/tipos",
+        controller: TipoProcesoController_1.TipoProcesoController,
+        action: "all",
+        entity: "TipoProceso"
+    }, {
+        method: "get",
+        route: "/tipos/:id",
+        controller: TipoProcesoController_1.TipoProcesoController,
+        action: "one",
+        entity: "TipoProceso"
+    }, {
+        method: "post",
+        route: "/tipos",
+        controller: TipoProcesoController_1.TipoProcesoController,
+        action: "save",
+        entity: "TipoProceso"
+    }, {
+        method: "delete",
+        route: "/tipos/:id",
+        controller: TipoProcesoController_1.TipoProcesoController,
+        action: "remove",
+        entity: "TipoProceso"
+    }, {
+        method: "put",
+        route: "/tipos/:id",
+        controller: TipoProcesoController_1.TipoProcesoController,
+        action: "update",
+        entity: "TipoProceso"
     }
 ];
 //# sourceMappingURL=routes.js.map
