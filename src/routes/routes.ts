@@ -6,6 +6,7 @@ import { DistritoController } from '../controller/DistritoController';
 import { EstadoCasoController } from '../controller/EstadoCasoController';
 import { FueroController } from '../controller/FueroController';
 import { InstanciaController } from '../controller/InstanciaController';
+import { JuzgadoController } from '../controller/JuzgadoController';
 
 export const Routes = [{
     method: "get",
@@ -250,5 +251,35 @@ export const Routes = [{
     controller: InstanciaController,
     action: "update",
     entity: "Instancia"
+},{
+    method: "get",
+    route: "/juzgados",
+    controller: JuzgadoController,
+    action: "all",
+    entity: "Juzgado"
+}, {
+    method: "get",
+    route: "/juzgados/:id",
+    controller: JuzgadoController,
+    action: "one",
+    entity: "Juzgado"
+}, {
+    method: "post",
+    route: "/juzgados",
+    controller: JuzgadoController,
+    action: "save",
+    entity: "Juzgado"
+}, {
+    method: "delete",
+    route: "/juzgados/:id",
+    controller: JuzgadoController,
+    action: "remove",
+    entity: "Juzgado"
+},{
+    method: "put",
+    route: "/juzgados/:id",
+    controller: JuzgadoController,
+    action: "update",
+    entity: "Juzgado"
 }
 ];

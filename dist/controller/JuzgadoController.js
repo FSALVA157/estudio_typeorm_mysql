@@ -9,10 +9,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
-const Instancia_1 = require("../entity/Instancia");
-class InstanciaController {
+const Juzgado_1 = require("../entity/Juzgado");
+class JuzgadoController {
     constructor() {
-        this.InstanciaRepository = typeorm_1.getRepository(Instancia_1.Instancia);
+        this.JuzgadoRepository = typeorm_1.getRepository(Juzgado_1.Juzgado);
     }
     all(request, response, next) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -22,8 +22,8 @@ class InstanciaController {
             if (request.query.fields) {
                 let reqFields = request.query.fields;
                 fields = reqFields.toString().split(",");
-                if (!fields.includes('id_instancia')) {
-                    fields.push('id_instancia');
+                if (!fields.includes('id_juzgado')) {
+                    fields.push('id_juzgado');
                 }
             }
             ;
@@ -73,8 +73,17 @@ class InstanciaController {
                     //const element = arreglo[campo];
                     let nombreCampo = campo.toString();
                     switch (nombreCampo) {
-                        case 'instancia':
+                        case 'juzgado':
                             cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
+                            break;
+                        case 'jurisdiccion_id':
+                            cond[nombreCampo] = Number(arreglo[campo]);
+                            break;
+                        case 'fuero_id':
+                            cond[nombreCampo] = Number(arreglo[campo]);
+                            break;
+                        case 'distrito_id':
+                            cond[nombreCampo] = Number(arreglo[campo]);
                             break;
                         default:
                             break;
@@ -85,7 +94,7 @@ class InstanciaController {
             if (fields != null) {
                 reglas = {
                     order: {
-                        id_instancia: "ASC"
+                        id_juzgado: "ASC"
                     },
                     select: fields,
                     skip: offset,
@@ -96,37 +105,37 @@ class InstanciaController {
             else {
                 reglas = {
                     order: {
-                        id_instancia: "ASC"
+                        id_juzgado: "ASC"
                     },
                     skip: offset,
                     take: limit,
                     where: cond
                 };
             }
-            return yield this.InstanciaRepository.find(reglas);
+            return yield this.JuzgadoRepository.find(reglas);
         });
     }
     one(request, response, next) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.InstanciaRepository.findOne(request.params.id);
+            return yield this.JuzgadoRepository.findOne(request.params.id);
         });
     }
     save(request, response, next) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.InstanciaRepository.save(request.body);
+            return yield this.JuzgadoRepository.save(request.body);
         });
     }
     remove(request, response, next) {
         return __awaiter(this, void 0, void 0, function* () {
-            let userToRemove = yield this.InstanciaRepository.findOne(request.params.id);
-            return yield this.InstanciaRepository.remove(userToRemove);
+            let userToRemove = yield this.JuzgadoRepository.findOne(request.params.id);
+            return yield this.JuzgadoRepository.remove(userToRemove);
         });
     }
     update(request, response, next) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.InstanciaRepository.update(request.params.id, request.body);
+            return yield this.JuzgadoRepository.update(request.params.id, request.body);
         });
     }
 }
-exports.InstanciaController = InstanciaController;
-//# sourceMappingURL=InstanciaController.js.map
+exports.JuzgadoController = JuzgadoController;
+//# sourceMappingURL=JuzgadoController.js.map

@@ -1,12 +1,12 @@
 import {getRepository,Like,Not,IsNull} from "typeorm";
 import {NextFunction, Request, Response} from "express";
-import { Instancia } from '../entity/Instancia';
+import { Juzgado } from '../entity/Juzgado';
 
 
 
-export class InstanciaController {
+export class JuzgadoController {
 
-    private InstanciaRepository = getRepository(Instancia);
+    private JuzgadoRepository = getRepository(Juzgado);
 
     async all(request: Request, response: Response, next: NextFunction) {
         let offset:number = Number(request.query.offset) || 0;
@@ -17,8 +17,8 @@ export class InstanciaController {
             let reqFields = request.query.fields;
             fields = reqFields.toString().split(",");
                        
-            if(!fields.includes('id_instancia')){
-                fields.push('id_instancia')
+            if(!fields.includes('id_juzgado')){
+                fields.push('id_juzgado')
             }
         
         };
@@ -74,8 +74,17 @@ export class InstanciaController {
                 //const element = arreglo[campo];
                 let nombreCampo = campo.toString();
                 switch (nombreCampo) {
-                    case 'instancia':
+                    case 'juzgado':
                         cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);  
+                        break;
+                    case 'jurisdiccion_id':
+                        cond[nombreCampo] = Number(arreglo[campo]);
+                        break;
+                    case 'fuero_id':
+                        cond[nombreCampo] = Number(arreglo[campo]);
+                        break;
+                    case 'distrito_id':
+                        cond[nombreCampo] = Number(arreglo[campo]);
                         break;
                                                            
                     default:
@@ -91,7 +100,7 @@ export class InstanciaController {
             reglas = {
                 
                 order:{
-                    id_instancia:"ASC"
+                    id_juzgado:"ASC"
                 },
                 select:fields,
                 skip:offset,
@@ -102,7 +111,7 @@ export class InstanciaController {
         }else{
             reglas = {
                 order:{
-                    id_instancia:"ASC"
+                    id_juzgado:"ASC"
                 },
                 skip:offset,
                 take:limit,
@@ -110,27 +119,27 @@ export class InstanciaController {
                };
         }
 
-           return await this.InstanciaRepository.find(reglas);     
+           return await this.JuzgadoRepository.find(reglas);     
        
     }
 
     async one(request: Request, response: Response, next: NextFunction) {
         
-        return await this.InstanciaRepository.findOne(request.params.id);
+        return await this.JuzgadoRepository.findOne(request.params.id);
     }
 
     async save(request: Request, response: Response, next: NextFunction) {
-        return await this.InstanciaRepository.save(request.body);
+        return await this.JuzgadoRepository.save(request.body);
     }
 
     async remove(request: Request, response: Response, next: NextFunction) {
-        let userToRemove = await this.InstanciaRepository.findOne(request.params.id);
-       return  await this.InstanciaRepository.remove(userToRemove);
+        let userToRemove = await this.JuzgadoRepository.findOne(request.params.id);
+       return  await this.JuzgadoRepository.remove(userToRemove);
     }
 
     async update(request: Request, response: Response, next: NextFunction) {
        
-        return await this.InstanciaRepository.update(request.params.id,request.body);
+        return await this.JuzgadoRepository.update(request.params.id,request.body);
     }
 
 }

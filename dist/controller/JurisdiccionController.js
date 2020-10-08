@@ -9,10 +9,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
-const Instancia_1 = require("../entity/Instancia");
-class InstanciaController {
+const Jurisdiccion_1 = require("../entity/Jurisdiccion");
+class JurisdiccionController {
     constructor() {
-        this.InstanciaRepository = typeorm_1.getRepository(Instancia_1.Instancia);
+        this.JurisdiccionRepository = typeorm_1.getRepository(Jurisdiccion_1.Jurisdiccion);
     }
     all(request, response, next) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -22,8 +22,8 @@ class InstanciaController {
             if (request.query.fields) {
                 let reqFields = request.query.fields;
                 fields = reqFields.toString().split(",");
-                if (!fields.includes('id_instancia')) {
-                    fields.push('id_instancia');
+                if (!fields.includes('id_jurisdiccion')) {
+                    fields.push('id_jurisdiccion');
                 }
             }
             ;
@@ -73,7 +73,7 @@ class InstanciaController {
                     //const element = arreglo[campo];
                     let nombreCampo = campo.toString();
                     switch (nombreCampo) {
-                        case 'instancia':
+                        case 'jurisdiccion':
                             cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
                             break;
                         default:
@@ -85,7 +85,7 @@ class InstanciaController {
             if (fields != null) {
                 reglas = {
                     order: {
-                        id_instancia: "ASC"
+                        id_jurisdiccion: "ASC"
                     },
                     select: fields,
                     skip: offset,
@@ -96,37 +96,37 @@ class InstanciaController {
             else {
                 reglas = {
                     order: {
-                        id_instancia: "ASC"
+                        id_jurisdiccion: "ASC"
                     },
                     skip: offset,
                     take: limit,
                     where: cond
                 };
             }
-            return yield this.InstanciaRepository.find(reglas);
+            return yield this.JurisdiccionRepository.find(reglas);
         });
     }
     one(request, response, next) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.InstanciaRepository.findOne(request.params.id);
+            return yield this.JurisdiccionRepository.findOne(request.params.id);
         });
     }
     save(request, response, next) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.InstanciaRepository.save(request.body);
+            return yield this.JurisdiccionRepository.save(request.body);
         });
     }
     remove(request, response, next) {
         return __awaiter(this, void 0, void 0, function* () {
-            let userToRemove = yield this.InstanciaRepository.findOne(request.params.id);
-            return yield this.InstanciaRepository.remove(userToRemove);
+            let userToRemove = yield this.JurisdiccionRepository.findOne(request.params.id);
+            return yield this.JurisdiccionRepository.remove(userToRemove);
         });
     }
     update(request, response, next) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.InstanciaRepository.update(request.params.id, request.body);
+            return yield this.JurisdiccionRepository.update(request.params.id, request.body);
         });
     }
 }
-exports.InstanciaController = InstanciaController;
-//# sourceMappingURL=InstanciaController.js.map
+exports.JurisdiccionController = JurisdiccionController;
+//# sourceMappingURL=JurisdiccionController.js.map
