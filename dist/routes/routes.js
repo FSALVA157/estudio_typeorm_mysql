@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const ClienteController_1 = require("../controller/ClienteController");
 const UsuarioController_1 = require("../controller/UsuarioController");
 const CasoController_1 = require("../controller/CasoController");
+const CaracterLetradoController_1 = require("../controller/CaracterLetradoController");
 exports.Routes = [{
         method: "get",
         route: "/usuarios",
@@ -95,6 +96,37 @@ exports.Routes = [{
         controller: CasoController_1.CasoController,
         action: "update",
         entity: "Caso"
+    },
+    {
+        method: "get",
+        route: "/caracter_let",
+        controller: CaracterLetradoController_1.CaracterLetradoController,
+        action: "all",
+        entity: "CaracterLetrado"
+    }, {
+        method: "get",
+        route: "/caracter_let/:id",
+        controller: CaracterLetradoController_1.CaracterLetradoController,
+        action: "one",
+        entity: "CaracterLetrado"
+    }, {
+        method: "post",
+        route: "/caracter_let",
+        controller: CaracterLetradoController_1.CaracterLetradoController,
+        action: "save",
+        entity: "CaracterLetrado"
+    }, {
+        method: "delete",
+        route: "/caracter_let/:id",
+        controller: CaracterLetradoController_1.CaracterLetradoController,
+        action: "remove",
+        entity: "CaracterLetrado"
+    }, {
+        method: "put",
+        route: "/caracter_let/:id",
+        controller: CaracterLetradoController_1.CaracterLetradoController,
+        action: "update",
+        entity: "CaracterLetrado"
     }
 ];
 //# sourceMappingURL=routes.js.map

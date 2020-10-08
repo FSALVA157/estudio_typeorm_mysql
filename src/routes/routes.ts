@@ -1,6 +1,7 @@
 import {ClienteController} from "../controller/ClienteController";
 import {UsuarioController} from "../controller/UsuarioController";
 import { CasoController } from '../controller/CasoController';
+import { CaracterLetradoController } from '../controller/CaracterLetradoController';
 
 export const Routes = [{
     method: "get",
@@ -94,5 +95,36 @@ export const Routes = [{
     controller: CasoController,
     action: "update",
     entity: "Caso"
+},
+{
+    method: "get",
+    route: "/caracter_let",
+    controller: CaracterLetradoController,
+    action: "all",
+    entity: "CaracterLetrado"
+}, {
+    method: "get",
+    route: "/caracter_let/:id",
+    controller: CaracterLetradoController,
+    action: "one",
+    entity: "CaracterLetrado"
+}, {
+    method: "post",
+    route: "/caracter_let",
+    controller: CaracterLetradoController,
+    action: "save",
+    entity: "CaracterLetrado"
+}, {
+    method: "delete",
+    route: "/caracter_let/:id",
+    controller: CaracterLetradoController,
+    action: "remove",
+    entity: "CaracterLetrado"
+},{
+    method: "put",
+    route: "/caracter_let/:id",
+    controller: CaracterLetradoController,
+    action: "update",
+    entity: "CaracterLetrado"
 }
 ];

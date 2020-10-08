@@ -27,7 +27,7 @@ export class CaracterLetrado {
     constructor(req?:any){
         if(req){
             this.caracter_let = req.body.caracter_let;
-           
+            this.clave_interna = req.body.clave_interna;
       }
 
     }
