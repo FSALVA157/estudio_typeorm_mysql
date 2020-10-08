@@ -16,6 +16,7 @@ let Distrito = class Distrito {
     constructor(req) {
         if (req) {
             this.distrito = req.body.distrito;
+            this.jurisdiccion_id = req.body.jurisdiccion_id;
         }
     }
 };

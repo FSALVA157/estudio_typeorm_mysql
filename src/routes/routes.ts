@@ -2,6 +2,7 @@ import {ClienteController} from "../controller/ClienteController";
 import {UsuarioController} from "../controller/UsuarioController";
 import { CasoController } from '../controller/CasoController';
 import { CaracterLetradoController } from '../controller/CaracterLetradoController';
+import { DistritoController } from '../controller/DistritoController';
 
 export const Routes = [{
     method: "get",
@@ -126,5 +127,35 @@ export const Routes = [{
     controller: CaracterLetradoController,
     action: "update",
     entity: "CaracterLetrado"
+},{
+    method: "get",
+    route: "/distrito",
+    controller: DistritoController,
+    action: "all",
+    entity: "Distrito"
+}, {
+    method: "get",
+    route: "/distrito/:id",
+    controller: DistritoController,
+    action: "one",
+    entity: "Distrito"
+}, {
+    method: "post",
+    route: "/distrito",
+    controller: DistritoController,
+    action: "save",
+    entity: "Distrito"
+}, {
+    method: "delete",
+    route: "/distrito/:id",
+    controller: DistritoController,
+    action: "remove",
+    entity: "Distrito"
+},{
+    method: "put",
+    route: "/distrito/:id",
+    controller: DistritoController,
+    action: "update",
+    entity: "Distrito"
 }
 ];

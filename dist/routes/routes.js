@@ -4,6 +4,7 @@ const ClienteController_1 = require("../controller/ClienteController");
 const UsuarioController_1 = require("../controller/UsuarioController");
 const CasoController_1 = require("../controller/CasoController");
 const CaracterLetradoController_1 = require("../controller/CaracterLetradoController");
+const DistritoController_1 = require("../controller/DistritoController");
 exports.Routes = [{
         method: "get",
         route: "/usuarios",
@@ -127,6 +128,36 @@ exports.Routes = [{
         controller: CaracterLetradoController_1.CaracterLetradoController,
         action: "update",
         entity: "CaracterLetrado"
+    }, {
+        method: "get",
+        route: "/distrito",
+        controller: DistritoController_1.DistritoController,
+        action: "all",
+        entity: "Distrito"
+    }, {
+        method: "get",
+        route: "/distrito/:id",
+        controller: DistritoController_1.DistritoController,
+        action: "one",
+        entity: "Distrito"
+    }, {
+        method: "post",
+        route: "/distrito",
+        controller: DistritoController_1.DistritoController,
+        action: "save",
+        entity: "Distrito"
+    }, {
+        method: "delete",
+        route: "/distrito/:id",
+        controller: DistritoController_1.DistritoController,
+        action: "remove",
+        entity: "Distrito"
+    }, {
+        method: "put",
+        route: "/distrito/:id",
+        controller: DistritoController_1.DistritoController,
+        action: "update",
+        entity: "Distrito"
     }
 ];
 //# sourceMappingURL=routes.js.map
