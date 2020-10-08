@@ -3,6 +3,7 @@ import {UsuarioController} from "../controller/UsuarioController";
 import { CasoController } from '../controller/CasoController';
 import { CaracterLetradoController } from '../controller/CaracterLetradoController';
 import { DistritoController } from '../controller/DistritoController';
+import { EstadoCasoController } from '../controller/EstadoCasoController';
 
 export const Routes = [{
     method: "get",
@@ -157,5 +158,35 @@ export const Routes = [{
     controller: DistritoController,
     action: "update",
     entity: "Distrito"
+},{
+    method: "get",
+    route: "/estados",
+    controller: EstadoCasoController,
+    action: "all",
+    entity: "EstadoCaso"
+}, {
+    method: "get",
+    route: "/estados/:id",
+    controller: EstadoCasoController,
+    action: "one",
+    entity: "EstadoCaso"
+}, {
+    method: "post",
+    route: "/estados",
+    controller: EstadoCasoController,
+    action: "save",
+    entity: "EstadoCaso"
+}, {
+    method: "delete",
+    route: "/estados/:id",
+    controller: EstadoCasoController,
+    action: "remove",
+    entity: "EstadoCaso"
+},{
+    method: "put",
+    route: "/estados/:id",
+    controller: EstadoCasoController,
+    action: "update",
+    entity: "EstadoCaso"
 }
 ];
