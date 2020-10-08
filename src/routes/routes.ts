@@ -4,6 +4,7 @@ import { CasoController } from '../controller/CasoController';
 import { CaracterLetradoController } from '../controller/CaracterLetradoController';
 import { DistritoController } from '../controller/DistritoController';
 import { EstadoCasoController } from '../controller/EstadoCasoController';
+import { FueroController } from '../controller/FueroController';
 
 export const Routes = [{
     method: "get",
@@ -188,5 +189,35 @@ export const Routes = [{
     controller: EstadoCasoController,
     action: "update",
     entity: "EstadoCaso"
+},{
+    method: "get",
+    route: "/fueros",
+    controller: FueroController,
+    action: "all",
+    entity: "Fuero"
+}, {
+    method: "get",
+    route: "/fueros/:id",
+    controller: FueroController,
+    action: "one",
+    entity: "Fuero"
+}, {
+    method: "post",
+    route: "/fueros",
+    controller: FueroController,
+    action: "save",
+    entity: "Fuero"
+}, {
+    method: "delete",
+    route: "/fueros/:id",
+    controller: FueroController,
+    action: "remove",
+    entity: "Fuero"
+},{
+    method: "put",
+    route: "/fueros/:id",
+    controller: FueroController,
+    action: "update",
+    entity: "Fuero"
 }
 ];
