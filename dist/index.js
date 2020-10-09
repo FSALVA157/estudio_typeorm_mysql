@@ -21,6 +21,16 @@ const Usuario_1 = require("./entity/Usuario");
 const Cliente_1 = require("./entity/Cliente");
 const Error400_1 = require("./errors/Error400");
 const Caso_1 = require("./entity/Caso");
+const CasoExtrajudicial_1 = require("./entity/CasoExtrajudicial");
+const ObjetoExtrajudicial_1 = require("./entity/ObjetoExtrajudicial");
+const TipoProceso_1 = require("./entity/TipoProceso");
+const Objeto_1 = require("./entity/Objeto");
+const Juzgado_1 = require("./entity/Juzgado");
+const Instancia_1 = require("./entity/Instancia");
+const Fuero_1 = require("./entity/Fuero");
+const EstadoCaso_1 = require("./entity/EstadoCaso");
+const Distrito_1 = require("./entity/Distrito");
+const CaracterLetrado_1 = require("./entity/CaracterLetrado");
 process.on('unhandledRejection', (error) => {
     console.log(error);
     throw error;
@@ -130,6 +140,96 @@ typeorm_1.createConnection(opciones).then((connection) => __awaiter(this, void 0
                             case 'Caso':
                                 //console.log(req);
                                 data = new Caso_1.Caso(req);
+                                if (req.body.id_caso) {
+                                    throw errorSobreescritura;
+                                }
+                                else {
+                                    break;
+                                }
+                            case 'CasoExtrajudicial':
+                                //console.log(req);
+                                data = new CasoExtrajudicial_1.CasoExtrajudicial(req);
+                                if (req.body.id_caso) {
+                                    throw errorSobreescritura;
+                                }
+                                else {
+                                    break;
+                                }
+                            case 'ObjetoExtrajudicial':
+                                //console.log(req);
+                                data = new ObjetoExtrajudicial_1.ObjetoExtrajudicial(req);
+                                if (req.body.id_caso) {
+                                    throw errorSobreescritura;
+                                }
+                                else {
+                                    break;
+                                }
+                            case 'TipoProceso':
+                                //console.log(req);
+                                data = new TipoProceso_1.TipoProceso(req);
+                                if (req.body.id_caso) {
+                                    throw errorSobreescritura;
+                                }
+                                else {
+                                    break;
+                                }
+                            case 'Objeto':
+                                //console.log(req);
+                                data = new Objeto_1.Objeto(req);
+                                if (req.body.id_caso) {
+                                    throw errorSobreescritura;
+                                }
+                                else {
+                                    break;
+                                }
+                            case 'Juzgado':
+                                //console.log(req);
+                                data = new Juzgado_1.Juzgado(req);
+                                if (req.body.id_caso) {
+                                    throw errorSobreescritura;
+                                }
+                                else {
+                                    break;
+                                }
+                            case 'Instancia':
+                                //console.log(req);
+                                data = new Instancia_1.Instancia(req);
+                                if (req.body.id_caso) {
+                                    throw errorSobreescritura;
+                                }
+                                else {
+                                    break;
+                                }
+                            case 'Fuero':
+                                //console.log(req);
+                                data = new Fuero_1.Fuero(req);
+                                if (req.body.id_caso) {
+                                    throw errorSobreescritura;
+                                }
+                                else {
+                                    break;
+                                }
+                            case 'EstadoCaso':
+                                //console.log(req);
+                                data = new EstadoCaso_1.EstadoCaso(req);
+                                if (req.body.id_caso) {
+                                    throw errorSobreescritura;
+                                }
+                                else {
+                                    break;
+                                }
+                            case 'Distrito':
+                                //console.log(req);
+                                data = new Distrito_1.Distrito(req);
+                                if (req.body.id_caso) {
+                                    throw errorSobreescritura;
+                                }
+                                else {
+                                    break;
+                                }
+                            case 'CaracterLetrado':
+                                //console.log(req);
+                                data = new CaracterLetrado_1.CaracterLetrado(req);
                                 if (req.body.id_caso) {
                                     throw errorSobreescritura;
                                 }

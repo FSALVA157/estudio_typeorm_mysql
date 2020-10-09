@@ -9,6 +9,8 @@ import { InstanciaController } from '../controller/InstanciaController';
 import { JuzgadoController } from '../controller/JuzgadoController';
 import { ObjetoController } from '../controller/ObjetoController';
 import { TipoProcesoController } from '../controller/TipoProcesoController';
+import { ObjetoExtraController } from '../controller/ObjetoExtraController';
+import { CasoExtraController } from '../controller/CasoExtraController';
 
 export const Routes = [{
     method: "get",
@@ -343,5 +345,65 @@ export const Routes = [{
     controller: TipoProcesoController,
     action: "update",
     entity: "TipoProceso"
+},{
+    method: "get",
+    route: "/objetos_extra",
+    controller: ObjetoExtraController,
+    action: "all",
+    entity: "ObjetoExtrajudicial"
+}, {
+    method: "get",
+    route: "/objetos_extra/:id",
+    controller: ObjetoExtraController,
+    action: "one",
+    entity: "ObjetoExtrajudicial"
+}, {
+    method: "post",
+    route: "/objetos_extra",
+    controller: ObjetoExtraController,
+    action: "save",
+    entity: "ObjetoExtrajudicial"
+}, {
+    method: "delete",
+    route: "/objetos_extra/:id",
+    controller: ObjetoExtraController,
+    action: "remove",
+    entity: "ObjetoExtrajudicial"
+},{
+    method: "put",
+    route: "/objetos_extra/:id",
+    controller: ObjetoExtraController,
+    action: "update",
+    entity: "ObjetoExtrajudicial"
+},{
+    method: "get",
+    route: "/casos_extra",
+    controller: CasoExtraController,
+    action: "all",
+    entity: "CasoExtrajudicial"
+}, {
+    method: "get",
+    route: "/casos_extra/:id",
+    controller: CasoExtraController,
+    action: "one",
+    entity: "CasoExtrajudicial"
+}, {
+    method: "post",
+    route: "/casos_extra",
+    controller: CasoExtraController,
+    action: "save",
+    entity: "CasoExtrajudicial"
+}, {
+    method: "delete",
+    route: "/casos_extra/:id",
+    controller: CasoExtraController,
+    action: "remove",
+    entity: "CasoExtrajudicial"
+},{
+    method: "put",
+    route: "/casos_extra/:id",
+    controller: CasoExtraController,
+    action: "update",
+    entity: "CasoExtrajudicial"
 }
 ];

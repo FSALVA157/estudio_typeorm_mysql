@@ -11,6 +11,8 @@ const InstanciaController_1 = require("../controller/InstanciaController");
 const JuzgadoController_1 = require("../controller/JuzgadoController");
 const ObjetoController_1 = require("../controller/ObjetoController");
 const TipoProcesoController_1 = require("../controller/TipoProcesoController");
+const ObjetoExtraController_1 = require("../controller/ObjetoExtraController");
+const CasoExtraController_1 = require("../controller/CasoExtraController");
 exports.Routes = [{
         method: "get",
         route: "/usuarios",
@@ -344,6 +346,66 @@ exports.Routes = [{
         controller: TipoProcesoController_1.TipoProcesoController,
         action: "update",
         entity: "TipoProceso"
+    }, {
+        method: "get",
+        route: "/objetos_extra",
+        controller: ObjetoExtraController_1.ObjetoExtraController,
+        action: "all",
+        entity: "ObjetoExtrajudicial"
+    }, {
+        method: "get",
+        route: "/objetos_extra/:id",
+        controller: ObjetoExtraController_1.ObjetoExtraController,
+        action: "one",
+        entity: "ObjetoExtrajudicial"
+    }, {
+        method: "post",
+        route: "/objetos_extra",
+        controller: ObjetoExtraController_1.ObjetoExtraController,
+        action: "save",
+        entity: "ObjetoExtrajudicial"
+    }, {
+        method: "delete",
+        route: "/objetos_extra/:id",
+        controller: ObjetoExtraController_1.ObjetoExtraController,
+        action: "remove",
+        entity: "ObjetoExtrajudicial"
+    }, {
+        method: "put",
+        route: "/objetos_extra/:id",
+        controller: ObjetoExtraController_1.ObjetoExtraController,
+        action: "update",
+        entity: "ObjetoExtrajudicial"
+    }, {
+        method: "get",
+        route: "/casos_extra",
+        controller: CasoExtraController_1.CasoExtraController,
+        action: "all",
+        entity: "CasoExtrajudicial"
+    }, {
+        method: "get",
+        route: "/casos_extra/:id",
+        controller: CasoExtraController_1.CasoExtraController,
+        action: "one",
+        entity: "CasoExtrajudicial"
+    }, {
+        method: "post",
+        route: "/casos_extra",
+        controller: CasoExtraController_1.CasoExtraController,
+        action: "save",
+        entity: "CasoExtrajudicial"
+    }, {
+        method: "delete",
+        route: "/casos_extra/:id",
+        controller: CasoExtraController_1.CasoExtraController,
+        action: "remove",
+        entity: "CasoExtrajudicial"
+    }, {
+        method: "put",
+        route: "/casos_extra/:id",
+        controller: CasoExtraController_1.CasoExtraController,
+        action: "update",
+        entity: "CasoExtrajudicial"
     }
 ];
 //# sourceMappingURL=routes.js.map

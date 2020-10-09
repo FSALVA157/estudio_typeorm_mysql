@@ -9,10 +9,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
-const Caso_1 = require("../entity/Caso");
-class CasoController {
+const CasoExtrajudicial_1 = require("../entity/CasoExtrajudicial");
+class CasoExtraController {
     constructor() {
-        this.casoRepository = typeorm_1.getRepository(Caso_1.Caso);
+        this.casoExtraRepository = typeorm_1.getRepository(CasoExtrajudicial_1.CasoExtrajudicial);
     }
     all(request, response, next) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -23,8 +23,8 @@ class CasoController {
             if (request.query.fields) {
                 let reqFields = request.query.fields;
                 fields = reqFields.toString().split(",");
-                if (!fields.includes('id_caso')) {
-                    fields.push('id_caso');
+                if (!fields.includes('id_caso_ext')) {
+                    fields.push('id_caso_ext');
                 }
                 // if(!fields.includes('apellido')){
                 //     fields.push('apellido')
@@ -77,13 +77,13 @@ class CasoController {
                     //const element = arreglo[campo];
                     let nombreCampo = campo.toString();
                     switch (nombreCampo) {
-                        case 'id_caso':
+                        case 'id_caso_ext':
                             cond[nombreCampo] = Number(arreglo[campo]);
                             break;
                         case 'cliente_id':
                             cond[nombreCampo] = Number(arreglo[campo]);
                             break;
-                        case 'fecha_inicio':
+                        case 'fecha_tramite':
                             cond[nombreCampo] = ExpresionAvanzadaFechas(arreglo[campo]);
                             break;
                         case 'detalle':
@@ -92,61 +92,31 @@ class CasoController {
                         case 'expediente_nro':
                             cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
                             break;
-                        case 'contraparte_nombre':
-                            cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
-                            break;
                         case 'contraparte_dni':
                             cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
                             break;
-                        case 'contraparte_dom_real':
-                            cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
-                            break;
-                        case 'contraparte_dom_procesal':
+                        case 'contraparte_domicilio':
                             cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
                             break;
                         case 'contraparte_telefono':
                             cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
                             break;
-                        case 'jurisdiccion_id':
+                        case 'materia_id':
                             cond[nombreCampo] = Number(arreglo[campo]);
                             break;
-                        case 'distrito_id':
+                        case 'objeto_ext_id':
                             cond[nombreCampo] = Number(arreglo[campo]);
                             break;
-                        case 'fuero_id':
-                            cond[nombreCampo] = Number(arreglo[campo]);
-                            break;
-                        case 'juzgado_id':
-                            cond[nombreCampo] = Number(arreglo[campo]);
-                            break;
-                        case 'caracter_letrado_id':
-                            cond[nombreCampo] = Number(arreglo[campo]);
-                            break;
-                        case 'caracter_cliente_id':
-                            cond[nombreCampo] = Number(arreglo[campo]);
-                            break;
-                        case 'mesa':
+                        case 'mediador':
                             cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
                             break;
-                        case 'objeto_id':
-                            cond[nombreCampo] = Number(arreglo[campo]);
-                            break;
-                        case 'tipo_proceso_id':
-                            cond[nombreCampo] = Number(arreglo[campo]);
-                            break;
-                        case 'instancia_id':
-                            cond[nombreCampo] = Number(arreglo[campo]);
-                            break;
-                        case 'caratula':
+                        case 'mediacion_domicilio':
                             cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
                             break;
-                        case 'estado_id':
-                            cond[nombreCampo] = Number(arreglo[campo]);
+                        case 'mediador_telefono':
+                            cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
                             break;
-                        case 'etapa':
-                            cond[nombreCampo] = Number(arreglo[campo]);
-                            break;
-                        case 'fecha_fin':
+                        case 'fecha_audiencia':
                             cond[nombreCampo] = ExpresionAvanzadaFechas(arreglo[campo]);
                             break;
                         default:
@@ -158,7 +128,7 @@ class CasoController {
             if (fields != null) {
                 reglas = {
                     order: {
-                        id_caso: "ASC"
+                        id_caso_ext: "ASC"
                     },
                     select: fields,
                     skip: offset,
@@ -169,38 +139,38 @@ class CasoController {
             else {
                 reglas = {
                     order: {
-                        id_caso: "ASC"
+                        id_caso_ext: "ASC"
                     },
                     skip: offset,
                     take: limit,
                     where: cond
                 };
             }
-            return yield this.casoRepository.find(reglas);
+            return yield this.casoExtraRepository.find(reglas);
         });
     }
     one(request, response, next) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.casoRepository.findOne(request.params.id);
+            return yield this.casoExtraRepository.findOne(request.params.id);
         });
     }
     save(request, response, next) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.casoRepository.save(request.body);
+            return yield this.casoExtraRepository.save(request.body);
         });
     }
     remove(request, response, next) {
         return __awaiter(this, void 0, void 0, function* () {
-            let userToRemove = yield this.casoRepository.findOne(request.params.id);
-            return yield this.casoRepository.remove(userToRemove);
+            let userToRemove = yield this.casoExtraRepository.findOne(request.params.id);
+            return yield this.casoExtraRepository.remove(userToRemove);
         });
     }
     update(request, response, next) {
         return __awaiter(this, void 0, void 0, function* () {
             //const nuevoUsuario = this.userRepository.create();
-            return yield this.casoRepository.update(request.params.id, request.body);
+            return yield this.casoExtraRepository.update(request.params.id, request.body);
         });
     }
 }
-exports.CasoController = CasoController;
-//# sourceMappingURL=CasoController.js.map
+exports.CasoExtraController = CasoExtraController;
+//# sourceMappingURL=CasoExtraController.js.map

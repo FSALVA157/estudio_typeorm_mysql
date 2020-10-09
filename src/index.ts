@@ -12,6 +12,16 @@ import { Usuario } from './entity/Usuario';
 import { Cliente } from './entity/Cliente';
 import { Error400 } from './errors/Error400';
 import { Caso } from './entity/Caso';
+import { CasoExtrajudicial } from './entity/CasoExtrajudicial';
+import { ObjetoExtrajudicial } from './entity/ObjetoExtrajudicial';
+import { TipoProceso } from './entity/TipoProceso';
+import { Objeto } from './entity/Objeto';
+import { Juzgado } from './entity/Juzgado';
+import { Instancia } from './entity/Instancia';
+import { Fuero } from './entity/Fuero';
+import { EstadoCaso } from './entity/EstadoCaso';
+import { Distrito } from './entity/Distrito';
+import { CaracterLetrado } from './entity/CaracterLetrado';
 
 
 
@@ -161,7 +171,98 @@ var opciones:ConnectionOptions;
                                                         break;
     
                                                     }
-                                        
+                                            case 'CasoExtrajudicial':
+                                                    //console.log(req);
+                                                    data = new CasoExtrajudicial(req);
+                                                    if(req.body.id_caso){
+                                                        throw errorSobreescritura;
+                                                        }else{
+                                                            break;
+        
+                                                        }
+                                            case 'ObjetoExtrajudicial':
+                                                //console.log(req);
+                                                data = new ObjetoExtrajudicial(req);
+                                                if(req.body.id_caso){
+                                                    throw errorSobreescritura;
+                                                    }else{
+                                                        break;
+    
+                                                    }
+                                            case 'TipoProceso':
+                                                //console.log(req);
+                                                data = new TipoProceso(req);
+                                                if(req.body.id_caso){
+                                                    throw errorSobreescritura;
+                                                    }else{
+                                                        break;
+    
+                                                    }
+                                            case 'Objeto':
+                                                //console.log(req);
+                                                data = new Objeto(req);
+                                                if(req.body.id_caso){
+                                                    throw errorSobreescritura;
+                                                    }else{
+                                                        break;
+    
+                                                    }
+                                            case 'Juzgado':
+                                                //console.log(req);
+                                                data = new Juzgado(req);
+                                                if(req.body.id_caso){
+                                                    throw errorSobreescritura;
+                                                    }else{
+                                                        break;
+    
+                                                    }
+                                            case 'Instancia':
+                                                //console.log(req);
+                                                data = new Instancia(req);
+                                                if(req.body.id_caso){
+                                                    throw errorSobreescritura;
+                                                    }else{
+                                                        break;
+    
+                                                    }
+                                            case 'Fuero':
+                                                //console.log(req);
+                                                data = new Fuero(req);
+                                                if(req.body.id_caso){
+                                                    throw errorSobreescritura;
+                                                    }else{
+                                                        break;
+    
+                                                    }
+                                            case 'EstadoCaso':
+                                                //console.log(req);
+                                                data = new EstadoCaso(req);
+                                                if(req.body.id_caso){
+                                                    throw errorSobreescritura;
+                                                    }else{
+                                                        break;
+    
+                                                    }
+                                            case 'Distrito':
+                                                //console.log(req);
+                                                data = new Distrito(req);
+                                                if(req.body.id_caso){
+                                                    throw errorSobreescritura;
+                                                    }else{
+                                                        break;
+    
+                                                    }
+                                            case 'CaracterLetrado':
+                                                //console.log(req);
+                                                data = new CaracterLetrado(req);
+                                                if(req.body.id_caso){
+                                                    throw errorSobreescritura;
+                                                    }else{
+                                                        break;
+    
+                                                    }
+                                            
+                                
                                             default:
                                                 break;
                                         };
