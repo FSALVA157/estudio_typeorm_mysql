@@ -97,7 +97,7 @@ export class CasoExtrajudicial {
     //relacion con tabla fuero
     @ManyToOne(type => Fuero,{eager:true})
     @JoinColumn({
-        name : 'fuero_id',
+        name : 'materia_id',
         referencedColumnName: 'id_fuero'
     })
     materia : Fuero;
