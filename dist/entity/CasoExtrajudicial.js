@@ -76,8 +76,7 @@ __decorate([
     typeorm_1.Column({
         type: "varchar",
         length: 30,
-        nullable: true,
-        unique: true
+        nullable: true
     }),
     class_validator_1.IsOptional(),
     class_validator_1.Length(5, 30, { message: 'El numero de expediente debe tener entre $constraint1 y $constraint2 caracteres' }),
@@ -135,7 +134,7 @@ __decorate([
 __decorate([
     typeorm_1.ManyToOne(type => Fuero_1.Fuero, { eager: true }),
     typeorm_1.JoinColumn({
-        name: 'fuero_id',
+        name: 'materia_id',
         referencedColumnName: 'id_fuero'
     }),
     __metadata("design:type", Fuero_1.Fuero)
@@ -163,7 +162,7 @@ __decorate([
         length: 100,
         nullable: true
     }),
-    class_validator_1.Length(10, 50, { message: 'El mediador es un texto que debe tener entre $constraint1 y $constraint2 caracteres' }),
+    class_validator_1.Length(10, 100, { message: 'El mediador es un texto que debe tener entre $constraint1 y $constraint2 caracteres' }),
     class_validator_1.IsOptional(),
     __metadata("design:type", String)
 ], CasoExtrajudicial.prototype, "mediador", void 0);
@@ -173,7 +172,7 @@ __decorate([
         length: 100,
         nullable: true
     }),
-    class_validator_1.Length(10, 50, { message: 'El lugar de mediación es un texto que debe tener entre $constraint1 y $constraint2 caracteres' }),
+    class_validator_1.Length(10, 100, { message: 'El lugar de mediación es un texto que debe tener entre $constraint1 y $constraint2 caracteres' }),
     class_validator_1.IsOptional(),
     __metadata("design:type", String)
 ], CasoExtrajudicial.prototype, "mediacion_domicilio", void 0);

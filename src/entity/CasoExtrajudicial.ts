@@ -43,8 +43,7 @@ export class CasoExtrajudicial {
     @Column({
         type: "varchar",
         length: 30,
-        nullable: true,
-        unique:true
+        nullable: true
          })
     @IsOptional()
     @Length(5,30,{message:'El numero de expediente debe tener entre $constraint1 y $constraint2 caracteres'})
@@ -123,7 +122,7 @@ export class CasoExtrajudicial {
         length: 100,
         nullable: true
            })
-    @Length(10,50,{message:'El mediador es un texto que debe tener entre $constraint1 y $constraint2 caracteres'})
+    @Length(10,100,{message:'El mediador es un texto que debe tener entre $constraint1 y $constraint2 caracteres'})
     @IsOptional()
     mediador: string;
 
@@ -132,7 +131,7 @@ export class CasoExtrajudicial {
         length: 100,
         nullable: true
            })
-    @Length(10,50,{message:'El lugar de mediación es un texto que debe tener entre $constraint1 y $constraint2 caracteres'})
+    @Length(10,100,{message:'El lugar de mediación es un texto que debe tener entre $constraint1 y $constraint2 caracteres'})
     @IsOptional()
     mediacion_domicilio: string;
 

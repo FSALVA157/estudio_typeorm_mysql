@@ -238,7 +238,7 @@ export class Caso {
         length: 100,
         nullable: true
            })
-   @Length(10,50,{message:'La caratula debe tener entre $constraint1 y $constraint2 caracteres'})
+   @Length(10,100,{message:'La caratula debe tener entre $constraint1 y $constraint2 caracteres'})
    @IsOptional()
    caratula: string;
 

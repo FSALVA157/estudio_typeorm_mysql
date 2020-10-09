@@ -297,7 +297,7 @@ __decorate([
         length: 100,
         nullable: true
     }),
-    class_validator_1.Length(10, 50, { message: 'La caratula debe tener entre $constraint1 y $constraint2 caracteres' }),
+    class_validator_1.Length(10, 100, { message: 'La caratula debe tener entre $constraint1 y $constraint2 caracteres' }),
     class_validator_1.IsOptional(),
     __metadata("design:type", String)
 ], Caso.prototype, "caratula", void 0);

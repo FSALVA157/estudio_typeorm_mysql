@@ -16,6 +16,7 @@ let TipoProceso = class TipoProceso {
     constructor(req) {
         if (req) {
             this.tipo_proceso = req.body.tipo_proceso;
+            this.etapas = req.body.etapas;
         }
     }
 };
@@ -32,6 +33,10 @@ __decorate([
     class_validator_1.Length(3, 50, { message: 'El tipo de proceso debe tener entre $constraint1 y $constraint2 caracteres' }),
     __metadata("design:type", String)
 ], TipoProceso.prototype, "tipo_proceso", void 0);
+__decorate([
+    typeorm_1.Column("simple-array"),
+    __metadata("design:type", Array)
+], TipoProceso.prototype, "etapas", void 0);
 TipoProceso = __decorate([
     typeorm_1.Entity(),
     __metadata("design:paramtypes", [Object])
