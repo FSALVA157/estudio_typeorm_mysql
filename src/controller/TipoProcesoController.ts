@@ -77,6 +77,9 @@ export class TipoProcesoController {
                     case 'tipo_proceso':
                         cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);  
                         break;
+                    case 'etapas':
+                        cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);  
+                        break;
                   
                     
                                                            

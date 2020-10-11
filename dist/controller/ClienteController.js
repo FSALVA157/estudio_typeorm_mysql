@@ -148,8 +148,9 @@ class ClienteController {
             let reglas;
             if (fields != null) {
                 reglas = {
+                    relations: ["casos"],
                     order: {
-                        id_cliente: "ASC"
+                        id_cliente: "ASC",
                     },
                     select: fields,
                     skip: offset,
@@ -159,8 +160,9 @@ class ClienteController {
             }
             else {
                 reglas = {
+                    relations: ["casos"],
                     order: {
-                        id_cliente: "ASC"
+                        id_cliente: "ASC",
                     },
                     skip: offset,
                     take: limit,

@@ -1,13 +1,18 @@
-import {Entity, PrimaryGeneratedColumn, Column,ManyToOne, JoinColumn} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column,ManyToOne, JoinColumn, OneToMany} from "typeorm";
 import{IsInt, Min, Length, IsAlphanumeric, MinLength, IsEmail,  IsOptional, IsISO8601, Matches} from 'class-validator';
 import {Transform} from 'class-transformer';
 import { CategoriaCliente } from './CategoriaCliente';
+import { Caso } from './Caso';
+
 
 @Entity()
 export class Cliente {
     
     @PrimaryGeneratedColumn()
     id_cliente: number;
+
+    @OneToMany(type => Caso,caso => caso.cliente)
+    casos : Caso[];
     
     @Column({
         type: "int"
