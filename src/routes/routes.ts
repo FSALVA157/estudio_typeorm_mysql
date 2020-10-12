@@ -443,31 +443,31 @@ export const Routes = [{
     route: "/movimientos",
     controller: MovimientoCasoController,
     action: "all",
-    entity: "MovimientoController"
+    entity: "MovimientoCaso"
 }, {
     method: "get",
     route: "/movimientos/:id",
     controller: MovimientoCasoController,
     action: "one",
-    entity: "MovimientoController"
+    entity: "MovimientoCaso"
 }, {
     method: "post",
     route: "/movimientos",
     controller: MovimientoCasoController,
     action: "save",
-    entity: "MovimientoController"
+    entity: "MovimientoCaso"
 }, {
     method: "delete",
     route: "/movimientos/:id",
     controller: MovimientoCasoController,
     action: "remove",
-    entity: "MovimientoController"
+    entity: "MovimientoCaso"
 },{
     method: "put",
     route: "/movimientos/:id",
     controller: MovimientoCasoController,
     action: "update",
-    entity: "MovimientoController"
+    entity: "MovimientoCaso"
 },{
     method: "get",
     route: "/tipos_mov",
