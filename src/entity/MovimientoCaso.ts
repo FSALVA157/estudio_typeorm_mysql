@@ -62,7 +62,7 @@ export class MovimientoCaso {
     //constructor
     constructor(req?:any){
         if(req){
-            this.tipo = req.body.tipo;
+            this.caso_id = req.body.caso_id;
             this.detalle = req.body.detalle;
             this.fecha = req.body.fecha;
             this.tipo_mov_id = req.body.tipo_mov_id;

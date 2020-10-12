@@ -11,10 +11,8 @@ export class TipoMovimiento {
     @Column({
         type: "varchar",
         length: 50,
-        nullable: true
-         })
-    @IsOptional()
-    @Length(5,50,{message:'El tipo de momviento debe tener entre $constraint1 y $constraint2 caracteres'})
+            })
+    @Length(2,50,{message:'El tipo de momviento debe tener entre $constraint1 y $constraint2 caracteres'})
     tipo_movimiento: string;
 
         //constructor
