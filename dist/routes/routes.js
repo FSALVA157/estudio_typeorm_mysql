@@ -444,31 +444,31 @@ exports.Routes = [{
         route: "/movimientos",
         controller: MovimientoCasoController_1.MovimientoCasoController,
         action: "all",
-        entity: "MovimientoController"
+        entity: "MovimientoCaso"
     }, {
         method: "get",
         route: "/movimientos/:id",
         controller: MovimientoCasoController_1.MovimientoCasoController,
         action: "one",
-        entity: "MovimientoController"
+        entity: "MovimientoCaso"
     }, {
         method: "post",
         route: "/movimientos",
         controller: MovimientoCasoController_1.MovimientoCasoController,
         action: "save",
-        entity: "MovimientoController"
+        entity: "MovimientoCaso"
     }, {
         method: "delete",
         route: "/movimientos/:id",
         controller: MovimientoCasoController_1.MovimientoCasoController,
         action: "remove",
-        entity: "MovimientoController"
+        entity: "MovimientoCaso"
     }, {
         method: "put",
         route: "/movimientos/:id",
         controller: MovimientoCasoController_1.MovimientoCasoController,
         action: "update",
-        entity: "MovimientoController"
+        entity: "MovimientoCaso"
     }, {
         method: "get",
         route: "/tipos_mov",

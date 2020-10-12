@@ -1,4 +1,4 @@
-import {Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn} from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, OneToMany } from 'typeorm';
 import{IsInt, Length,  IsOptional, IsISO8601, Matches, MinLength} from 'class-validator';
 import {Transform} from 'class-transformer';
 import { Jurisdiccion } from './Jurisdiccion';
@@ -10,12 +10,16 @@ import { Cliente } from './Cliente';
 import { TipoProceso } from './TipoProceso';
 import { EstadoCaso } from './EstadoCaso';
 import { Instancia } from './Instancia';
+import { MovimientoCaso } from './MovimientoCaso';
 
 @Entity()
 export class Caso {
 
     @PrimaryGeneratedColumn()
     id_caso: number;
+
+    @OneToMany(type => MovimientoCaso,movimiento => movimiento.caso)
+    movimientos : MovimientoCaso[];
 
     @Column({
         type: "int",

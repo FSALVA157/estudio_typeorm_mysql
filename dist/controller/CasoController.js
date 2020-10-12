@@ -157,8 +157,9 @@ class CasoController {
             let reglas;
             if (fields != null) {
                 reglas = {
+                    relations: ["movimientos"],
                     order: {
-                        id_caso: "ASC"
+                        id_caso: "ASC",
                     },
                     select: fields,
                     skip: offset,
@@ -168,8 +169,9 @@ class CasoController {
             }
             else {
                 reglas = {
+                    relations: ["movimientos"],
                     order: {
-                        id_caso: "ASC"
+                        id_caso: "ASC",
                     },
                     skip: offset,
                     take: limit,

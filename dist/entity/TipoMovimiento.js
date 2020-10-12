@@ -27,10 +27,8 @@ __decorate([
     typeorm_1.Column({
         type: "varchar",
         length: 50,
-        nullable: true
     }),
-    class_validator_1.IsOptional(),
-    class_validator_1.Length(5, 50, { message: 'El tipo de momviento debe tener entre $constraint1 y $constraint2 caracteres' }),
+    class_validator_1.Length(2, 50, { message: 'El tipo de momviento debe tener entre $constraint1 y $constraint2 caracteres' }),
     __metadata("design:type", String)
 ], TipoMovimiento.prototype, "tipo_movimiento", void 0);
 TipoMovimiento = __decorate([
