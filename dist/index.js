@@ -31,6 +31,9 @@ const Fuero_1 = require("./entity/Fuero");
 const EstadoCaso_1 = require("./entity/EstadoCaso");
 const Distrito_1 = require("./entity/Distrito");
 const CaracterLetrado_1 = require("./entity/CaracterLetrado");
+const CategoriaCliente_1 = require("./entity/CategoriaCliente");
+const MovimientoCaso_1 = require("./entity/MovimientoCaso");
+const TipoMovimiento_1 = require("./entity/TipoMovimiento");
 process.on('unhandledRejection', (error) => {
     console.log(error);
     throw error;
@@ -230,6 +233,33 @@ typeorm_1.createConnection(opciones).then((connection) => __awaiter(this, void 0
                             case 'CaracterLetrado':
                                 //console.log(req);
                                 data = new CaracterLetrado_1.CaracterLetrado(req);
+                                if (req.body.id_caso) {
+                                    throw errorSobreescritura;
+                                }
+                                else {
+                                    break;
+                                }
+                            case 'CategoriaCliente':
+                                //console.log(req);
+                                data = new CategoriaCliente_1.CategoriaCliente(req);
+                                if (req.body.id_caso) {
+                                    throw errorSobreescritura;
+                                }
+                                else {
+                                    break;
+                                }
+                            case 'MovimientoCaso':
+                                //console.log(req);
+                                data = new MovimientoCaso_1.MovimientoCaso(req);
+                                if (req.body.id_caso) {
+                                    throw errorSobreescritura;
+                                }
+                                else {
+                                    break;
+                                }
+                            case 'TipoMovimiento':
+                                //console.log(req);
+                                data = new TipoMovimiento_1.TipoMovimiento(req);
                                 if (req.body.id_caso) {
                                     throw errorSobreescritura;
                                 }

@@ -11,6 +11,9 @@ import { ObjetoController } from '../controller/ObjetoController';
 import { TipoProcesoController } from '../controller/TipoProcesoController';
 import { ObjetoExtraController } from '../controller/ObjetoExtraController';
 import { CasoExtraController } from '../controller/CasoExtraController';
+import { CategoriaClienteController } from '../controller/CategoriaClienteController';
+import { MovimientoCasoController } from '../controller/MovimientoCasoController';
+import { TipoMovimientoController } from '../controller/TipoMovimientoController';
 
 export const Routes = [{
     method: "get",
@@ -405,5 +408,95 @@ export const Routes = [{
     controller: CasoExtraController,
     action: "update",
     entity: "CasoExtrajudicial"
+},{
+    method: "get",
+    route: "/categorias_cli",
+    controller: CategoriaClienteController,
+    action: "all",
+    entity: "CategoriaCliente"
+}, {
+    method: "get",
+    route: "/categorias_cli/:id",
+    controller: CategoriaClienteController,
+    action: "one",
+    entity: "CategoriaCliente"
+}, {
+    method: "post",
+    route: "/categorias_cli",
+    controller: CategoriaClienteController,
+    action: "save",
+    entity: "CategoriaCliente"
+}, {
+    method: "delete",
+    route: "/categorias_cli/:id",
+    controller: CategoriaClienteController,
+    action: "remove",
+    entity: "CategoriaCliente"
+},{
+    method: "put",
+    route: "/categorias_cli/:id",
+    controller: CategoriaClienteController,
+    action: "update",
+    entity: "CategoriaCliente"
+},{
+    method: "get",
+    route: "/movimientos",
+    controller: MovimientoCasoController,
+    action: "all",
+    entity: "MovimientoController"
+}, {
+    method: "get",
+    route: "/movimientos/:id",
+    controller: MovimientoCasoController,
+    action: "one",
+    entity: "MovimientoController"
+}, {
+    method: "post",
+    route: "/movimientos",
+    controller: MovimientoCasoController,
+    action: "save",
+    entity: "MovimientoController"
+}, {
+    method: "delete",
+    route: "/movimientos/:id",
+    controller: MovimientoCasoController,
+    action: "remove",
+    entity: "MovimientoController"
+},{
+    method: "put",
+    route: "/movimientos/:id",
+    controller: MovimientoCasoController,
+    action: "update",
+    entity: "MovimientoController"
+},{
+    method: "get",
+    route: "/tipos_mov",
+    controller: TipoMovimientoController,
+    action: "all",
+    entity: "TipoMovimiento"
+}, {
+    method: "get",
+    route: "tipos_movmovimientos/:id",
+    controller:TipoMovimientoController,
+    action: "one",
+    entity: "TipoMovimiento"
+}, {
+    method: "post",
+    route: "/tipos_mov",
+    controller: TipoMovimientoController,
+    action: "save",
+    entity: "TipoMovimiento"
+}, {
+    method: "delete",
+    route: "/tipos_mov/:id",
+    controller: TipoMovimientoController,
+    action: "remove",
+    entity: "TipoMovimiento"
+},{
+    method: "put",
+    route: "/tipos_mov/:id",
+    controller: TipoMovimientoController,
+    action: "update",
+    entity: "TipoMovimiento"
 }
 ];

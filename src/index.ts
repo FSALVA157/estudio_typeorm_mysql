@@ -22,6 +22,9 @@ import { Fuero } from './entity/Fuero';
 import { EstadoCaso } from './entity/EstadoCaso';
 import { Distrito } from './entity/Distrito';
 import { CaracterLetrado } from './entity/CaracterLetrado';
+import { CategoriaCliente } from './entity/CategoriaCliente';
+import { MovimientoCaso } from './entity/MovimientoCaso';
+import { TipoMovimiento } from './entity/TipoMovimiento';
 
 
 
@@ -261,7 +264,33 @@ var opciones:ConnectionOptions;
                                                         break;
     
                                                     }
-                                            
+                                            case 'CategoriaCliente':
+                                                //console.log(req);
+                                                data = new CategoriaCliente(req);
+                                                if(req.body.id_caso){
+                                                    throw errorSobreescritura;
+                                                    }else{
+                                                        break;
+    
+                                                    }
+                                            case 'MovimientoCaso':
+                                                //console.log(req);
+                                                data = new MovimientoCaso(req);
+                                                if(req.body.id_caso){
+                                                    throw errorSobreescritura;
+                                                    }else{
+                                                        break;
+    
+                                                    }
+                                            case 'TipoMovimiento':
+                                                //console.log(req);
+                                                data = new TipoMovimiento(req);
+                                                if(req.body.id_caso){
+                                                    throw errorSobreescritura;
+                                                    }else{
+                                                        break;
+    
+                                                    }
                                 
                                             default:
                                                 break;

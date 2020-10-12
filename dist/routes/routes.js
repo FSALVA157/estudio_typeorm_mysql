@@ -13,6 +13,9 @@ const ObjetoController_1 = require("../controller/ObjetoController");
 const TipoProcesoController_1 = require("../controller/TipoProcesoController");
 const ObjetoExtraController_1 = require("../controller/ObjetoExtraController");
 const CasoExtraController_1 = require("../controller/CasoExtraController");
+const CategoriaClienteController_1 = require("../controller/CategoriaClienteController");
+const MovimientoCasoController_1 = require("../controller/MovimientoCasoController");
+const TipoMovimientoController_1 = require("../controller/TipoMovimientoController");
 exports.Routes = [{
         method: "get",
         route: "/usuarios",
@@ -406,6 +409,96 @@ exports.Routes = [{
         controller: CasoExtraController_1.CasoExtraController,
         action: "update",
         entity: "CasoExtrajudicial"
+    }, {
+        method: "get",
+        route: "/categorias_cli",
+        controller: CategoriaClienteController_1.CategoriaClienteController,
+        action: "all",
+        entity: "CategoriaCliente"
+    }, {
+        method: "get",
+        route: "/categorias_cli/:id",
+        controller: CategoriaClienteController_1.CategoriaClienteController,
+        action: "one",
+        entity: "CategoriaCliente"
+    }, {
+        method: "post",
+        route: "/categorias_cli",
+        controller: CategoriaClienteController_1.CategoriaClienteController,
+        action: "save",
+        entity: "CategoriaCliente"
+    }, {
+        method: "delete",
+        route: "/categorias_cli/:id",
+        controller: CategoriaClienteController_1.CategoriaClienteController,
+        action: "remove",
+        entity: "CategoriaCliente"
+    }, {
+        method: "put",
+        route: "/categorias_cli/:id",
+        controller: CategoriaClienteController_1.CategoriaClienteController,
+        action: "update",
+        entity: "CategoriaCliente"
+    }, {
+        method: "get",
+        route: "/movimientos",
+        controller: MovimientoCasoController_1.MovimientoCasoController,
+        action: "all",
+        entity: "MovimientoController"
+    }, {
+        method: "get",
+        route: "/movimientos/:id",
+        controller: MovimientoCasoController_1.MovimientoCasoController,
+        action: "one",
+        entity: "MovimientoController"
+    }, {
+        method: "post",
+        route: "/movimientos",
+        controller: MovimientoCasoController_1.MovimientoCasoController,
+        action: "save",
+        entity: "MovimientoController"
+    }, {
+        method: "delete",
+        route: "/movimientos/:id",
+        controller: MovimientoCasoController_1.MovimientoCasoController,
+        action: "remove",
+        entity: "MovimientoController"
+    }, {
+        method: "put",
+        route: "/movimientos/:id",
+        controller: MovimientoCasoController_1.MovimientoCasoController,
+        action: "update",
+        entity: "MovimientoController"
+    }, {
+        method: "get",
+        route: "/tipos_mov",
+        controller: TipoMovimientoController_1.TipoMovimientoController,
+        action: "all",
+        entity: "TipoMovimiento"
+    }, {
+        method: "get",
+        route: "tipos_movmovimientos/:id",
+        controller: TipoMovimientoController_1.TipoMovimientoController,
+        action: "one",
+        entity: "TipoMovimiento"
+    }, {
+        method: "post",
+        route: "/tipos_mov",
+        controller: TipoMovimientoController_1.TipoMovimientoController,
+        action: "save",
+        entity: "TipoMovimiento"
+    }, {
+        method: "delete",
+        route: "/tipos_mov/:id",
+        controller: TipoMovimientoController_1.TipoMovimientoController,
+        action: "remove",
+        entity: "TipoMovimiento"
+    }, {
+        method: "put",
+        route: "/tipos_mov/:id",
+        controller: TipoMovimientoController_1.TipoMovimientoController,
+        action: "update",
+        entity: "TipoMovimiento"
     }
 ];
 //# sourceMappingURL=routes.js.map
