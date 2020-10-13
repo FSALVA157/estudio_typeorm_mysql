@@ -8,10 +8,19 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
 const class_validator_1 = require("class-validator");
 const class_transformer_1 = require("class-transformer");
+const bcrypt_1 = require("bcrypt");
 let Usuario = class Usuario {
     //constructor
     constructor(req) {
@@ -23,13 +32,22 @@ let Usuario = class Usuario {
             this.domicilio_procesal = req.body.domicilio_procesal;
             this.matricula = req.body.matricula;
             this.usuario = req.body.usuario;
-            this.password = req.body.password;
+            let clave = bcrypt_1.hash(req.body.password, 10, (err, hash) => {
+                console.log('CLAVE CIFRADA: ', hash);
+                this.password = hash;
+            });
             this.estudio_id = req.body.estudio_id;
             this.email = req.body.email;
             this.nivel_usuario_id = req.body.nivel_usuario_id;
             this.fecha_alta = req.body.fecha_alta;
             this.fecha_baja = req.body.fecha_baja;
         }
+    }
+    hashPassword() {
+        return __awaiter(this, void 0, void 0, function* () {
+            this.password = yield bcrypt_1.hash(this.password, 10);
+            console.log('ANTES DE INSERTAR ESTE ES EL PASSWORD: ', this.password);
+        });
     }
 };
 __decorate([
@@ -94,9 +112,14 @@ __decorate([
     __metadata("design:type", String)
 ], Usuario.prototype, "usuario", void 0);
 __decorate([
+    typeorm_1.BeforeInsert(),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], Usuario.prototype, "hashPassword", null);
+__decorate([
     typeorm_1.Column({
         type: "varchar",
-        length: 50,
         unique: true
     }),
     __metadata("design:type", String)
@@ -127,7 +150,7 @@ __decorate([
 __decorate([
     typeorm_1.Column({ type: "date" }),
     class_validator_1.IsISO8601(),
-    class_validator_1.Matches(/^\d{4}([\-/.])(0?[1-9]|1[1-2])\1(3[01]|[12][0-9]|0?[1-9])$/, { message: 'El dato debe respetar el formato yyyy/mm/dd' }),
+    class_validator_1.Matches(/^\d{4}([\-/.])(0?[1-9]|1[0-1-2])\1(3[01]|[12][0-9]|0?[1-9])$/, { message: 'El dato debe respetar el formato yyyy/mm/dd' }),
     class_transformer_1.Transform(() => Date),
     __metadata("design:type", Date)
 ], Usuario.prototype, "fecha_alta", void 0);
@@ -135,7 +158,7 @@ __decorate([
     typeorm_1.Column({ type: "date", nullable: true }),
     class_validator_1.IsOptional(),
     class_validator_1.IsISO8601(),
-    class_validator_1.Matches(/^\d{4}([\-/.])(0?[1-9]|1[1-2])\1(3[01]|[12][0-9]|0?[1-9])$/, { message: 'El dato debe respetar el formato yyyy/mm/dd' }),
+    class_validator_1.Matches(/^\d{4}([\-/.])(0?[1-9]|1[0-1-2])\1(3[01]|[12][0-9]|0?[1-9])$/, { message: 'El dato debe respetar el formato yyyy/mm/dd' }),
     class_transformer_1.Transform(() => Date),
     __metadata("design:type", Date)
 ], Usuario.prototype, "fecha_baja", void 0);
