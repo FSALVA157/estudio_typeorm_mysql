@@ -61,13 +61,14 @@ export class  Usuario {
 
 
     @BeforeInsert()
-    async hashPassword() {
-        this.password = await hash(this.password, 10);
+    hashPassword() {
+        console.log('ENTRANDO AL BEFORE');
+        this.password = hashSync(this.password, 10);
         console.log('ANTES DE INSERTAR ESTE ES EL PASSWORD: ',this.password);
     }
     @Column({
-        type: "varchar",
-        unique: true
+        type: "varchar"
+        //unique: true
     })
     password: string;
 

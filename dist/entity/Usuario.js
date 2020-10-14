@@ -8,14 +8,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
 const class_validator_1 = require("class-validator");
@@ -44,10 +36,9 @@ let Usuario = class Usuario {
         }
     }
     hashPassword() {
-        return __awaiter(this, void 0, void 0, function* () {
-            this.password = yield bcrypt_1.hash(this.password, 10);
-            console.log('ANTES DE INSERTAR ESTE ES EL PASSWORD: ', this.password);
-        });
+        console.log('ENTRANDO AL BEFORE');
+        this.password = bcrypt_1.hashSync(this.password, 10);
+        console.log('ANTES DE INSERTAR ESTE ES EL PASSWORD: ', this.password);
     }
 };
 __decorate([
@@ -115,12 +106,12 @@ __decorate([
     typeorm_1.BeforeInsert(),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
-    __metadata("design:returntype", Promise)
+    __metadata("design:returntype", void 0)
 ], Usuario.prototype, "hashPassword", null);
 __decorate([
     typeorm_1.Column({
-        type: "varchar",
-        unique: true
+        type: "varchar"
+        //unique: true
     }),
     __metadata("design:type", String)
 ], Usuario.prototype, "password", void 0);
