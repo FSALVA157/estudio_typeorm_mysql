@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
 const class_validator_1 = require("class-validator");
 const class_transformer_1 = require("class-transformer");
-const bcrypt_1 = require("bcrypt");
+const typeorm_encrypted_1 = require("typeorm-encrypted");
 let Usuario = class Usuario {
     //constructor
     constructor(req) {
@@ -24,21 +24,13 @@ let Usuario = class Usuario {
             this.domicilio_procesal = req.body.domicilio_procesal;
             this.matricula = req.body.matricula;
             this.usuario = req.body.usuario;
-            let clave = bcrypt_1.hash(req.body.password, 10, (err, hash) => {
-                console.log('CLAVE CIFRADA: ', hash);
-                this.password = hash;
-            });
+            this.password = req.body.password;
             this.estudio_id = req.body.estudio_id;
             this.email = req.body.email;
             this.nivel_usuario_id = req.body.nivel_usuario_id;
             this.fecha_alta = req.body.fecha_alta;
             this.fecha_baja = req.body.fecha_baja;
         }
-    }
-    hashPassword() {
-        console.log('ENTRANDO AL BEFORE');
-        this.password = bcrypt_1.hashSync(this.password, 10);
-        console.log('ANTES DE INSERTAR ESTE ES EL PASSWORD: ', this.password);
     }
 };
 __decorate([
@@ -103,15 +95,17 @@ __decorate([
     __metadata("design:type", String)
 ], Usuario.prototype, "usuario", void 0);
 __decorate([
-    typeorm_1.BeforeInsert(),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
-], Usuario.prototype, "hashPassword", null);
-__decorate([
     typeorm_1.Column({
-        type: "varchar"
+        type: "varchar",
+        nullable: false,
         //unique: true
+        transformer: new typeorm_encrypted_1.EncryptionTransformer({
+            key: 'e41c966f21f9e1577802463f8924e6a3fe3e9751f201304213b2f845d8841d61',
+            algorithm: 'aes-256-cbc',
+            ivLength: 16,
+            iv: 'ff5ac19190424b1d88f9419ef949ae56'
+        }),
+        select: false //ocultar la columna
     }),
     __metadata("design:type", String)
 ], Usuario.prototype, "password", void 0);

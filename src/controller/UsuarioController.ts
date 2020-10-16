@@ -139,6 +139,7 @@ export class UsuarioController {
     }
 
     async save(request: Request, response: Response, next: NextFunction) {
+       // let nuevoUsuario = new Usuario(request.body);
         return await this.userRepository.save(request.body);
     }
 

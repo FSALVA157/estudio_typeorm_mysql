@@ -80,7 +80,10 @@ export class TipoProcesoController {
                     case 'etapas':
                         cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);  
                         break;
-                  
+
+                    case 'secuencia':
+                        cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);  
+                        break;                
                     
                                                            
                     default:

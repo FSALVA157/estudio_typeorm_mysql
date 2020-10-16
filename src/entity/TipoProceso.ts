@@ -19,11 +19,15 @@ export class TipoProceso {
     @Column("simple-array")
     etapas: string[];
 
+    @Column("simple-json")
+    secuencia: { etapas: string[]};
+
         //constructor
     constructor(req?:any){
         if(req){
             this.tipo_proceso = req.body.tipo_proceso;
-            this.etapas = req.body.etapas;           
+            this.etapas = req.body.etapas;
+            this.secuencia = req.body.secuencia;           
       }
 
     }

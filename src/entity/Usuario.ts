@@ -1,7 +1,7 @@
 import {Entity, PrimaryGeneratedColumn, Column, BeforeInsert} from "typeorm";
 import{IsInt, Min, Length, IsAlphanumeric, MinLength, IsEmail, IsOptional, IsISO8601, Matches} from 'class-validator';
-import {Transform} from 'class-transformer';
-import { hash, hashSync } from 'bcrypt';
+import {Exclude, Transform} from 'class-transformer';
+import { EncryptionTransformer } from "typeorm-encrypted";
 
 @Entity()
 export class  Usuario {
@@ -59,16 +59,18 @@ export class  Usuario {
     @Length(4,50,{message:'El usuario debe tener entre $constraint1 y $constraint2 caracteres en este momento tu texto tiene una longitud de $value letras'})
     usuario: string;
 
-
-    @BeforeInsert()
-    hashPassword() {
-        console.log('ENTRANDO AL BEFORE');
-        this.password = hashSync(this.password, 10);
-        console.log('ANTES DE INSERTAR ESTE ES EL PASSWORD: ',this.password);
-    }
+    
     @Column({
-        type: "varchar"
+        type: "varchar",
+        nullable:false,
         //unique: true
+        transformer: new EncryptionTransformer({
+            key: 'e41c966f21f9e1577802463f8924e6a3fe3e9751f201304213b2f845d8841d61',
+            algorithm: 'aes-256-cbc',
+            ivLength: 16,
+            iv: 'ff5ac19190424b1d88f9419ef949ae56'
+          }),
+          select:false //ocultar la columna
     })
     password: string;
 
@@ -115,10 +117,7 @@ export class  Usuario {
             this.domicilio_procesal = req.body.domicilio_procesal;
             this.matricula = req.body.matricula;
             this.usuario = req.body.usuario;
-            let clave = hash(req.body.password,10,(err,hash) => {
-                console.log('CLAVE CIFRADA: ',hash);
-                this.password = hash;
-            });
+            this.password = req.body.password;
             this.estudio_id = req.body.estudio_id;
             this.email = req.body.email;
             this.nivel_usuario_id = req.body.nivel_usuario_id;

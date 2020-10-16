@@ -135,6 +135,7 @@ class UsuarioController {
     }
     save(request, response, next) {
         return __awaiter(this, void 0, void 0, function* () {
+            // let nuevoUsuario = new Usuario(request.body);
             return yield this.userRepository.save(request.body);
         });
     }

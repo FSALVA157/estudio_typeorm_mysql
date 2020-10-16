@@ -11,8 +11,6 @@
         "ts-node": "3.3.0"
     },
     "dependencies": {
-        "@types/bcrypt": "^3.0.0",
-        "bcrypt": "^5.0.0",
         "body-parser": "^1.18.1",
         "class-transformer": "^0.3.1",
         "class-validator": "^0.12.2",
@@ -21,7 +19,8 @@
         "mysql": "^2.14.1",
         "path": "^0.12.7",
         "reflect-metadata": "^0.1.10",
-        "typeorm": "0.2.25"
+        "typeorm": "0.2.25",
+        "typeorm-encrypted": "^0.5.6"
     },
     "scripts": {
         "build": "tsc",
