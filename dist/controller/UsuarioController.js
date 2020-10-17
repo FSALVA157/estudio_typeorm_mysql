@@ -136,7 +136,11 @@ class UsuarioController {
     save(request, response, next) {
         return __awaiter(this, void 0, void 0, function* () {
             // let nuevoUsuario = new Usuario(request.body);
-            return yield this.userRepository.save(request.body);
+            let respuesta = yield this.userRepository.save(request.body);
+            // eliminar el campo password para que no se exponga en la respuesta
+            delete respuesta['password'];
+            //console.log(respuesta);
+            return respuesta;
         });
     }
     remove(request, response, next) {

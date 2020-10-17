@@ -140,7 +140,11 @@ export class UsuarioController {
 
     async save(request: Request, response: Response, next: NextFunction) {
        // let nuevoUsuario = new Usuario(request.body);
-        return await this.userRepository.save(request.body);
+        let respuesta =  await this.userRepository.save(request.body);
+       // eliminar el campo password para que no se exponga en la respuesta
+        delete respuesta['password'];
+        //console.log(respuesta);
+        return respuesta;
     }
 
     async remove(request: Request, response: Response, next: NextFunction) {

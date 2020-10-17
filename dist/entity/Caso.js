@@ -22,6 +22,7 @@ const TipoProceso_1 = require("./TipoProceso");
 const EstadoCaso_1 = require("./EstadoCaso");
 const Instancia_1 = require("./Instancia");
 const MovimientoCaso_1 = require("./MovimientoCaso");
+const Alerta_1 = require("./Alerta");
 let Caso = class Caso {
     //constructor
     constructor(req) {
@@ -59,6 +60,10 @@ __decorate([
     typeorm_1.OneToMany(type => MovimientoCaso_1.MovimientoCaso, movimiento => movimiento.caso),
     __metadata("design:type", Array)
 ], Caso.prototype, "movimientos", void 0);
+__decorate([
+    typeorm_1.OneToMany(type => Alerta_1.Alerta, alerta => alerta.caso),
+    __metadata("design:type", Array)
+], Caso.prototype, "alertas", void 0);
 __decorate([
     typeorm_1.Column({
         type: "int",

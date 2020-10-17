@@ -17,6 +17,7 @@ let TipoProceso = class TipoProceso {
         if (req) {
             this.tipo_proceso = req.body.tipo_proceso;
             this.etapas = req.body.etapas;
+            this.secuencia = req.body.secuencia;
         }
     }
 };

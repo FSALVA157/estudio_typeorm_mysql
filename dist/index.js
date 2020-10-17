@@ -34,6 +34,7 @@ const CaracterLetrado_1 = require("./entity/CaracterLetrado");
 const CategoriaCliente_1 = require("./entity/CategoriaCliente");
 const MovimientoCaso_1 = require("./entity/MovimientoCaso");
 const TipoMovimiento_1 = require("./entity/TipoMovimiento");
+const Alerta_1 = require("./entity/Alerta");
 process.on('unhandledRejection', (error) => {
     console.log(error);
     throw error;
@@ -122,6 +123,15 @@ typeorm_1.createConnection(opciones).then((connection) => __awaiter(this, void 0
                     try {
                         let data;
                         switch (route.entity) {
+                            case 'Alerta':
+                                data = new Alerta_1.Alerta(req);
+                                //console.log(req);
+                                if (req.body.id_alerta) {
+                                    throw errorSobreescritura;
+                                }
+                                else {
+                                    break;
+                                }
                             case 'Usuario':
                                 data = new Usuario_1.Usuario(req);
                                 //console.log(req);
@@ -152,7 +162,7 @@ typeorm_1.createConnection(opciones).then((connection) => __awaiter(this, void 0
                             case 'CasoExtrajudicial':
                                 //console.log(req);
                                 data = new CasoExtrajudicial_1.CasoExtrajudicial(req);
-                                if (req.body.id_caso) {
+                                if (req.body.id_caso_ext) {
                                     throw errorSobreescritura;
                                 }
                                 else {
@@ -161,7 +171,7 @@ typeorm_1.createConnection(opciones).then((connection) => __awaiter(this, void 0
                             case 'ObjetoExtrajudicial':
                                 //console.log(req);
                                 data = new ObjetoExtrajudicial_1.ObjetoExtrajudicial(req);
-                                if (req.body.id_caso) {
+                                if (req.body.id_objeto_ext) {
                                     throw errorSobreescritura;
                                 }
                                 else {
@@ -170,7 +180,7 @@ typeorm_1.createConnection(opciones).then((connection) => __awaiter(this, void 0
                             case 'TipoProceso':
                                 //console.log(req);
                                 data = new TipoProceso_1.TipoProceso(req);
-                                if (req.body.id_caso) {
+                                if (req.body.id_tipo_proceso) {
                                     throw errorSobreescritura;
                                 }
                                 else {
@@ -179,7 +189,7 @@ typeorm_1.createConnection(opciones).then((connection) => __awaiter(this, void 0
                             case 'Objeto':
                                 //console.log(req);
                                 data = new Objeto_1.Objeto(req);
-                                if (req.body.id_caso) {
+                                if (req.body.id_objeto) {
                                     throw errorSobreescritura;
                                 }
                                 else {
@@ -188,7 +198,7 @@ typeorm_1.createConnection(opciones).then((connection) => __awaiter(this, void 0
                             case 'Juzgado':
                                 //console.log(req);
                                 data = new Juzgado_1.Juzgado(req);
-                                if (req.body.id_caso) {
+                                if (req.body.id_juzgado) {
                                     throw errorSobreescritura;
                                 }
                                 else {
@@ -197,7 +207,7 @@ typeorm_1.createConnection(opciones).then((connection) => __awaiter(this, void 0
                             case 'Instancia':
                                 //console.log(req);
                                 data = new Instancia_1.Instancia(req);
-                                if (req.body.id_caso) {
+                                if (req.body.id_instancia) {
                                     throw errorSobreescritura;
                                 }
                                 else {
@@ -206,7 +216,7 @@ typeorm_1.createConnection(opciones).then((connection) => __awaiter(this, void 0
                             case 'Fuero':
                                 //console.log(req);
                                 data = new Fuero_1.Fuero(req);
-                                if (req.body.id_caso) {
+                                if (req.body.id_fuero) {
                                     throw errorSobreescritura;
                                 }
                                 else {
@@ -215,7 +225,7 @@ typeorm_1.createConnection(opciones).then((connection) => __awaiter(this, void 0
                             case 'EstadoCaso':
                                 //console.log(req);
                                 data = new EstadoCaso_1.EstadoCaso(req);
-                                if (req.body.id_caso) {
+                                if (req.body.id_estado) {
                                     throw errorSobreescritura;
                                 }
                                 else {
@@ -224,7 +234,7 @@ typeorm_1.createConnection(opciones).then((connection) => __awaiter(this, void 0
                             case 'Distrito':
                                 //console.log(req);
                                 data = new Distrito_1.Distrito(req);
-                                if (req.body.id_caso) {
+                                if (req.body.id_distrito) {
                                     throw errorSobreescritura;
                                 }
                                 else {
@@ -233,7 +243,7 @@ typeorm_1.createConnection(opciones).then((connection) => __awaiter(this, void 0
                             case 'CaracterLetrado':
                                 //console.log(req);
                                 data = new CaracterLetrado_1.CaracterLetrado(req);
-                                if (req.body.id_caso) {
+                                if (req.body.id_caracter_let) {
                                     throw errorSobreescritura;
                                 }
                                 else {
@@ -242,7 +252,7 @@ typeorm_1.createConnection(opciones).then((connection) => __awaiter(this, void 0
                             case 'CategoriaCliente':
                                 //console.log(req);
                                 data = new CategoriaCliente_1.CategoriaCliente(req);
-                                if (req.body.id_caso) {
+                                if (req.body.id_categoria_cli) {
                                     throw errorSobreescritura;
                                 }
                                 else {
@@ -251,7 +261,7 @@ typeorm_1.createConnection(opciones).then((connection) => __awaiter(this, void 0
                             case 'MovimientoCaso':
                                 //console.log(req);
                                 data = new MovimientoCaso_1.MovimientoCaso(req);
-                                if (req.body.id_caso) {
+                                if (req.body.id_tipo_mov) {
                                     throw errorSobreescritura;
                                 }
                                 else {

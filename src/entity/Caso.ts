@@ -11,6 +11,7 @@ import { TipoProceso } from './TipoProceso';
 import { EstadoCaso } from './EstadoCaso';
 import { Instancia } from './Instancia';
 import { MovimientoCaso } from './MovimientoCaso';
+import { Alerta } from './Alerta';
 
 @Entity()
 export class Caso {
@@ -20,6 +21,9 @@ export class Caso {
 
     @OneToMany(type => MovimientoCaso,movimiento => movimiento.caso)
     movimientos : MovimientoCaso[];
+
+    @OneToMany(type => Alerta,alerta => alerta.caso)
+    alertas : Alerta[];
 
     @Column({
         type: "int",

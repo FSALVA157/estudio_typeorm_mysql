@@ -9,10 +9,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
-const TipoProceso_1 = require("../entity/TipoProceso");
-class TipoProcesoController {
+const Alerta_1 = require("../entity/Alerta");
+class AlertaController {
     constructor() {
-        this.TipoProcesoRepository = typeorm_1.getRepository(TipoProceso_1.TipoProceso);
+        this.AlertaRepository = typeorm_1.getRepository(Alerta_1.Alerta);
     }
     all(request, response, next) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -22,8 +22,8 @@ class TipoProcesoController {
             if (request.query.fields) {
                 let reqFields = request.query.fields;
                 fields = reqFields.toString().split(",");
-                if (!fields.includes('id_tipo_proceso')) {
-                    fields.push('id_tipo_proceso');
+                if (!fields.includes('id_alerta')) {
+                    fields.push('id_alerta');
                 }
             }
             ;
@@ -73,14 +73,20 @@ class TipoProcesoController {
                     //const element = arreglo[campo];
                     let nombreCampo = campo.toString();
                     switch (nombreCampo) {
-                        case 'tipo_proceso':
+                        case 'fecha':
+                            cond[nombreCampo] = ExpresionAvanzadaFechas(arreglo[campo]);
+                            break;
+                        case 'detalle':
                             cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
                             break;
-                        case 'etapas':
+                        case 'juzgado':
                             cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
                             break;
-                        case 'secuencia':
-                            cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
+                        case 'estado':
+                            cond[nombreCampo] = Number(arreglo[campo]);
+                            break;
+                        case 'caso_id':
+                            cond[nombreCampo] = Number(arreglo[campo]);
                             break;
                         default:
                             break;
@@ -91,7 +97,7 @@ class TipoProcesoController {
             if (fields != null) {
                 reglas = {
                     order: {
-                        id_tipo_proceso: "ASC"
+                        fecha: "DESC"
                     },
                     select: fields,
                     skip: offset,
@@ -102,37 +108,37 @@ class TipoProcesoController {
             else {
                 reglas = {
                     order: {
-                        id_tipo_proceso: "ASC"
+                        fecha: "DESC"
                     },
                     skip: offset,
                     take: limit,
                     where: cond
                 };
             }
-            return yield this.TipoProcesoRepository.find(reglas);
+            return yield this.AlertaRepository.find(reglas);
         });
     }
     one(request, response, next) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.TipoProcesoRepository.findOne(request.params.id);
+            return yield this.AlertaRepository.findOne(request.params.id);
         });
     }
     save(request, response, next) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.TipoProcesoRepository.save(request.body);
+            return yield this.AlertaRepository.save(request.body);
         });
     }
     remove(request, response, next) {
         return __awaiter(this, void 0, void 0, function* () {
-            let userToRemove = yield this.TipoProcesoRepository.findOne(request.params.id);
-            return yield this.TipoProcesoRepository.remove(userToRemove);
+            let userToRemove = yield this.AlertaRepository.findOne(request.params.id);
+            return yield this.AlertaRepository.remove(userToRemove);
         });
     }
     update(request, response, next) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.TipoProcesoRepository.update(request.params.id, request.body);
+            return yield this.AlertaRepository.update(request.params.id, request.body);
         });
     }
 }
-exports.TipoProcesoController = TipoProcesoController;
-//# sourceMappingURL=TipoProcesoController.js.map
+exports.AlertaController = AlertaController;
+//# sourceMappingURL=AlertaController.js.map

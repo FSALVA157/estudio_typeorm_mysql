@@ -25,6 +25,7 @@ import { CaracterLetrado } from './entity/CaracterLetrado';
 import { CategoriaCliente } from './entity/CategoriaCliente';
 import { MovimientoCaso } from './entity/MovimientoCaso';
 import { TipoMovimiento } from './entity/TipoMovimiento';
+import { Alerta } from './entity/Alerta';
 
 
 
@@ -147,6 +148,15 @@ var opciones:ConnectionOptions;
                              try {
                                  let data;
                                         switch (route.entity) {
+                                            case 'Alerta':
+                                                data = new Alerta(req);
+                                                //console.log(req);
+                                                if(req.body.id_alerta){
+                                                   throw errorSobreescritura;
+                                                }else{
+                                                    break;
+
+                                                }
                                             case 'Usuario':
                                                 data = new Usuario(req);
                                                 //console.log(req);
@@ -177,7 +187,7 @@ var opciones:ConnectionOptions;
                                             case 'CasoExtrajudicial':
                                                     //console.log(req);
                                                     data = new CasoExtrajudicial(req);
-                                                    if(req.body.id_caso){
+                                                    if(req.body.id_caso_ext){
                                                         throw errorSobreescritura;
                                                         }else{
                                                             break;
@@ -186,7 +196,7 @@ var opciones:ConnectionOptions;
                                             case 'ObjetoExtrajudicial':
                                                 //console.log(req);
                                                 data = new ObjetoExtrajudicial(req);
-                                                if(req.body.id_caso){
+                                                if(req.body.id_objeto_ext){
                                                     throw errorSobreescritura;
                                                     }else{
                                                         break;
@@ -195,7 +205,7 @@ var opciones:ConnectionOptions;
                                             case 'TipoProceso':
                                                 //console.log(req);
                                                 data = new TipoProceso(req);
-                                                if(req.body.id_caso){
+                                                if(req.body.id_tipo_proceso){
                                                     throw errorSobreescritura;
                                                     }else{
                                                         break;
@@ -204,7 +214,7 @@ var opciones:ConnectionOptions;
                                             case 'Objeto':
                                                 //console.log(req);
                                                 data = new Objeto(req);
-                                                if(req.body.id_caso){
+                                                if(req.body.id_objeto){
                                                     throw errorSobreescritura;
                                                     }else{
                                                         break;
@@ -213,7 +223,7 @@ var opciones:ConnectionOptions;
                                             case 'Juzgado':
                                                 //console.log(req);
                                                 data = new Juzgado(req);
-                                                if(req.body.id_caso){
+                                                if(req.body.id_juzgado){
                                                     throw errorSobreescritura;
                                                     }else{
                                                         break;
@@ -222,7 +232,7 @@ var opciones:ConnectionOptions;
                                             case 'Instancia':
                                                 //console.log(req);
                                                 data = new Instancia(req);
-                                                if(req.body.id_caso){
+                                                if(req.body.id_instancia){
                                                     throw errorSobreescritura;
                                                     }else{
                                                         break;
@@ -231,7 +241,7 @@ var opciones:ConnectionOptions;
                                             case 'Fuero':
                                                 //console.log(req);
                                                 data = new Fuero(req);
-                                                if(req.body.id_caso){
+                                                if(req.body.id_fuero){
                                                     throw errorSobreescritura;
                                                     }else{
                                                         break;
@@ -240,7 +250,7 @@ var opciones:ConnectionOptions;
                                             case 'EstadoCaso':
                                                 //console.log(req);
                                                 data = new EstadoCaso(req);
-                                                if(req.body.id_caso){
+                                                if(req.body.id_estado){
                                                     throw errorSobreescritura;
                                                     }else{
                                                         break;
@@ -249,7 +259,7 @@ var opciones:ConnectionOptions;
                                             case 'Distrito':
                                                 //console.log(req);
                                                 data = new Distrito(req);
-                                                if(req.body.id_caso){
+                                                if(req.body.id_distrito){
                                                     throw errorSobreescritura;
                                                     }else{
                                                         break;
@@ -258,7 +268,7 @@ var opciones:ConnectionOptions;
                                             case 'CaracterLetrado':
                                                 //console.log(req);
                                                 data = new CaracterLetrado(req);
-                                                if(req.body.id_caso){
+                                                if(req.body.id_caracter_let){
                                                     throw errorSobreescritura;
                                                     }else{
                                                         break;
@@ -267,7 +277,7 @@ var opciones:ConnectionOptions;
                                             case 'CategoriaCliente':
                                                 //console.log(req);
                                                 data = new CategoriaCliente(req);
-                                                if(req.body.id_caso){
+                                                if(req.body.id_categoria_cli){
                                                     throw errorSobreescritura;
                                                     }else{
                                                         break;
@@ -276,7 +286,7 @@ var opciones:ConnectionOptions;
                                             case 'MovimientoCaso':
                                                 //console.log(req);
                                                 data = new MovimientoCaso(req);
-                                                if(req.body.id_caso){
+                                                if(req.body.id_tipo_mov){
                                                     throw errorSobreescritura;
                                                     }else{
                                                         break;

@@ -157,7 +157,7 @@ class CasoController {
             let reglas;
             if (fields != null) {
                 reglas = {
-                    relations: ["movimientos"],
+                    relations: ["movimientos", "alertas"],
                     order: {
                         id_caso: "ASC",
                     },
@@ -169,7 +169,7 @@ class CasoController {
             }
             else {
                 reglas = {
-                    relations: ["movimientos"],
+                    relations: ["movimientos", "alertas"],
                     order: {
                         id_caso: "ASC",
                     },
@@ -183,7 +183,7 @@ class CasoController {
     }
     one(request, response, next) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.casoRepository.findOne(request.params.id);
+            return yield this.casoRepository.findOne(request.params.id, { relations: ["movimientos", "alertas"] });
         });
     }
     save(request, response, next) {
