@@ -69,9 +69,9 @@ export class  Usuario {
             algorithm: 'aes-256-cbc',
             ivLength: 16,
             iv: 'ff5ac19190424b1d88f9419ef949ae56'
-          }),
-          select:false //ocultar la columna
-    })
+          })
+          //select:false //ocultar la columna
+          })        
     password: string;
 
     @Column({type: "int",unsigned: true })
@@ -91,20 +91,24 @@ export class  Usuario {
     nivel_usuario_id: number;
 
     @Column({default:true })
-   estado: boolean;
-
-   @Column({type: "date"})
-   @IsISO8601()
-   @Matches(/^\d{4}([\-/.])(0?[1-9]|1[0-1-2])\1(3[01]|[12][0-9]|0?[1-9])$/,{message:'El dato debe respetar el formato yyyy/mm/dd'})
-   @Transform(()=>Date)
-   fecha_alta: Date;
-
+    estado: boolean;
+    
+    @Column({type: "date"})
+    @IsISO8601()
+    @Matches(/^\d{4}([\-/.])(0?[1-9]|1[0-1-2])\1(3[01]|[12][0-9]|0?[1-9])$/,{message:'El dato debe respetar el formato yyyy/mm/dd'})
+    @Transform(()=>Date)
+    fecha_alta: Date;
+    
     @Column({type: "date",nullable:true})
     @IsOptional()
     @IsISO8601()
     @Matches(/^\d{4}([\-/.])(0?[1-9]|1[0-1-2])\1(3[01]|[12][0-9]|0?[1-9])$/,{message:'El dato debe respetar el formato yyyy/mm/dd'})
     @Transform(()=>Date)
     fecha_baja: Date;
+
+    verificarPassword(pass: string): boolean{
+        return this.password == pass;
+    }
 
 
     //constructor

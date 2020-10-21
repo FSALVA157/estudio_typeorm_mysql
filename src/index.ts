@@ -26,7 +26,7 @@ import { CategoriaCliente } from './entity/CategoriaCliente';
 import { MovimientoCaso } from './entity/MovimientoCaso';
 import { TipoMovimiento } from './entity/TipoMovimiento';
 import { Alerta } from './entity/Alerta';
-
+import auth from './routes/auth';
 
 
 process.on('unhandledRejection',(error) => {
@@ -92,7 +92,7 @@ var opciones:ConnectionOptions;
         // start express server
         const puerto_activo = app.get('port');
         app.listen(puerto_activo);
-        
+        app.use('/auth',auth);
 
         // app.get('/',(req,res) => {
         //         res.sendFile(path.join(__dirname,'views/index.html'));
@@ -349,6 +349,179 @@ var opciones:ConnectionOptions;
     
     app.use(middleware);
     
+    
+
+    // await connection.manager.save(connection.manager.create(TipoProceso,{
+    //     id_tipo_proceso:1,
+    //     tipo_proceso: 'ORDINARIO',
+    //     etapas: [
+    //         'Demanda',
+    //         'Contesta Demanda',
+    //         'Prueba',
+    //         'Alegato'
+    //     ],
+    //     secuencia: {
+    //         etapas: [
+    //             'Demanda',
+    //             'Contesta Demanda',
+    //             'Prueba',
+    //             'Alegato'
+    //         ]   
+    //     },
+    //     campo: "var1,var2,var3"
+    // }));
+    // await connection.manager.save(connection.manager.create(TipoProceso,{
+    //     id_tipo_proceso:2,
+    //     tipo_proceso: 'SUMARIO',
+    //     etapas: [
+    //         'Demanda',
+    //         'Contesta Demanda',
+    //         'Prueba',
+    //         'Alegato'
+    //     ],
+    //     secuencia: {
+    //         etapas: [
+    //             'Demanda',
+    //             'Contesta Demanda',
+    //             'Prueba',
+    //             'Alegato'
+    //         ]   
+    //     },
+    //     campo: "var1,var2,var3"
+    // }));
+    // await connection.manager.save(connection.manager.create(TipoProceso,{
+    //     id_tipo_proceso:3,
+    //     tipo_proceso: 'SUMARISIMO',
+    //     etapas: [
+    //         'Demanda',
+    //         'Contesta Demanda',
+    //         'Prueba',
+    //         'Alegato'
+    //     ],
+    //     secuencia: {
+    //         etapas: [
+    //             'Demanda',
+    //             'Contesta Demanda',
+    //             'Prueba',
+    //             'Alegato'
+    //         ]   
+    //     },
+    //     campo: "var1,var2,var3"
+    // }));
+    // await connection.manager.save(connection.manager.create(TipoProceso,{
+    //     id_tipo_proceso:4,
+    //     tipo_proceso: 'VOLUNTARIO',
+    //     etapas: [
+    //         'Demanda',
+    //         'Contesta Demanda',
+    //         'Prueba',
+    //         'Alegato'
+    //     ],
+    //     secuencia: {
+    //         etapas: [
+    //             'Demanda',
+    //             'Contesta Demanda',
+    //             'Prueba',
+    //             'Alegato'
+    //         ]   
+    //     },
+    //     campo: "var1,var2,var3"
+    // }));
+    // await connection.manager.save(connection.manager.create(TipoProceso,{
+    //     id_tipo_proceso:5,
+    //     tipo_proceso: 'EJECUTIVO',
+    //     etapas: [
+    //         'Demanda',
+    //        'Contesta Demanda',
+    //         'Prueba',
+    //         'Alegato'
+    //     ],
+    //     secuencia: {
+    //         etapas: [
+    //             'Demanda',
+    //             'Contesta Demanda',
+    //             'Prueba',
+    //             'Alegato'
+    //         ]   
+    //     },
+    //     campo: "var1,var2,var3"
+    // }));
+    // await connection.manager.save(connection.manager.create(TipoProceso,{
+    //     id_tipo_proceso:6,
+    //     tipo_proceso: 'UNIVERSAL',
+    //     etapas: [
+    //         'Demanda',
+    //         'Contesta Demanda',
+    //         'Prueba',
+    //         'Alegato'
+    //     ],
+    //     secuencia: {
+    //         etapas: [
+    //             'Demanda',
+    //             'Contesta Demanda',
+    //             'Prueba',
+    //             'Alegato'
+    //         ]   
+    //     },
+    //     campo: "var1,var2,var3"
+    // }));
+    // await connection.manager.save(connection.manager.create(TipoProceso,{
+    //     id_tipo_proceso:7,
+    //     tipo_proceso: 'INCIDENTE',
+    //     etapas: [
+    //         'Demanda',
+    //         'Contesta Demanda',
+    //         'Prueba',
+    //         'Alegato'
+    //     ],
+    //     secuencia: {
+    //         etapas: [
+    //             'Demanda',
+    //             'Contesta Demanda',
+    //             'Prueba',
+    //             'Alegato'
+    //         ]   
+    //     },
+    //     campo: "var1,var2,var3"
+    // }));
+    // await connection.manager.save(connection.manager.create(TipoProceso,{
+    //     id_tipo_proceso:8,
+    //     tipo_proceso: 'ESPECIAL LEY 7.403',
+    //     etapas: [
+    //         'Demanda',
+    //         'Contesta Demanda',
+    //         'Prueba',
+    //         'Alegato'
+    //     ],
+    //     secuencia: {
+    //         etapas: [
+    //             'Demanda',
+    //             'Contesta Demanda',
+    //             'Prueba',
+    //             'Alegato'
+    //         ]   
+    //     },
+    //     campo: "var1,var2,var3"
+    // }));
+    // await connection.manager.save(connection.manager.create(TipoProceso,{
+    //     id_tipo_proceso:9,
+    //     tipo_proceso: 'MEDIDAS CAUTELARES',
+    //     etapas: [
+    //         'Demanda',
+    //         'Contesta Demanda',
+    //         'Prueba',
+    //         'Alegato'
+    //     ],
+    //     secuencia: {
+    //         etapas: [
+    //             'Demanda',
+    //             'Contesta Demanda',
+    //             'Prueba',
+    //             'Alegato'
+    //         ]   
+    //     },
+    //     campo: "var1,var2,var3"
+    // }));
 
     
 

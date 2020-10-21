@@ -32,6 +32,9 @@ let Usuario = class Usuario {
             this.fecha_baja = req.body.fecha_baja;
         }
     }
+    verificarPassword(pass) {
+        return this.password == pass;
+    }
 };
 __decorate([
     typeorm_1.PrimaryGeneratedColumn(),
@@ -104,8 +107,8 @@ __decorate([
             algorithm: 'aes-256-cbc',
             ivLength: 16,
             iv: 'ff5ac19190424b1d88f9419ef949ae56'
-        }),
-        select: false //ocultar la columna
+        })
+        //select:false //ocultar la columna
     }),
     __metadata("design:type", String)
 ], Usuario.prototype, "password", void 0);

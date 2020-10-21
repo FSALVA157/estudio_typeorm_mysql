@@ -29,6 +29,16 @@ exports.middleware = (err, req, res, next) => {
             message: err.message
         });
     }
+    else if (err.name === 'EntityNotFound') {
+        let error400 = new Error400_1.Error400(err);
+        res.status(error400.status).json(
+        //error400
+        {
+            name: error400.name,
+            status: error400.status,
+            message: error400.message
+        });
+    }
     else {
         res.status(500).json({
             status: 'Error',

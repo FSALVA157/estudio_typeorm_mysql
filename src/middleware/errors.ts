@@ -4,7 +4,7 @@ import { Error400 } from '../errors/Error400';
 
 export const middleware = (err:any,req:Request,res:Response,next:NextFunction)=>{
     console.log('INGRESANDO A MIDDLEWARE');
-   
+    
     if(err instanceof Array){
        
             res.status(400).json(err);
@@ -34,8 +34,19 @@ export const middleware = (err:any,req:Request,res:Response,next:NextFunction)=>
                 }
                 );
         
-        }
-        else{
+        }else if (err.name === 'EntityNotFound'){
+            let error400 = new Error400(err);
+            res.status(error400.status).json(
+                //error400
+                {
+                    name: error400.name,
+                    status: error400.status,
+                    message:error400.message
+                }
+                );
+
+
+        }else{
             res.status(500).json(
                {
                 status:'Error',

@@ -134,10 +134,17 @@ export class UsuarioController {
     }
 
     async one(request: Request, response: Response, next: NextFunction) {
+        //  return await this.userRepository.findOne(request.params.id);
+        try {
+            let respuesta = await this.userRepository.findOneOrFail(request.params.id);
+            delete respuesta['password'];
+            return respuesta
+            
+        } catch (error) {
+            throw error;
+        }
+    }    
         
-        return await this.userRepository.findOne(request.params.id);
-    }
-
     async save(request: Request, response: Response, next: NextFunction) {
        // let nuevoUsuario = new Usuario(request.body);
         let respuesta =  await this.userRepository.save(request.body);

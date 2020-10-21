@@ -22,9 +22,18 @@ export class TipoProceso {
     @Column("simple-json")
     secuencia: { etapas: string[]};
 
+    @Column({
+        type: "varchar",
+        length: 50
+        
+     })
+    @Length(3,50,{message:'Este campo entre $constraint1 y $constraint2 caracteres'})
+    campo: string;
+
         //constructor
     constructor(req?:any){
         if(req){
+            this.id_tipo_proceso = req.body.id_tipo_proceso;
             this.tipo_proceso = req.body.tipo_proceso;
             this.etapas = req.body.etapas;
             this.secuencia = req.body.secuencia;           

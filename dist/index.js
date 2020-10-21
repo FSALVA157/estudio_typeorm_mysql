@@ -35,6 +35,7 @@ const CategoriaCliente_1 = require("./entity/CategoriaCliente");
 const MovimientoCaso_1 = require("./entity/MovimientoCaso");
 const TipoMovimiento_1 = require("./entity/TipoMovimiento");
 const Alerta_1 = require("./entity/Alerta");
+const auth_1 = require("./routes/auth");
 process.on('unhandledRejection', (error) => {
     console.log(error);
     throw error;
@@ -79,6 +80,7 @@ typeorm_1.createConnection(opciones).then((connection) => __awaiter(this, void 0
     // start express server
     const puerto_activo = app.get('port');
     app.listen(puerto_activo);
+    app.use('/auth', auth_1.default);
     // app.get('/',(req,res) => {
     //         res.sendFile(path.join(__dirname,'views/index.html'));
     // });
@@ -311,6 +313,177 @@ typeorm_1.createConnection(opciones).then((connection) => __awaiter(this, void 0
         });
     });
     app.use(errors_1.middleware);
+    // await connection.manager.save(connection.manager.create(TipoProceso,{
+    //     id_tipo_proceso:1,
+    //     tipo_proceso: 'ORDINARIO',
+    //     etapas: [
+    //         'Demanda',
+    //         'Contesta Demanda',
+    //         'Prueba',
+    //         'Alegato'
+    //     ],
+    //     secuencia: {
+    //         etapas: [
+    //             'Demanda',
+    //             'Contesta Demanda',
+    //             'Prueba',
+    //             'Alegato'
+    //         ]   
+    //     },
+    //     campo: "var1,var2,var3"
+    // }));
+    // await connection.manager.save(connection.manager.create(TipoProceso,{
+    //     id_tipo_proceso:2,
+    //     tipo_proceso: 'SUMARIO',
+    //     etapas: [
+    //         'Demanda',
+    //         'Contesta Demanda',
+    //         'Prueba',
+    //         'Alegato'
+    //     ],
+    //     secuencia: {
+    //         etapas: [
+    //             'Demanda',
+    //             'Contesta Demanda',
+    //             'Prueba',
+    //             'Alegato'
+    //         ]   
+    //     },
+    //     campo: "var1,var2,var3"
+    // }));
+    // await connection.manager.save(connection.manager.create(TipoProceso,{
+    //     id_tipo_proceso:3,
+    //     tipo_proceso: 'SUMARISIMO',
+    //     etapas: [
+    //         'Demanda',
+    //         'Contesta Demanda',
+    //         'Prueba',
+    //         'Alegato'
+    //     ],
+    //     secuencia: {
+    //         etapas: [
+    //             'Demanda',
+    //             'Contesta Demanda',
+    //             'Prueba',
+    //             'Alegato'
+    //         ]   
+    //     },
+    //     campo: "var1,var2,var3"
+    // }));
+    // await connection.manager.save(connection.manager.create(TipoProceso,{
+    //     id_tipo_proceso:4,
+    //     tipo_proceso: 'VOLUNTARIO',
+    //     etapas: [
+    //         'Demanda',
+    //         'Contesta Demanda',
+    //         'Prueba',
+    //         'Alegato'
+    //     ],
+    //     secuencia: {
+    //         etapas: [
+    //             'Demanda',
+    //             'Contesta Demanda',
+    //             'Prueba',
+    //             'Alegato'
+    //         ]   
+    //     },
+    //     campo: "var1,var2,var3"
+    // }));
+    // await connection.manager.save(connection.manager.create(TipoProceso,{
+    //     id_tipo_proceso:5,
+    //     tipo_proceso: 'EJECUTIVO',
+    //     etapas: [
+    //         'Demanda',
+    //        'Contesta Demanda',
+    //         'Prueba',
+    //         'Alegato'
+    //     ],
+    //     secuencia: {
+    //         etapas: [
+    //             'Demanda',
+    //             'Contesta Demanda',
+    //             'Prueba',
+    //             'Alegato'
+    //         ]   
+    //     },
+    //     campo: "var1,var2,var3"
+    // }));
+    // await connection.manager.save(connection.manager.create(TipoProceso,{
+    //     id_tipo_proceso:6,
+    //     tipo_proceso: 'UNIVERSAL',
+    //     etapas: [
+    //         'Demanda',
+    //         'Contesta Demanda',
+    //         'Prueba',
+    //         'Alegato'
+    //     ],
+    //     secuencia: {
+    //         etapas: [
+    //             'Demanda',
+    //             'Contesta Demanda',
+    //             'Prueba',
+    //             'Alegato'
+    //         ]   
+    //     },
+    //     campo: "var1,var2,var3"
+    // }));
+    // await connection.manager.save(connection.manager.create(TipoProceso,{
+    //     id_tipo_proceso:7,
+    //     tipo_proceso: 'INCIDENTE',
+    //     etapas: [
+    //         'Demanda',
+    //         'Contesta Demanda',
+    //         'Prueba',
+    //         'Alegato'
+    //     ],
+    //     secuencia: {
+    //         etapas: [
+    //             'Demanda',
+    //             'Contesta Demanda',
+    //             'Prueba',
+    //             'Alegato'
+    //         ]   
+    //     },
+    //     campo: "var1,var2,var3"
+    // }));
+    // await connection.manager.save(connection.manager.create(TipoProceso,{
+    //     id_tipo_proceso:8,
+    //     tipo_proceso: 'ESPECIAL LEY 7.403',
+    //     etapas: [
+    //         'Demanda',
+    //         'Contesta Demanda',
+    //         'Prueba',
+    //         'Alegato'
+    //     ],
+    //     secuencia: {
+    //         etapas: [
+    //             'Demanda',
+    //             'Contesta Demanda',
+    //             'Prueba',
+    //             'Alegato'
+    //         ]   
+    //     },
+    //     campo: "var1,var2,var3"
+    // }));
+    // await connection.manager.save(connection.manager.create(TipoProceso,{
+    //     id_tipo_proceso:9,
+    //     tipo_proceso: 'MEDIDAS CAUTELARES',
+    //     etapas: [
+    //         'Demanda',
+    //         'Contesta Demanda',
+    //         'Prueba',
+    //         'Alegato'
+    //     ],
+    //     secuencia: {
+    //         etapas: [
+    //             'Demanda',
+    //             'Contesta Demanda',
+    //             'Prueba',
+    //             'Alegato'
+    //         ]   
+    //     },
+    //     campo: "var1,var2,var3"
+    // }));
     console.log(`Express iniciado en puerto ${puerto_activo}. Open http://localhost:${puerto_activo}/usuarios para ver los resultados`);
 })).catch(error => console.log(error));
 //# sourceMappingURL=index.js.map

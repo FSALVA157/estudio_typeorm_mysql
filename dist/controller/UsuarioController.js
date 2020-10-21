@@ -130,7 +130,15 @@ class UsuarioController {
     }
     one(request, response, next) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.userRepository.findOne(request.params.id);
+            //  return await this.userRepository.findOne(request.params.id);
+            try {
+                let respuesta = yield this.userRepository.findOneOrFail(request.params.id);
+                delete respuesta['password'];
+                return respuesta;
+            }
+            catch (error) {
+                throw error;
+            }
         });
     }
     save(request, response, next) {

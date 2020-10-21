@@ -15,6 +15,7 @@ let TipoProceso = class TipoProceso {
     //constructor
     constructor(req) {
         if (req) {
+            this.id_tipo_proceso = req.body.id_tipo_proceso;
             this.tipo_proceso = req.body.tipo_proceso;
             this.etapas = req.body.etapas;
             this.secuencia = req.body.secuencia;
@@ -42,6 +43,14 @@ __decorate([
     typeorm_1.Column("simple-json"),
     __metadata("design:type", Object)
 ], TipoProceso.prototype, "secuencia", void 0);
+__decorate([
+    typeorm_1.Column({
+        type: "varchar",
+        length: 50
+    }),
+    class_validator_1.Length(3, 50, { message: 'Este campo entre $constraint1 y $constraint2 caracteres' }),
+    __metadata("design:type", String)
+], TipoProceso.prototype, "campo", void 0);
 TipoProceso = __decorate([
     typeorm_1.Entity(),
     __metadata("design:paramtypes", [Object])
