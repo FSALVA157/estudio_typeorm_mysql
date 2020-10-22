@@ -223,7 +223,7 @@ export class Caso {
         name : 'tipo_proceso_id',
         referencedColumnName : 'id_tipo_proceso'
     })
-    tipo : TipoProceso;
+    // tipo : TipoProceso;
 
 
     @Column({

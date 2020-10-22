@@ -1,14 +1,15 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
 import { Transform } from 'class-transformer';
 import { Caso } from './Caso';
+import { CasoExtrajudicial } from './CasoExtrajudicial';
 import{IsInt, IsISO8601, IsOptional, Length, Matches} from 'class-validator';
 
 
 @Entity()
-export class Alerta {
+export class AlertaExtra {
 
     @PrimaryGeneratedColumn()
-    id_alerta: number;
+    id_alerta_extra: number;
 
     @Column({type: "datetime"})
     @IsISO8601()
@@ -22,15 +23,7 @@ export class Alerta {
             })
     @Length(2,500,{message:'El detalle de la alerta debe tener entre $constraint1 y $constraint2 caracteres'})
     detalle: string;
-
-    @Column({
-        type: "varchar",
-        length: 100,
-        nullable:true
-            })
-    @IsOptional()
-    @Length(2,100,{message:'El juzgado debe tener entre $constraint1 y $constraint2 caracteres'})
-    juzgado: string;
+    
 
     @Column({
         default:true,
@@ -43,13 +36,13 @@ export class Alerta {
         type: "int",
              })
     @IsInt({message:'La clave de enlace con CASO debe ser un entero'})
-    caso_id: number;
+    caso_extra_id: number;
 
      //relacion con tabla caso
-     @ManyToOne(type => Caso,{eager : true})
+     @ManyToOne(type => CasoExtrajudicial,{eager : true})
      @JoinColumn({
-         name : 'caso_id',
-         referencedColumnName : 'id_caso'
+         name : 'caso_extra_id',
+         referencedColumnName : 'id_caso_ext'
      })
      caso : Caso;
 
@@ -60,9 +53,8 @@ export class Alerta {
         if(req){
             this.fecha = req.body.fecha;
             this.detalle = req.body.detalle;
-            this.juzgado = req.body.juzgado;
             this.estado = req.body.estado;
-            this.caso_id = req.body.caso_id;
+            this.caso_extra_id = req.body.caso_extra_id;
       }
 
     }

@@ -17,6 +17,7 @@ const CategoriaClienteController_1 = require("../controller/CategoriaClienteCont
 const MovimientoCasoController_1 = require("../controller/MovimientoCasoController");
 const TipoMovimientoController_1 = require("../controller/TipoMovimientoController");
 const AlertaController_1 = require("../controller/AlertaController");
+const AlertaExtraController_1 = require("../controller/AlertaExtraController");
 exports.Routes = [{
         method: "get",
         route: "/usuarios",
@@ -530,6 +531,36 @@ exports.Routes = [{
         controller: AlertaController_1.AlertaController,
         action: "update",
         entity: "Alerta"
+    }, {
+        method: "get",
+        route: "/alertas_extra",
+        controller: AlertaExtraController_1.AlertaExtraController,
+        action: "all",
+        entity: "AlertaExtra"
+    }, {
+        method: "get",
+        route: "/alertas_extra/:id",
+        controller: AlertaExtraController_1.AlertaExtraController,
+        action: "one",
+        entity: "AlertaExtra"
+    }, {
+        method: "post",
+        route: "/alertas_extra",
+        controller: AlertaExtraController_1.AlertaExtraController,
+        action: "save",
+        entity: "AlertaExtra"
+    }, {
+        method: "delete",
+        route: "/alertas_extra/:id",
+        controller: AlertaExtraController_1.AlertaExtraController,
+        action: "remove",
+        entity: "AlertaExtra"
+    }, {
+        method: "put",
+        route: "/alertas_extra/:id",
+        controller: AlertaExtraController_1.AlertaExtraController,
+        action: "update",
+        entity: "AlertaExtra"
     }
 ];
 //# sourceMappingURL=routes.js.map

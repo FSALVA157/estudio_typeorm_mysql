@@ -281,10 +281,9 @@ __decorate([
     typeorm_1.JoinColumn({
         name: 'tipo_proceso_id',
         referencedColumnName: 'id_tipo_proceso'
-    }),
-    __metadata("design:type", TipoProceso_1.TipoProceso)
-], Caso.prototype, "tipo", void 0);
-__decorate([
+    })
+    // tipo : TipoProceso;
+    ,
     typeorm_1.Column({
         type: "int",
         nullable: true

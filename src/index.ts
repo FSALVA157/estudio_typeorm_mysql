@@ -27,6 +27,7 @@ import { MovimientoCaso } from './entity/MovimientoCaso';
 import { TipoMovimiento } from './entity/TipoMovimiento';
 import { Alerta } from './entity/Alerta';
 import auth from './routes/auth';
+import { AlertaExtra } from './entity/AlertaExtra';
 
 
 process.on('unhandledRejection',(error) => {
@@ -153,6 +154,15 @@ var opciones:ConnectionOptions;
                                                 //console.log(req);
                                                 if(req.body.id_alerta){
                                                    throw errorSobreescritura;
+                                                }else{
+                                                    break;
+
+                                                }
+                                            case 'AlertaExtra':
+                                                data = new AlertaExtra(req);
+                                                //console.log(req);
+                                                if(req.body.id_alerta_extra){
+                                                    throw errorSobreescritura;
                                                 }else{
                                                     break;
 

@@ -36,6 +36,7 @@ const MovimientoCaso_1 = require("./entity/MovimientoCaso");
 const TipoMovimiento_1 = require("./entity/TipoMovimiento");
 const Alerta_1 = require("./entity/Alerta");
 const auth_1 = require("./routes/auth");
+const AlertaExtra_1 = require("./entity/AlertaExtra");
 process.on('unhandledRejection', (error) => {
     console.log(error);
     throw error;
@@ -129,6 +130,15 @@ typeorm_1.createConnection(opciones).then((connection) => __awaiter(this, void 0
                                 data = new Alerta_1.Alerta(req);
                                 //console.log(req);
                                 if (req.body.id_alerta) {
+                                    throw errorSobreescritura;
+                                }
+                                else {
+                                    break;
+                                }
+                            case 'AlertaExtra':
+                                data = new AlertaExtra_1.AlertaExtra(req);
+                                //console.log(req);
+                                if (req.body.id_alerta_extra) {
                                     throw errorSobreescritura;
                                 }
                                 else {

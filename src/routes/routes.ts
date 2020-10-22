@@ -15,6 +15,7 @@ import { CategoriaClienteController } from '../controller/CategoriaClienteContro
 import { MovimientoCasoController } from '../controller/MovimientoCasoController';
 import { TipoMovimientoController } from '../controller/TipoMovimientoController';
 import { AlertaController } from "../controller/AlertaController";
+import { AlertaExtraController } from '../controller/AlertaExtraController';
 
 export const Routes = [{
     method: "get",
@@ -529,5 +530,35 @@ export const Routes = [{
     controller: AlertaController,
     action: "update",
     entity: "Alerta"
+},{
+    method: "get",
+    route: "/alertas_extra",
+    controller: AlertaExtraController,
+    action: "all",
+    entity: "AlertaExtra"
+}, {
+    method: "get",
+    route: "/alertas_extra/:id",
+    controller:AlertaExtraController,
+    action: "one",
+    entity: "AlertaExtra"
+}, {
+    method: "post",
+    route: "/alertas_extra",
+    controller: AlertaExtraController,
+    action: "save",
+    entity: "AlertaExtra"
+}, {
+    method: "delete",
+    route: "/alertas_extra/:id",
+    controller: AlertaExtraController,
+    action: "remove",
+    entity: "AlertaExtra"
+},{
+    method: "put",
+    route: "/alertas_extra/:id",
+    controller: AlertaExtraController,
+    action: "update",
+    entity: "AlertaExtra"
 }
 ];
