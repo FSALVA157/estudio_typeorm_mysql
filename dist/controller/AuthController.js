@@ -10,6 +10,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
 const Usuario_1 = require("../entity/Usuario");
+const config_1 = require("../config/config");
+const jwt = require("jsonwebtoken");
 class AuthController {
 }
 AuthController.login = (req, res) => __awaiter(this, void 0, void 0, function* () {
@@ -26,23 +28,26 @@ AuthController.login = (req, res) => __awaiter(this, void 0, void 0, function* (
     let user;
     try {
         user = yield userRepository.findOneOrFail({ where: { usuario } });
-        //user = await getRepository(Usuario).createQueryBuilder("u").addSelect('password').where("u.usuario = :usu",{usu:usuario}).getOne();
-        console.log(user);
     }
     catch (error) {
         return res.status(400).json({
             message: "(Usuario) o Password incorrecto!"
         });
     }
-    if (user.verificarPassword(clave)) {
-        res.send(user);
-    }
-    else {
+    if (!user.verificarPassword(clave)) {
         return res.status(400).json({
             message: "Usuario o (Password) incorrecto!"
         });
     }
     ;
+    const token = jwt.sign({
+        userId: user.id_usuario,
+        userName: user.nombre
+    }, config_1.default.jwtSecret, { expiresIn: '1h' });
+    res.json({
+        message: 'OK',
+        token
+    });
 });
 exports.default = AuthController;
 //# sourceMappingURL=AuthController.js.map

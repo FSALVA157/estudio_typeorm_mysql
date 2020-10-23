@@ -1,6 +1,10 @@
 import {getRepository} from 'typeorm';
 import { Request,Response } from 'express';
 import{Usuario} from '../entity/Usuario';
+import config from '../config/config';
+import * as jwt from 'jsonwebtoken';
+
+
 
 export default class AuthController {
     static login = async (req: Request,res: Response) => {
@@ -18,24 +22,32 @@ export default class AuthController {
 
         try {
             user = await userRepository.findOneOrFail({where:{usuario}});
-            //user = await getRepository(Usuario).createQueryBuilder("u").addSelect('password').where("u.usuario = :usu",{usu:usuario}).getOne();
-            console.log(user);
+            
         } catch (error) {
             return res.status(400).json({
                 message:"(Usuario) o Password incorrecto!"
             });
         }
 
-        if(user.verificarPassword(clave)){
-            
-            res.send(user);
-        }else{
+        if(!user.verificarPassword(clave)){
             return res.status(400).json({
                 message:"Usuario o (Password) incorrecto!"
             });
         };
 
+        const token = jwt.sign(
+            {
+                userId : user.id_usuario,
+                userName : user.nombre
+            },
+            config.jwtSecret,
+            {expiresIn: '1h'}
+        );
 
+        res.json({
+            message: 'OK',
+            token
+        });
 
     };
 }

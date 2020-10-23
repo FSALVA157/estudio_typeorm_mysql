@@ -37,6 +37,7 @@ const TipoMovimiento_1 = require("./entity/TipoMovimiento");
 const Alerta_1 = require("./entity/Alerta");
 const auth_1 = require("./routes/auth");
 const AlertaExtra_1 = require("./entity/AlertaExtra");
+const jwt_1 = require("./middleware/jwt");
 process.on('unhandledRejection', (error) => {
     console.log(error);
     throw error;
@@ -82,6 +83,7 @@ typeorm_1.createConnection(opciones).then((connection) => __awaiter(this, void 0
     const puerto_activo = app.get('port');
     app.listen(puerto_activo);
     app.use('/auth', auth_1.default);
+    app.get('/usuarios', [jwt_1.checkJwt]);
     // app.get('/',(req,res) => {
     //         res.sendFile(path.join(__dirname,'views/index.html'));
     // });

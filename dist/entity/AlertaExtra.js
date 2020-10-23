@@ -43,6 +43,14 @@ __decorate([
 ], AlertaExtra.prototype, "detalle", void 0);
 __decorate([
     typeorm_1.Column({
+        type: "varchar",
+        length: 100,
+    }),
+    class_validator_1.Length(2, 100, { message: 'El lugar de la alerta debe tener entre $constraint1 y $constraint2 caracteres' }),
+    __metadata("design:type", String)
+], AlertaExtra.prototype, "lugar", void 0);
+__decorate([
+    typeorm_1.Column({
         default: true,
         nullable: true
     }),

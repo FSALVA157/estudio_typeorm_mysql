@@ -24,6 +24,12 @@ export class AlertaExtra {
     @Length(2,500,{message:'El detalle de la alerta debe tener entre $constraint1 y $constraint2 caracteres'})
     detalle: string;
     
+    @Column({
+        type: "varchar",
+        length: 100,
+            })
+    @Length(2,100,{message:'El lugar de la alerta debe tener entre $constraint1 y $constraint2 caracteres'})
+    lugar: string;
 
     @Column({
         default:true,

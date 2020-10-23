@@ -17,6 +17,9 @@ import { TipoMovimientoController } from '../controller/TipoMovimientoController
 import { AlertaController } from "../controller/AlertaController";
 import { AlertaExtraController } from '../controller/AlertaExtraController';
 
+import { checkJwt } from '../middleware/jwt';
+
+
 export const Routes = [{
     method: "get",
     route: "/usuarios",

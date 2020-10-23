@@ -28,6 +28,8 @@ import { TipoMovimiento } from './entity/TipoMovimiento';
 import { Alerta } from './entity/Alerta';
 import auth from './routes/auth';
 import { AlertaExtra } from './entity/AlertaExtra';
+import { checkJwt } from './middleware/jwt';
+import { UsuarioController } from './controller/UsuarioController';
 
 
 process.on('unhandledRejection',(error) => {
@@ -94,6 +96,7 @@ var opciones:ConnectionOptions;
         const puerto_activo = app.get('port');
         app.listen(puerto_activo);
         app.use('/auth',auth);
+        app.get('/usuarios',[checkJwt]);
 
         // app.get('/',(req,res) => {
         //         res.sendFile(path.join(__dirname,'views/index.html'));
