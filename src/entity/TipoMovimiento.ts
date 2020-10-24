@@ -12,7 +12,7 @@ export class TipoMovimiento {
         type: "varchar",
         length: 50,
             })
-    @Length(2,50,{message:'El tipo de momviento debe tener entre $constraint1 y $constraint2 caracteres'})
+    @Length(2,50,{message:'El tipo de movimiento debe tener entre $constraint1 y $constraint2 caracteres'})
     tipo_movimiento: string;
 
         //constructor

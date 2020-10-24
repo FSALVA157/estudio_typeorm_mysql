@@ -28,7 +28,7 @@ __decorate([
         type: "varchar",
         length: 50,
     }),
-    class_validator_1.Length(2, 50, { message: 'El tipo de momviento debe tener entre $constraint1 y $constraint2 caracteres' }),
+    class_validator_1.Length(2, 50, { message: 'El tipo de movimiento debe tener entre $constraint1 y $constraint2 caracteres' }),
     __metadata("design:type", String)
 ], TipoMovimiento.prototype, "tipo_movimiento", void 0);
 TipoMovimiento = __decorate([

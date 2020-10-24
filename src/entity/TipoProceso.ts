@@ -16,10 +16,14 @@ export class TipoProceso {
     @Length(3,50,{message:'El tipo de proceso debe tener entre $constraint1 y $constraint2 caracteres'})
     tipo_proceso: string;
 
-    @Column("simple-array")
+    @Column({
+      type: "simple-array"
+    })
     etapas: string[];
 
-    @Column("simple-json")
+    @Column({
+        type: "simple-json"
+    })
     secuencia: { etapas: string[]};
 
     @Column({

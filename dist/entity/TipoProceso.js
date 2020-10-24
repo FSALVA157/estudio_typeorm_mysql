@@ -36,11 +36,15 @@ __decorate([
     __metadata("design:type", String)
 ], TipoProceso.prototype, "tipo_proceso", void 0);
 __decorate([
-    typeorm_1.Column("simple-array"),
+    typeorm_1.Column({
+        type: "simple-array"
+    }),
     __metadata("design:type", Array)
 ], TipoProceso.prototype, "etapas", void 0);
 __decorate([
-    typeorm_1.Column("simple-json"),
+    typeorm_1.Column({
+        type: "simple-json"
+    }),
     __metadata("design:type", Object)
 ], TipoProceso.prototype, "secuencia", void 0);
 __decorate([
