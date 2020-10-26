@@ -332,14 +332,16 @@ typeorm_1.createConnection(opciones).then((connection) => __awaiter(this, void 0
     //         'Demanda',
     //         'Contesta Demanda',
     //         'Prueba',
-    //         'Alegato'
+    //         'Alegato',
+    //         'Sentencia'
     //     ],
     //     secuencia: {
     //         etapas: [
     //             'Demanda',
     //             'Contesta Demanda',
     //             'Prueba',
-    //             'Alegato'
+    //             'Alegato',
+    //             'Sentencia'
     //         ]   
     //     },
     //     campo: "var1,var2,var3"
@@ -351,14 +353,16 @@ typeorm_1.createConnection(opciones).then((connection) => __awaiter(this, void 0
     //         'Demanda',
     //         'Contesta Demanda',
     //         'Prueba',
-    //         'Alegato'
+    //         'Alegato',
+    //         'Sentencia'
     //     ],
     //     secuencia: {
     //         etapas: [
     //             'Demanda',
     //             'Contesta Demanda',
     //             'Prueba',
-    //             'Alegato'
+    //             'Alegato',
+    //             'Sentencia'
     //         ]   
     //     },
     //     campo: "var1,var2,var3"
@@ -368,16 +372,20 @@ typeorm_1.createConnection(opciones).then((connection) => __awaiter(this, void 0
     //     tipo_proceso: 'SUMARISIMO',
     //     etapas: [
     //         'Demanda',
+    //         'Audiencia de Conciliación',
     //         'Contesta Demanda',
     //         'Prueba',
-    //         'Alegato'
+    //         'Alegato',
+    //         'Sentencia'
     //     ],
     //     secuencia: {
     //         etapas: [
     //             'Demanda',
+    //             'Audiencia de Conciliación',
     //             'Contesta Demanda',
     //             'Prueba',
-    //             'Alegato'
+    //             'Alegato',
+    //             'Sentencia'
     //         ]   
     //     },
     //     campo: "var1,var2,var3"
@@ -387,16 +395,14 @@ typeorm_1.createConnection(opciones).then((connection) => __awaiter(this, void 0
     //     tipo_proceso: 'VOLUNTARIO',
     //     etapas: [
     //         'Demanda',
-    //         'Contesta Demanda',
     //         'Prueba',
-    //         'Alegato'
+    //         'Sentencia'
     //     ],
     //     secuencia: {
     //         etapas: [
     //             'Demanda',
-    //             'Contesta Demanda',
     //             'Prueba',
-    //             'Alegato'
+    //             'Sentencia'
     //         ]   
     //     },
     //     campo: "var1,var2,var3"
@@ -406,16 +412,32 @@ typeorm_1.createConnection(opciones).then((connection) => __awaiter(this, void 0
     //     tipo_proceso: 'EJECUTIVO',
     //     etapas: [
     //         'Demanda',
-    //        'Contesta Demanda',
-    //         'Prueba',
-    //         'Alegato'
+    //         'Imtimación de Pago',
+    //         'Mandamiento de Embargo',
+    //        'Opone Excepciones - Prueba',
+    //         'Alegato',
+    //         'Sentencia',
+    //         'Sentencia de Remate',
+    //         'Liquidación de Capital e Intereses',
+    //         'Pago',
+    //         'Preparación Vía Ejecutiva',
+    //         'Citación del Demandado',
+    //         'Sentencia Interlocutoria'
     //     ],
     //     secuencia: {
     //         etapas: [
     //             'Demanda',
-    //             'Contesta Demanda',
-    //             'Prueba',
-    //             'Alegato'
+    //             'Imtimación de Pago',
+    //             'Mandamiento de Embargo',
+    //             'Opone Excepciones - Prueba',
+    //             'Alegato',
+    //             'Sentencia',
+    //             'Sentencia de Remate',
+    //             'Liquidación de Capital e Intereses',
+    //             'Pago',
+    //             'Preparación Vía Ejecutiva',
+    //             'Citación del Demandado',
+    //             'Sentencia Interlocutoria'
     //         ]   
     //     },
     //     campo: "var1,var2,var3"
@@ -424,17 +446,23 @@ typeorm_1.createConnection(opciones).then((connection) => __awaiter(this, void 0
     //     id_tipo_proceso:6,
     //     tipo_proceso: 'UNIVERSAL',
     //     etapas: [
-    //         'Demanda',
-    //         'Contesta Demanda',
-    //         'Prueba',
-    //         'Alegato'
+    //         'Inicio Juicio Sucesorio',
+    //         'Apertura de Sucesión',
+    //         'Edictos',
+    //         'Declaratoria de Herederos',
+    //         'Inventario',
+    //         'Partición y Adjudicación',
+    //         'Hijuelas'
     //     ],
     //     secuencia: {
     //         etapas: [
-    //             'Demanda',
-    //             'Contesta Demanda',
-    //             'Prueba',
-    //             'Alegato'
+    //             'Inicio Juicio Sucesorio',
+    //             'Apertura de Sucesión',
+    //             'Edictos',
+    //             'Declaratoria de Herederos',
+    //             'Inventario',
+    //             'Partición y Adjudicación',
+    //             'Hijuelas'
     //         ]   
     //     },
     //     campo: "var1,var2,var3"
@@ -443,17 +471,17 @@ typeorm_1.createConnection(opciones).then((connection) => __awaiter(this, void 0
     //     id_tipo_proceso:7,
     //     tipo_proceso: 'INCIDENTE',
     //     etapas: [
-    //         'Demanda',
-    //         'Contesta Demanda',
+    //         'Incidente',
+    //         'Contestación de Incidente',
     //         'Prueba',
-    //         'Alegato'
+    //         'Sentencia Interlocutoria'
     //     ],
     //     secuencia: {
     //         etapas: [
-    //             'Demanda',
-    //             'Contesta Demanda',
+    //             'Incidente',
+    //             'Contestación de Incidente',
     //             'Prueba',
-    //             'Alegato'
+    //             'Sentencia Interlocutoria'
     //         ]   
     //     },
     //     campo: "var1,var2,var3"
@@ -462,17 +490,17 @@ typeorm_1.createConnection(opciones).then((connection) => __awaiter(this, void 0
     //     id_tipo_proceso:8,
     //     tipo_proceso: 'ESPECIAL LEY 7.403',
     //     etapas: [
-    //         'Demanda',
-    //         'Contesta Demanda',
-    //         'Prueba',
-    //         'Alegato'
+    //         'Denuncia por Violencia',
+    //         'Medidas Previas',
+    //         'Audiencia',
+    //         'Resolución'
     //     ],
     //     secuencia: {
     //         etapas: [
-    //             'Demanda',
-    //             'Contesta Demanda',
-    //             'Prueba',
-    //             'Alegato'
+    //             'Denuncia por Violencia',
+    //             'Medidas Previas',
+    //             'Audiencia',
+    //             'Resolución'
     //         ]   
     //     },
     //     campo: "var1,var2,var3"
@@ -481,17 +509,13 @@ typeorm_1.createConnection(opciones).then((connection) => __awaiter(this, void 0
     //     id_tipo_proceso:9,
     //     tipo_proceso: 'MEDIDAS CAUTELARES',
     //     etapas: [
-    //         'Demanda',
-    //         'Contesta Demanda',
-    //         'Prueba',
-    //         'Alegato'
+    //         'Inicia Medida Cautelar',
+    //         'Sentencia Interlocutoria'
     //     ],
     //     secuencia: {
     //         etapas: [
-    //             'Demanda',
-    //             'Contesta Demanda',
-    //             'Prueba',
-    //             'Alegato'
+    //             'Inicia Medida Cautelar',
+    //             'Sentencia Interlocutoria'
     //         ]   
     //     },
     //     campo: "var1,var2,var3"
