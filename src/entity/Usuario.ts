@@ -1,7 +1,12 @@
 import {Entity, PrimaryGeneratedColumn, Column, BeforeInsert} from "typeorm";
-import{IsInt, Min, Length, IsAlphanumeric, MinLength, IsEmail, IsOptional, IsISO8601, Matches} from 'class-validator';
+import{IsInt, Min, Length, IsAlphanumeric, MinLength, IsEmail, IsOptional, IsISO8601, Matches, IsEnum} from 'class-validator';
 import {Exclude, Transform} from 'class-transformer';
 import { EncryptionTransformer } from "typeorm-encrypted";
+
+enum UserRole{
+    ADMIN = 'admin',
+    NORMAL = 'normal'
+};
 
 @Entity()
 export class  Usuario {
@@ -86,9 +91,18 @@ export class  Usuario {
     @IsEmail()
     email: string;
 
-    @Column({type: "int",unsigned: true })
-    @IsInt({message:'El nivel debe ser una clave entera'})
-    nivel_usuario_id: number;
+    // @Column({type: "int",unsigned: true })
+    // @IsInt({message:'El nivel debe ser una clave entera'})
+    // nivel_usuario_id: number;
+    @Column({
+        type: "enum",
+        enum: UserRole,
+        default: UserRole.NORMAL,
+        nullable: false
+    })
+    @IsEnum(UserRole)
+    rol: UserRole;
+    
 
     @Column({default:true })
     estado: boolean;
@@ -124,7 +138,7 @@ export class  Usuario {
             this.password = req.body.password;
             this.estudio_id = req.body.estudio_id;
             this.email = req.body.email;
-            this.nivel_usuario_id = req.body.nivel_usuario_id;
+            this.rol = req.body.rol;
             this.fecha_alta = req.body.fecha_alta;
             this.fecha_baja = req.body.fecha_baja;
         }

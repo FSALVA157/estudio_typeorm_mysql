@@ -18,7 +18,7 @@ class UsuarioController {
         return __awaiter(this, void 0, void 0, function* () {
             let offset = Number(request.query.offset) || 0;
             let limit = Number(request.query.limit) || 10;
-            let fields = ["id_usuario", "dni_usuario", "nombre", "apellido", "tipo_id", "domicilio_procesal", "matricula", "usuario", "estudio_id", "email", "nivel_usuario_id", "estado", "fecha_alta", "fecha_baja"];
+            let fields = ["id_usuario", "dni_usuario", "nombre", "apellido", "tipo_id", "domicilio_procesal", "matricula", "usuario", "estudio_id", "email", "rol", "estado", "fecha_alta", "fecha_baja"];
             if (request.query.fields) {
                 let reqFields = request.query.fields;
                 fields = reqFields.toString().split(",");
@@ -98,8 +98,8 @@ class UsuarioController {
                         case 'email':
                             cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
                             break;
-                        case 'nivel_usuario_id':
-                            cond[nombreCampo] = Number(arreglo[campo]);
+                        case 'rol':
+                            cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
                             break;
                         case 'estado':
                             cond[nombreCampo] = Number(arreglo[campo]);

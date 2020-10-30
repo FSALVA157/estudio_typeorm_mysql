@@ -10,7 +10,9 @@ exports.checkJwt = (req, res, next) => {
         res.locals.jwtPayload = jwtPayload;
     }
     catch (error) {
-        return res.status(401).send();
+        return res.status(401).send({
+            message: 'Ingreso No Autorizado'
+        });
     }
     const { userId, username } = jwtPayload;
     const newToken = jwt.sign({ userId, username }, config_1.default.jwtSecret, { expiresIn: '1h' });

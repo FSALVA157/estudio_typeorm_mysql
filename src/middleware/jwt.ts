@@ -11,7 +11,9 @@ export const checkJwt = (req: Request, res:Response, next: NextFunction) => {
         jwtPayload = <any> jwt.verify(token,config.jwtSecret);
         res.locals.jwtPayload = jwtPayload;
     } catch (error) {
-        return res.status(401).send();
+        return res.status(401).send({
+            message: 'Ingreso No Autorizado'
+        });
     }
 
     const {userId, username} = jwtPayload;

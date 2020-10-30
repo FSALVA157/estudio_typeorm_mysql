@@ -13,6 +13,12 @@ const typeorm_1 = require("typeorm");
 const class_validator_1 = require("class-validator");
 const class_transformer_1 = require("class-transformer");
 const typeorm_encrypted_1 = require("typeorm-encrypted");
+var UserRole;
+(function (UserRole) {
+    UserRole["ADMIN"] = "admin";
+    UserRole["NORMAL"] = "normal";
+})(UserRole || (UserRole = {}));
+;
 let Usuario = class Usuario {
     //constructor
     constructor(req) {
@@ -27,7 +33,7 @@ let Usuario = class Usuario {
             this.password = req.body.password;
             this.estudio_id = req.body.estudio_id;
             this.email = req.body.email;
-            this.nivel_usuario_id = req.body.nivel_usuario_id;
+            this.rol = req.body.rol;
             this.fecha_alta = req.body.fecha_alta;
             this.fecha_baja = req.body.fecha_baja;
         }
@@ -127,10 +133,15 @@ __decorate([
     __metadata("design:type", String)
 ], Usuario.prototype, "email", void 0);
 __decorate([
-    typeorm_1.Column({ type: "int", unsigned: true }),
-    class_validator_1.IsInt({ message: 'El nivel debe ser una clave entera' }),
-    __metadata("design:type", Number)
-], Usuario.prototype, "nivel_usuario_id", void 0);
+    typeorm_1.Column({
+        type: "enum",
+        enum: UserRole,
+        default: UserRole.NORMAL,
+        nullable: false
+    }),
+    class_validator_1.IsEnum(UserRole),
+    __metadata("design:type", String)
+], Usuario.prototype, "rol", void 0);
 __decorate([
     typeorm_1.Column({ default: true }),
     __metadata("design:type", Boolean)
