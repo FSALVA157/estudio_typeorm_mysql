@@ -38,6 +38,7 @@ const Alerta_1 = require("./entity/Alerta");
 const auth_1 = require("./routes/auth");
 const AlertaExtra_1 = require("./entity/AlertaExtra");
 const jwt_1 = require("./middleware/jwt");
+const consulta_1 = require("./entity/consulta");
 process.on('unhandledRejection', (error) => {
     console.log(error);
     throw error;
@@ -128,6 +129,15 @@ typeorm_1.createConnection(opciones).then((connection) => __awaiter(this, void 0
                     try {
                         let data;
                         switch (route.entity) {
+                            case 'Consulta':
+                                data = new consulta_1.Consulta(req);
+                                //console.log(req);
+                                if (req.body.id_consulta) {
+                                    throw errorSobreescritura;
+                                }
+                                else {
+                                    break;
+                                }
                             case 'Alerta':
                                 data = new Alerta_1.Alerta(req);
                                 //console.log(req);

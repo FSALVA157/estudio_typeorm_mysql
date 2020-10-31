@@ -101,7 +101,7 @@ export class  Usuario {
         nullable: false
     })
     @IsEnum(UserRole)
-    rol: UserRole;
+    role: UserRole;
     
 
     @Column({default:true })
@@ -138,7 +138,7 @@ export class  Usuario {
             this.password = req.body.password;
             this.estudio_id = req.body.estudio_id;
             this.email = req.body.email;
-            this.rol = req.body.rol;
+            this.role = req.body.rol;
             this.fecha_alta = req.body.fecha_alta;
             this.fecha_baja = req.body.fecha_baja;
         }

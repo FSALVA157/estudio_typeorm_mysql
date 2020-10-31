@@ -30,6 +30,7 @@ import auth from './routes/auth';
 import { AlertaExtra } from './entity/AlertaExtra';
 import { checkJwt } from './middleware/jwt';
 import { UsuarioController } from './controller/UsuarioController';
+import { Consulta } from './entity/consulta';
 
 
 process.on('unhandledRejection',(error) => {
@@ -152,6 +153,15 @@ var opciones:ConnectionOptions;
                              try {
                                  let data;
                                         switch (route.entity) {
+                                            case 'Consulta':
+                                                data = new Consulta(req);
+                                                //console.log(req);
+                                                if(req.body.id_consulta){
+                                                   throw errorSobreescritura;
+                                                }else{
+                                                    break;
+
+                                                }
                                             case 'Alerta':
                                                 data = new Alerta(req);
                                                 //console.log(req);

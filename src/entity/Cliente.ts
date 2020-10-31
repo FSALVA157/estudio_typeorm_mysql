@@ -3,6 +3,7 @@ import{IsInt, Min, Length, IsAlphanumeric, MinLength, IsEmail,  IsOptional, IsIS
 import {Transform} from 'class-transformer';
 import { CategoriaCliente } from './CategoriaCliente';
 import { Caso } from './Caso';
+import { Consulta } from './consulta';
 
 
 @Entity()
@@ -13,6 +14,9 @@ export class Cliente {
 
     @OneToMany(type => Caso,caso => caso.cliente)
     casos : Caso[];
+
+    @OneToMany(type => Consulta,consulta => consulta.cliente)
+    consultas : Consulta[];
     
     @Column({
         type: "int"

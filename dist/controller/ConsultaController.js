@@ -9,19 +9,22 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
-const Usuario_1 = require("../entity/Usuario");
-class UsuarioController {
+const consulta_1 = require("../entity/consulta");
+class ConsultaController {
     constructor() {
-        this.userRepository = typeorm_1.getRepository(Usuario_1.Usuario);
+        this.ConsultaRepository = typeorm_1.getRepository(consulta_1.Consulta);
     }
     all(request, response, next) {
         return __awaiter(this, void 0, void 0, function* () {
             let offset = Number(request.query.offset) || 0;
             let limit = Number(request.query.limit) || 10;
-            let fields = ["id_usuario", "dni_usuario", "nombre", "apellido", "tipo_id", "domicilio_procesal", "matricula", "usuario", "estudio_id", "email", "role", "estado", "fecha_alta", "fecha_baja"];
+            let fields = null;
             if (request.query.fields) {
                 let reqFields = request.query.fields;
                 fields = reqFields.toString().split(",");
+                if (!fields.includes('id_consulta')) {
+                    fields.push('id_consulta');
+                }
             }
             ;
             //funcion que devuelve la expresion de las consultas de parametros strings con funciones avanzadas de filtros (LIKE,NOT,IN)
@@ -66,103 +69,73 @@ class UsuarioController {
             let cond = new Object();
             for (const campo in arreglo) {
                 if (Object.prototype.hasOwnProperty.call(arreglo, campo)) {
+                    //console.log(`${campo} = ${arreglo[campo]}`);
+                    //const element = arreglo[campo];
                     let nombreCampo = campo.toString();
                     switch (nombreCampo) {
-                        case 'id_usuario':
+                        case 'cliente_id':
                             cond[nombreCampo] = Number(arreglo[campo]);
                             break;
-                        case 'dni_usuario':
-                            cond[nombreCampo] = Number(arreglo[campo]);
-                            break;
-                        case 'nombre':
-                            cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
-                            break;
-                        case 'apellido':
-                            cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
-                            break;
-                        case 'tipo_id':
-                            cond[nombreCampo] = Number(arreglo[campo]);
-                            break;
-                        case 'domicilio_procesal':
-                            cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
-                            break;
-                        case 'matricula':
-                            cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
-                            break;
-                        case 'usuario':
-                            cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
-                            break;
-                        case 'estudio_id':
-                            cond[nombreCampo] = Number(arreglo[campo]);
-                            break;
-                        case 'email':
-                            cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
-                            break;
-                        case 'role':
-                            cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
-                            break;
-                        case 'estado':
-                            cond[nombreCampo] = Number(arreglo[campo]);
-                            break;
-                        case 'fecha_alta':
+                        case 'fecha':
                             cond[nombreCampo] = ExpresionAvanzadaFechas(arreglo[campo]);
                             break;
-                        case 'fecha_baja':
-                            cond[nombreCampo] = ExpresionAvanzadaFechas(arreglo[campo]);
-                            //cond[nombreCampo] = arreglo[campo];
+                        case 'detalle':
+                            cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
+                            break;
+                        case 'obs':
+                            cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
                             break;
                         default:
                             break;
                     }
                 }
             }
-            //   console.log('EL ARREGLO NUEVO ES ESTE',cond);
-            return yield this.userRepository.find({
-                select: fields,
-                order: {
-                    apellido: "ASC"
-                },
-                skip: offset,
-                take: limit,
-                where: cond
-            });
+            let reglas;
+            if (fields != null) {
+                reglas = {
+                    order: {
+                        id_consulta: "ASC"
+                    },
+                    select: fields,
+                    skip: offset,
+                    take: limit,
+                    where: cond
+                };
+            }
+            else {
+                reglas = {
+                    order: {
+                        id_consulta: "ASC"
+                    },
+                    skip: offset,
+                    take: limit,
+                    where: cond
+                };
+            }
+            return yield this.ConsultaRepository.find(reglas);
         });
     }
     one(request, response, next) {
         return __awaiter(this, void 0, void 0, function* () {
-            //  return await this.userRepository.findOne(request.params.id);
-            try {
-                let respuesta = yield this.userRepository.findOneOrFail(request.params.id);
-                delete respuesta['password'];
-                return respuesta;
-            }
-            catch (error) {
-                throw error;
-            }
+            return yield this.ConsultaRepository.findOne(request.params.id);
         });
     }
     save(request, response, next) {
         return __awaiter(this, void 0, void 0, function* () {
-            // let nuevoUsuario = new Usuario(request.body);
-            let respuesta = yield this.userRepository.save(request.body);
-            // eliminar el campo password para que no se exponga en la respuesta
-            delete respuesta['password'];
-            //console.log(respuesta);
-            return respuesta;
+            return yield this.ConsultaRepository.save(request.body);
         });
     }
     remove(request, response, next) {
         return __awaiter(this, void 0, void 0, function* () {
-            let userToRemove = yield this.userRepository.findOne(request.params.id);
-            return yield this.userRepository.remove(userToRemove);
+            let userToRemove = yield this.ConsultaRepository.findOne(request.params.id);
+            return yield this.ConsultaRepository.remove(userToRemove);
         });
     }
     update(request, response, next) {
         return __awaiter(this, void 0, void 0, function* () {
-            //const nuevoUsuario = this.userRepository.create();
-            return yield this.userRepository.update(request.params.id, request.body);
+            return yield this.ConsultaRepository.update(request.params.id, request.body);
         });
     }
 }
-exports.UsuarioController = UsuarioController;
-//# sourceMappingURL=UsuarioController.js.map
+exports.ConsultaController = ConsultaController;
+//# sourceMappingURL=ConsultaController.js.map

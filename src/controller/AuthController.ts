@@ -22,6 +22,8 @@ export default class AuthController {
 
         try {
             user = await userRepository.findOneOrFail({where:{usuario}});
+
+
             
         } catch (error) {
             return res.status(400).json({
@@ -34,11 +36,11 @@ export default class AuthController {
                 message:"Usuario o (Password) incorrecto!"
             });
         };
-
+        
+        
         const token = jwt.sign(
             {
-                userId : user.id_usuario,
-                userName : user.nombre
+            usuario: user
             },
             config.jwtSecret,
             {expiresIn: '1h'}
@@ -46,8 +48,8 @@ export default class AuthController {
 
         res.json({
             message: 'OK',
-            token
-        });
+            token,
+               });
 
     };
 }

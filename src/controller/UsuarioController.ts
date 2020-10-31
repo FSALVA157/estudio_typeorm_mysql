@@ -11,7 +11,7 @@ export class UsuarioController {
         let offset:number = Number(request.query.offset) || 0;
         let limit:number = Number(request.query.limit) || 10;
         
-        let fields:any =  ["id_usuario","dni_usuario","nombre","apellido","tipo_id","domicilio_procesal","matricula","usuario","estudio_id","email","rol","estado","fecha_alta","fecha_baja"];
+        let fields:any =  ["id_usuario","dni_usuario","nombre","apellido","tipo_id","domicilio_procesal","matricula","usuario","estudio_id","email","role","estado","fecha_alta","fecha_baja"];
         if(request.query.fields){
             let reqFields = request.query.fields;
             fields = reqFields.toString().split(",");
@@ -97,7 +97,7 @@ export class UsuarioController {
                     case 'email':
                         cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);  
                         break;    
-                    case 'rol':
+                    case 'role':
                         cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);  
                         break;
                     case 'estado':

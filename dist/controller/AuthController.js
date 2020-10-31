@@ -41,12 +41,11 @@ AuthController.login = (req, res) => __awaiter(this, void 0, void 0, function* (
     }
     ;
     const token = jwt.sign({
-        userId: user.id_usuario,
-        userName: user.nombre
+        usuario: user
     }, config_1.default.jwtSecret, { expiresIn: '1h' });
     res.json({
         message: 'OK',
-        token
+        token,
     });
 });
 exports.default = AuthController;

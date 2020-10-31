@@ -33,7 +33,7 @@ let Usuario = class Usuario {
             this.password = req.body.password;
             this.estudio_id = req.body.estudio_id;
             this.email = req.body.email;
-            this.rol = req.body.rol;
+            this.role = req.body.rol;
             this.fecha_alta = req.body.fecha_alta;
             this.fecha_baja = req.body.fecha_baja;
         }
@@ -141,7 +141,7 @@ __decorate([
     }),
     class_validator_1.IsEnum(UserRole),
     __metadata("design:type", String)
-], Usuario.prototype, "rol", void 0);
+], Usuario.prototype, "role", void 0);
 __decorate([
     typeorm_1.Column({ default: true }),
     __metadata("design:type", Boolean)
