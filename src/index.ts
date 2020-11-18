@@ -34,6 +34,7 @@ import { Consulta } from './entity/consulta';
 import { RegistroContable } from './entity/RegistroContable';
 import balanceCaso from './routes/balanceCaso';
 import calculos from './routes/calculos';
+import * as cors from 'cors';
 
 
 process.on('unhandledRejection',(error) => {
@@ -88,15 +89,16 @@ var opciones:ConnectionOptions;
         app.set('port',process.env.PORT || 3000);
         
         // middleware de cabeceras y cors
-        app.use((req, res, next) => {
-            res.header('Access-Control-Allow-Origin', '*');
-            res.header('Access-Control-Allow-Credentials:true');
-            res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
-            res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
-            res.header('Content-Type: text/html; charset=utf-8');
-            res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
-            next();
-        });
+        app.use(cors());
+        // app.use((req, res, next) => {
+        //     res.header('Access-Control-Allow-Origin', '*');
+        //     res.header('Access-Control-Allow-Credentials:true');
+        //     res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
+        //     res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+        //     res.header('Content-Type: text/html; charset=utf-8');
+        //     res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
+        //     next();
+        // });
         
         
         

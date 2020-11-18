@@ -42,6 +42,7 @@ const consulta_1 = require("./entity/consulta");
 const RegistroContable_1 = require("./entity/RegistroContable");
 const balanceCaso_1 = require("./routes/balanceCaso");
 const calculos_1 = require("./routes/calculos");
+const cors = require("cors");
 process.on('unhandledRejection', (error) => {
     console.log(error);
     throw error;
@@ -78,15 +79,16 @@ typeorm_1.createConnection(opciones).then((connection) => __awaiter(this, void 0
     //middlwwares de errores
     app.set('port', process.env.PORT || 3000);
     // middleware de cabeceras y cors
-    app.use((req, res, next) => {
-        res.header('Access-Control-Allow-Origin', '*');
-        res.header('Access-Control-Allow-Credentials:true');
-        res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
-        res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
-        res.header('Content-Type: text/html; charset=utf-8');
-        res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
-        next();
-    });
+    app.use(cors());
+    // app.use((req, res, next) => {
+    //     res.header('Access-Control-Allow-Origin', '*');
+    //     res.header('Access-Control-Allow-Credentials:true');
+    //     res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
+    //     res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+    //     res.header('Content-Type: text/html; charset=utf-8');
+    //     res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
+    //     next();
+    // });
     // start express server
     const puerto_activo = app.get('port');
     app.listen(puerto_activo);
