@@ -5,7 +5,7 @@
     "username": "uss4wi44oxovd872",
     "password": "Hm7LncSEszNuH8qmxRd7",
     "database": "bgr6cvci0boxlqe1x4a7",
-    "synchronize": true,
+    "synchronize": false,
     "logging": false,
     "entities": [
         "dist/entity/**/*{.js,.ts}"
@@ -15,7 +15,7 @@
         "src/migration/**/*{.js,.ts}"
     ],
     "subscribers": [
-        "src/subscriber/**/*{.js,.ts}"
+        "dist/subscriber/**/*{.js,.ts}"
     ],
     "cli": {
         "entitiesDir": "src/entity",

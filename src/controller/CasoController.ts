@@ -159,7 +159,7 @@ export class CasoController {
         if(fields != null){
             
             reglas = {
-                relations: ["movimientos","alertas"],
+                relations: ["movimientos","alertas","asientos"],
                 order:{
                     id_caso:"ASC",
                 },
@@ -171,7 +171,7 @@ export class CasoController {
         
         }else{
             reglas = {
-                relations: ["movimientos","alertas"],
+                relations: ["movimientos","alertas","asientos"],
                 order:{
                     id_caso:"ASC",
                 },
@@ -187,7 +187,7 @@ export class CasoController {
 
     async one(request: Request, response: Response, next: NextFunction) {
         
-        return await this.casoRepository.findOne(request.params.id,{ relations: ["movimientos","alertas"]});
+        return await this.casoRepository.findOne(request.params.id,{ relations: ["movimientos","alertas","asientos"]});
     }
 
     async save(request: Request, response: Response, next: NextFunction) {

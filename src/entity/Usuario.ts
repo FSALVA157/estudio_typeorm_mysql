@@ -109,14 +109,12 @@ export class  Usuario {
     
     @Column({type: "date"})
     @IsISO8601()
-    @Matches(/^\d{4}([\-/.])(0?[1-9]|1[0-1-2])\1(3[01]|[12][0-9]|0?[1-9])$/,{message:'El dato debe respetar el formato yyyy/mm/dd'})
     @Transform(()=>Date)
     fecha_alta: Date;
     
     @Column({type: "date",nullable:true})
     @IsOptional()
     @IsISO8601()
-    @Matches(/^\d{4}([\-/.])(0?[1-9]|1[0-1-2])\1(3[01]|[12][0-9]|0?[1-9])$/,{message:'El dato debe respetar el formato yyyy/mm/dd'})
     @Transform(()=>Date)
     fecha_baja: Date;
 

@@ -149,7 +149,6 @@ __decorate([
 __decorate([
     typeorm_1.Column({ type: "date" }),
     class_validator_1.IsISO8601(),
-    class_validator_1.Matches(/^\d{4}([\-/.])(0?[1-9]|1[0-1-2])\1(3[01]|[12][0-9]|0?[1-9])$/, { message: 'El dato debe respetar el formato yyyy/mm/dd' }),
     class_transformer_1.Transform(() => Date),
     __metadata("design:type", Date)
 ], Usuario.prototype, "fecha_alta", void 0);
@@ -157,7 +156,6 @@ __decorate([
     typeorm_1.Column({ type: "date", nullable: true }),
     class_validator_1.IsOptional(),
     class_validator_1.IsISO8601(),
-    class_validator_1.Matches(/^\d{4}([\-/.])(0?[1-9]|1[0-1-2])\1(3[01]|[12][0-9]|0?[1-9])$/, { message: 'El dato debe respetar el formato yyyy/mm/dd' }),
     class_transformer_1.Transform(() => Date),
     __metadata("design:type", Date)
 ], Usuario.prototype, "fecha_baja", void 0);

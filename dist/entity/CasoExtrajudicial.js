@@ -15,6 +15,7 @@ const class_transformer_1 = require("class-transformer");
 const Fuero_1 = require("./Fuero");
 const Cliente_1 = require("./Cliente");
 const ObjetoExtrajudicial_1 = require("./ObjetoExtrajudicial");
+const RegistroContable_1 = require("./RegistroContable");
 let CasoExtrajudicial = class CasoExtrajudicial {
     //constructor
     constructor(req) {
@@ -41,6 +42,10 @@ __decorate([
     __metadata("design:type", Number)
 ], CasoExtrajudicial.prototype, "id_caso_ext", void 0);
 __decorate([
+    typeorm_1.OneToMany(type => RegistroContable_1.RegistroContable, asiento => asiento.caso_extrajudicial),
+    __metadata("design:type", Array)
+], CasoExtrajudicial.prototype, "asientos", void 0);
+__decorate([
     typeorm_1.Column({
         type: "int",
     }),
@@ -58,7 +63,6 @@ __decorate([
 __decorate([
     typeorm_1.Column({ type: "date" }),
     class_validator_1.IsISO8601(),
-    class_validator_1.Matches(/^\d{4}([\-/.])(0?[1-9]|1[0-1-2])\1(3[01]|[12][0-9]|0?[1-9])$/, { message: 'La fecha   debe respetar el formato yyyy-mm-dd' }),
     class_transformer_1.Transform(() => Date),
     __metadata("design:type", Date)
 ], CasoExtrajudicial.prototype, "fecha_tramite", void 0);
@@ -92,6 +96,16 @@ __decorate([
     class_validator_1.Length(5, 100, { message: 'El nombre de la contraparte debe tener entre $constraint1 y $constraint2 caracteres' }),
     __metadata("design:type", String)
 ], CasoExtrajudicial.prototype, "contraparte_nombre", void 0);
+__decorate([
+    typeorm_1.Column({
+        type: "varchar",
+        length: 100,
+        nullable: true
+    }),
+    class_validator_1.IsOptional(),
+    class_validator_1.Length(5, 100, { message: 'El apellido de la contraparte debe tener entre $constraint1 y $constraint2 caracteres' }),
+    __metadata("design:type", String)
+], CasoExtrajudicial.prototype, "contraparte_apellido", void 0);
 __decorate([
     typeorm_1.Column({
         type: "varchar",
@@ -188,12 +202,11 @@ __decorate([
 ], CasoExtrajudicial.prototype, "mediador_telef", void 0);
 __decorate([
     typeorm_1.Column({
-        type: "date",
+        type: "datetime",
         nullable: true
     }),
     class_validator_1.IsOptional(),
     class_validator_1.IsISO8601(),
-    class_validator_1.Matches(/^\d{4}([\-/.])(0?[1-9]|1[0-1-2])\1(3[01]|[12][0-9]|0?[1-9])$/, { message: 'La fecha   debe respetar el formato yyyy-mm-dd' }),
     class_transformer_1.Transform(() => Date),
     __metadata("design:type", Date)
 ], CasoExtrajudicial.prototype, "fecha_audiencia", void 0);

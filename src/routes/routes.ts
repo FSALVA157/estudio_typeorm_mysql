@@ -19,6 +19,7 @@ import { AlertaExtraController } from '../controller/AlertaExtraController';
 
 import { checkJwt } from '../middleware/jwt';
 import { ConsultaController } from '../controller/ConsultaController';
+import { RegistroContableController } from '../controller/RegistroContableController';
 
 
 export const Routes = [{
@@ -594,5 +595,35 @@ export const Routes = [{
     controller: ConsultaController,
     action: "update",
     entity: "Consulta"
+},{
+    method: "get",
+    route: "/asientos",
+    controller: RegistroContableController,
+    action: "all",
+    entity: "RegistroContable"
+}, {
+    method: "get",
+    route: "/asientos/:id",
+    controller:RegistroContableController,
+    action: "one",
+    entity: "RegistroContable"
+}, {
+    method: "post",
+    route: "/asientos",
+    controller: RegistroContableController,
+    action: "save",
+    entity: "RegistroContable"
+}, {
+    method: "delete",
+    route: "/asientos/:id",
+    controller: RegistroContableController,
+    action: "remove",
+    entity: "RegistroContable"
+},{
+    method: "put",
+    route: "/asientos/:id",
+    controller: RegistroContableController,
+    action: "update",
+    entity: "RegistroContable"
 }
 ];

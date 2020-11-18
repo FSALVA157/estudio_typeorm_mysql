@@ -1,28 +1,26 @@
 import {getRepository,Like,Not,IsNull} from "typeorm";
 import {NextFunction, Request, Response} from "express";
-import { CasoExtrajudicial } from '../entity/CasoExtrajudicial';
+import { RegistroContable } from '../entity/RegistroContable';
 
 
 
-export class CasoExtraController {
+export class RegistroContableController {
 
-    private casoExtraRepository = getRepository(CasoExtrajudicial);
+    private RegistroRepository = getRepository(RegistroContable);
 
     async all(request: Request, response: Response, next: NextFunction) {
         let offset:number = Number(request.query.offset) || 0;
         let limit:number = Number(request.query.limit) || 10;
         let fields:any = null;
-        // let fields:any =  ["id_cliente","dni_cuit","categoria_id","razon_social","nombre","apellido","domicilio_real","domicilio_alternativo","provincia","departamento","localidad","telefono_celular","telefono_alternativo","ocupacion","email","fecha_alta"];
+        
         if(request.query.fields){
             let reqFields = request.query.fields;
             fields = reqFields.toString().split(",");
                        
-            if(!fields.includes('id_caso_ext')){
-                fields.push('id_caso_ext');
+            if(!fields.includes('id_registro')){
+                fields.push('id_registro')
             }
-            // if(!fields.includes('apellido')){
-            //     fields.push('apellido')
-            // }
+        
         };
                 
         //funcion que devuelve la expresion de las consultas de parametros strings con funciones avanzadas de filtros (LIKE,NOT,IN)
@@ -76,49 +74,32 @@ export class CasoExtraController {
                 //const element = arreglo[campo];
                 let nombreCampo = campo.toString();
                 switch (nombreCampo) {
-                    case 'id_caso_ext':
+                    case 'caso_id':
                         cond[nombreCampo] = Number(arreglo[campo]);
                         break;
-                    case 'cliente_id':
+                    case 'caso_id_ext':
                         cond[nombreCampo] = Number(arreglo[campo]);
                         break;
-                    case 'fecha_tramite':
+                    case 'tipo_registro':
+                        cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);  
+                        break;
+                    case 'monto':
+                        cond[nombreCampo] = Number(arreglo[campo]);
+                        break;
+                    case 'fecha':
                         cond[nombreCampo] = ExpresionAvanzadaFechas(arreglo[campo]);
                         break; 
                     case 'detalle':
                         cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);  
                         break;
-                    case 'expediente_nro':
+                    case 'recibo':
                         cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);  
                         break;
-                    case 'contraparte_dni':
+                    case 'tipo_cargo':
                         cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);  
                         break;
-                    case 'contraparte_domicilio':
-                        cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);  
-                        break;
-                    case 'contraparte_telefono':
-                        cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);  
-                        break;
-                    case 'materia_id':
-                        cond[nombreCampo] = Number(arreglo[campo]);
-                        break;
-                    case 'objeto_ext_id':
-                        cond[nombreCampo] = Number(arreglo[campo]);
-                        break;
-                    case 'mediador':
-                        cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);  
-                        break;
-                    case 'mediacion_domicilio':
-                        cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);  
-                        break;
-                    case 'mediador_telefono':
-                        cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);  
-                        break;
-                    case 'fecha_audiencia':
-                        cond[nombreCampo] = ExpresionAvanzadaFechas(arreglo[campo]);
-                        break; 
                     
+                                      
                     default:
                         break;
                 }
@@ -130,9 +111,9 @@ export class CasoExtraController {
         if(fields != null){
             
             reglas = {
-                relations: ["asientos"],
+                
                 order:{
-                    id_caso_ext:"ASC"
+                    id_registro:"ASC"
                 },
                 select:fields,
                 skip:offset,
@@ -142,9 +123,8 @@ export class CasoExtraController {
         
         }else{
             reglas = {
-                relations: ["asientos"],
                 order:{
-                    id_caso_ext:"ASC"
+                    id_registro:"ASC"
                 },
                 skip:offset,
                 take:limit,
@@ -152,27 +132,27 @@ export class CasoExtraController {
                };
         }
 
-           return await this.casoExtraRepository.find(reglas);     
+           return await this.RegistroRepository.find(reglas);     
        
     }
 
     async one(request: Request, response: Response, next: NextFunction) {
         
-        return await this.casoExtraRepository.findOne(request.params.id);
+        return await this.RegistroRepository.findOne(request.params.id);
     }
 
     async save(request: Request, response: Response, next: NextFunction) {
-        return await this.casoExtraRepository.save(request.body);
+        return await this.RegistroRepository.save(request.body);
     }
 
     async remove(request: Request, response: Response, next: NextFunction) {
-        let userToRemove = await this.casoExtraRepository.findOne(request.params.id);
-       return  await this.casoExtraRepository.remove(userToRemove);
+        let userToRemove = await this.RegistroRepository.findOne(request.params.id);
+       return  await this.RegistroRepository.remove(userToRemove);
     }
 
     async update(request: Request, response: Response, next: NextFunction) {
-        //const nuevoUsuario = this.userRepository.create();
-        return await this.casoExtraRepository.update(request.params.id,request.body);
+       
+        return await this.RegistroRepository.update(request.params.id,request.body);
     }
 
 }

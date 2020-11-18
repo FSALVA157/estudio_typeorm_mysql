@@ -1,15 +1,19 @@
-import {Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, OneToMany} from "typeorm";
 import{IsInt, Length,  IsOptional, IsISO8601, Matches, MinLength} from 'class-validator';
 import {Transform} from 'class-transformer';
 import { Fuero } from './Fuero';
 import { Cliente } from './Cliente';
 import { ObjetoExtrajudicial } from './ObjetoExtrajudicial';
+import { RegistroContable } from './RegistroContable';
 
 @Entity()
 export class CasoExtrajudicial {
 
     @PrimaryGeneratedColumn()
     id_caso_ext: number;
+
+    @OneToMany(type => RegistroContable, asiento => asiento.caso_extrajudicial)
+    asientos: RegistroContable[];
 
     @Column({
         type: "int",
@@ -27,7 +31,6 @@ export class CasoExtrajudicial {
 
     @Column({type: "date"})
     @IsISO8601()
-    @Matches(/^\d{4}([\-/.])(0?[1-9]|1[0-1-2])\1(3[01]|[12][0-9]|0?[1-9])$/,{message:'La fecha   debe respetar el formato yyyy-mm-dd'})
     @Transform(()=>Date)
     fecha_tramite: Date;
 
@@ -57,6 +60,15 @@ export class CasoExtrajudicial {
     @IsOptional()
     @Length(5,100,{message:'El nombre de la contraparte debe tener entre $constraint1 y $constraint2 caracteres'})
     contraparte_nombre: string;
+
+    @Column({
+        type: "varchar",
+        length: 100,
+        nullable: true
+         })
+    @IsOptional()
+    @Length(5,100,{message:'El apellido de la contraparte debe tener entre $constraint1 y $constraint2 caracteres'})
+    contraparte_apellido: string;
 
     @Column({
         type: "varchar",
@@ -145,12 +157,11 @@ export class CasoExtrajudicial {
     mediador_telef: string;
     
     @Column({
-        type: "date",
+        type: "datetime",
         nullable:true
     })
     @IsOptional()
     @IsISO8601()
-    @Matches(/^\d{4}([\-/.])(0?[1-9]|1[0-1-2])\1(3[01]|[12][0-9]|0?[1-9])$/,{message:'La fecha   debe respetar el formato yyyy-mm-dd'})
     @Transform(()=>Date)
     fecha_audiencia: Date;
 

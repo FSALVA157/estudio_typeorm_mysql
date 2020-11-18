@@ -19,6 +19,7 @@ const TipoMovimientoController_1 = require("../controller/TipoMovimientoControll
 const AlertaController_1 = require("../controller/AlertaController");
 const AlertaExtraController_1 = require("../controller/AlertaExtraController");
 const ConsultaController_1 = require("../controller/ConsultaController");
+const RegistroContableController_1 = require("../controller/RegistroContableController");
 exports.Routes = [{
         method: "get",
         route: "/usuarios",
@@ -592,6 +593,36 @@ exports.Routes = [{
         controller: ConsultaController_1.ConsultaController,
         action: "update",
         entity: "Consulta"
+    }, {
+        method: "get",
+        route: "/asientos",
+        controller: RegistroContableController_1.RegistroContableController,
+        action: "all",
+        entity: "RegistroContable"
+    }, {
+        method: "get",
+        route: "/asientos/:id",
+        controller: RegistroContableController_1.RegistroContableController,
+        action: "one",
+        entity: "RegistroContable"
+    }, {
+        method: "post",
+        route: "/asientos",
+        controller: RegistroContableController_1.RegistroContableController,
+        action: "save",
+        entity: "RegistroContable"
+    }, {
+        method: "delete",
+        route: "/asientos/:id",
+        controller: RegistroContableController_1.RegistroContableController,
+        action: "remove",
+        entity: "RegistroContable"
+    }, {
+        method: "put",
+        route: "/asientos/:id",
+        controller: RegistroContableController_1.RegistroContableController,
+        action: "update",
+        entity: "RegistroContable"
     }
 ];
 //# sourceMappingURL=routes.js.map

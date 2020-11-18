@@ -5,5 +5,6 @@ export default {
 
     //Vencimiento del Token
     //un dia seria: 60 * 60 *24
-    caducidadToken: 60 * 60
+    caducidadToken: 60 * 60,
+    IUS: 2023
 }

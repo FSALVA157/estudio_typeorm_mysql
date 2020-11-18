@@ -9,26 +9,22 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
-const CasoExtrajudicial_1 = require("../entity/CasoExtrajudicial");
-class CasoExtraController {
+const RegistroContable_1 = require("../entity/RegistroContable");
+class RegistroContableController {
     constructor() {
-        this.casoExtraRepository = typeorm_1.getRepository(CasoExtrajudicial_1.CasoExtrajudicial);
+        this.RegistroRepository = typeorm_1.getRepository(RegistroContable_1.RegistroContable);
     }
     all(request, response, next) {
         return __awaiter(this, void 0, void 0, function* () {
             let offset = Number(request.query.offset) || 0;
             let limit = Number(request.query.limit) || 10;
             let fields = null;
-            // let fields:any =  ["id_cliente","dni_cuit","categoria_id","razon_social","nombre","apellido","domicilio_real","domicilio_alternativo","provincia","departamento","localidad","telefono_celular","telefono_alternativo","ocupacion","email","fecha_alta"];
             if (request.query.fields) {
                 let reqFields = request.query.fields;
                 fields = reqFields.toString().split(",");
-                if (!fields.includes('id_caso_ext')) {
-                    fields.push('id_caso_ext');
+                if (!fields.includes('id_registro')) {
+                    fields.push('id_registro');
                 }
-                // if(!fields.includes('apellido')){
-                //     fields.push('apellido')
-                // }
             }
             ;
             //funcion que devuelve la expresion de las consultas de parametros strings con funciones avanzadas de filtros (LIKE,NOT,IN)
@@ -77,47 +73,29 @@ class CasoExtraController {
                     //const element = arreglo[campo];
                     let nombreCampo = campo.toString();
                     switch (nombreCampo) {
-                        case 'id_caso_ext':
+                        case 'caso_id':
                             cond[nombreCampo] = Number(arreglo[campo]);
                             break;
-                        case 'cliente_id':
+                        case 'caso_id_ext':
                             cond[nombreCampo] = Number(arreglo[campo]);
                             break;
-                        case 'fecha_tramite':
+                        case 'tipo_registro':
+                            cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
+                            break;
+                        case 'monto':
+                            cond[nombreCampo] = Number(arreglo[campo]);
+                            break;
+                        case 'fecha':
                             cond[nombreCampo] = ExpresionAvanzadaFechas(arreglo[campo]);
                             break;
                         case 'detalle':
                             cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
                             break;
-                        case 'expediente_nro':
+                        case 'recibo':
                             cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
                             break;
-                        case 'contraparte_dni':
+                        case 'tipo_cargo':
                             cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
-                            break;
-                        case 'contraparte_domicilio':
-                            cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
-                            break;
-                        case 'contraparte_telefono':
-                            cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
-                            break;
-                        case 'materia_id':
-                            cond[nombreCampo] = Number(arreglo[campo]);
-                            break;
-                        case 'objeto_ext_id':
-                            cond[nombreCampo] = Number(arreglo[campo]);
-                            break;
-                        case 'mediador':
-                            cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
-                            break;
-                        case 'mediacion_domicilio':
-                            cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
-                            break;
-                        case 'mediador_telefono':
-                            cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
-                            break;
-                        case 'fecha_audiencia':
-                            cond[nombreCampo] = ExpresionAvanzadaFechas(arreglo[campo]);
                             break;
                         default:
                             break;
@@ -127,9 +105,8 @@ class CasoExtraController {
             let reglas;
             if (fields != null) {
                 reglas = {
-                    relations: ["asientos"],
                     order: {
-                        id_caso_ext: "ASC"
+                        id_registro: "ASC"
                     },
                     select: fields,
                     skip: offset,
@@ -139,40 +116,38 @@ class CasoExtraController {
             }
             else {
                 reglas = {
-                    relations: ["asientos"],
                     order: {
-                        id_caso_ext: "ASC"
+                        id_registro: "ASC"
                     },
                     skip: offset,
                     take: limit,
                     where: cond
                 };
             }
-            return yield this.casoExtraRepository.find(reglas);
+            return yield this.RegistroRepository.find(reglas);
         });
     }
     one(request, response, next) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.casoExtraRepository.findOne(request.params.id);
+            return yield this.RegistroRepository.findOne(request.params.id);
         });
     }
     save(request, response, next) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.casoExtraRepository.save(request.body);
+            return yield this.RegistroRepository.save(request.body);
         });
     }
     remove(request, response, next) {
         return __awaiter(this, void 0, void 0, function* () {
-            let userToRemove = yield this.casoExtraRepository.findOne(request.params.id);
-            return yield this.casoExtraRepository.remove(userToRemove);
+            let userToRemove = yield this.RegistroRepository.findOne(request.params.id);
+            return yield this.RegistroRepository.remove(userToRemove);
         });
     }
     update(request, response, next) {
         return __awaiter(this, void 0, void 0, function* () {
-            //const nuevoUsuario = this.userRepository.create();
-            return yield this.casoExtraRepository.update(request.params.id, request.body);
+            return yield this.RegistroRepository.update(request.params.id, request.body);
         });
     }
 }
-exports.CasoExtraController = CasoExtraController;
-//# sourceMappingURL=CasoExtraController.js.map
+exports.RegistroContableController = RegistroContableController;
+//# sourceMappingURL=RegistroContableController.js.map
