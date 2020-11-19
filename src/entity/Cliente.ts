@@ -160,7 +160,6 @@ export class Cliente {
         nullable: true
             })
     @IsOptional()
-    @MinLength(7)
     telefono: string;
 
     @Column({
@@ -169,7 +168,6 @@ export class Cliente {
         nullable:true
            })
     @IsOptional()
-    @MinLength(7)
     telefono_alt: string;
 
     @Column({

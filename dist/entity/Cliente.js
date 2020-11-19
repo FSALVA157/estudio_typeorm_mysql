@@ -212,7 +212,6 @@ __decorate([
         nullable: true
     }),
     class_validator_1.IsOptional(),
-    class_validator_1.MinLength(7),
     __metadata("design:type", String)
 ], Cliente.prototype, "telefono", void 0);
 __decorate([
@@ -222,7 +221,6 @@ __decorate([
         nullable: true
     }),
     class_validator_1.IsOptional(),
-    class_validator_1.MinLength(7),
     __metadata("design:type", String)
 ], Cliente.prototype, "telefono_alt", void 0);
 __decorate([
