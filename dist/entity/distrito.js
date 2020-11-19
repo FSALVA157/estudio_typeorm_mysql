@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
+const Fuero_1 = require("./Fuero");
 const class_validator_1 = require("class-validator");
 let Distrito = class Distrito {
     //constructor
@@ -43,6 +44,11 @@ __decorate([
     class_validator_1.IsInt({ message: 'La clave jurisdiccion debe ser un entero' }),
     __metadata("design:type", Number)
 ], Distrito.prototype, "jurisdiccion_id", void 0);
+__decorate([
+    typeorm_1.ManyToMany(() => Fuero_1.Fuero),
+    typeorm_1.JoinTable(),
+    __metadata("design:type", Array)
+], Distrito.prototype, "fueros", void 0);
 Distrito = __decorate([
     typeorm_1.Entity(),
     __metadata("design:paramtypes", [Object])

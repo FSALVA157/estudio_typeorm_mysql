@@ -1,4 +1,5 @@
-import {Entity, PrimaryGeneratedColumn, Column} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable} from "typeorm";
+import { Fuero } from './Fuero';
 import{IsInt, IsOptional, Length} from 'class-validator';
 
 
@@ -24,6 +25,11 @@ export class Distrito {
     @IsOptional()
     @IsInt({message:'La clave jurisdiccion debe ser un entero'})
     jurisdiccion_id: number;
+
+    @ManyToMany(() => Fuero)
+    @JoinTable()
+    fueros: Fuero[]
+
 
     
 

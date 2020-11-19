@@ -93,7 +93,7 @@ export class DistritoController {
         if(fields != null){
             
             reglas = {
-                
+                relations: ["fueros"],
                 order:{
                     id_distrito:"ASC"
                 },
@@ -105,6 +105,7 @@ export class DistritoController {
         
         }else{
             reglas = {
+                relations: ["fueros"],
                 order:{
                     id_distrito:"ASC"
                 },
