@@ -92,6 +92,12 @@ class CasoExtraController {
                         case 'expediente_nro':
                             cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
                             break;
+                        case 'contraparte_nombre':
+                            cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
+                            break;
+                        case 'contraparte_apellido':
+                            cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
+                            break;
                         case 'contraparte_dni':
                             cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
                             break;
@@ -113,7 +119,7 @@ class CasoExtraController {
                         case 'mediacion_domicilio':
                             cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
                             break;
-                        case 'mediador_telefono':
+                        case 'mediador_telef':
                             cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
                             break;
                         case 'fecha_audiencia':

@@ -93,6 +93,7 @@ class JuzgadoController {
             let reglas;
             if (fields != null) {
                 reglas = {
+                    relations: ["instancia"],
                     order: {
                         id_juzgado: "ASC"
                     },
@@ -104,6 +105,7 @@ class JuzgadoController {
             }
             else {
                 reglas = {
+                    relations: ["instancia"],
                     order: {
                         id_juzgado: "ASC"
                     },

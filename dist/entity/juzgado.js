@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
+const Instancia_1 = require("./Instancia");
 const class_validator_1 = require("class-validator");
 let Juzgado = class Juzgado {
     //constructor
@@ -55,6 +56,23 @@ __decorate([
     class_validator_1.IsInt({ message: 'El distrito debe ser una clave entera' }),
     __metadata("design:type", Number)
 ], Juzgado.prototype, "distrito_id", void 0);
+__decorate([
+    typeorm_1.Column({
+        type: "int",
+        nullable: true
+    }),
+    class_validator_1.IsOptional(),
+    class_validator_1.IsInt({ message: 'La instancia debe ser una clave entera' }),
+    __metadata("design:type", Number)
+], Juzgado.prototype, "instancia_id", void 0);
+__decorate([
+    typeorm_1.ManyToOne(type => Instancia_1.Instancia, { eager: true }),
+    typeorm_1.JoinColumn({
+        name: 'instancia_id',
+        referencedColumnName: 'id_instancia'
+    }),
+    __metadata("design:type", Instancia_1.Instancia)
+], Juzgado.prototype, "instancia", void 0);
 Juzgado = __decorate([
     typeorm_1.Entity(),
     __metadata("design:paramtypes", [Object])

@@ -1,4 +1,5 @@
-import {Entity, PrimaryGeneratedColumn, Column} from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
+import { Instancia } from './Instancia';
 import{IsInt, IsOptional, Length} from 'class-validator';
 
 
@@ -35,6 +36,21 @@ export class Juzgado {
     })
     @IsInt({message:'El distrito debe ser una clave entera'})
     distrito_id: number;
+
+    @Column({
+        type: "int",
+        nullable:true
+    })
+    @IsOptional()
+    @IsInt({message:'La instancia debe ser una clave entera'})
+    instancia_id: number;
+
+    @ManyToOne(type => Instancia,{eager : true})
+    @JoinColumn({
+    name : 'instancia_id',
+    referencedColumnName : 'id_instancia'
+    })
+    instancia : Instancia;
 
         
 
