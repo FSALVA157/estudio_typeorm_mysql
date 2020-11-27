@@ -21,6 +21,7 @@ let Alerta = class Alerta {
             this.juzgado = req.body.juzgado;
             this.estado = req.body.estado;
             this.caso_id = req.body.caso_id;
+            this.visible = req.body.visible;
         }
     }
 };
@@ -74,6 +75,14 @@ __decorate([
     }),
     __metadata("design:type", Caso_1.Caso)
 ], Alerta.prototype, "caso", void 0);
+__decorate([
+    typeorm_1.Column({
+        default: true,
+        nullable: true
+    }),
+    class_validator_1.IsOptional(),
+    __metadata("design:type", Boolean)
+], Alerta.prototype, "visible", void 0);
 Alerta = __decorate([
     typeorm_1.Entity(),
     __metadata("design:paramtypes", [Object])

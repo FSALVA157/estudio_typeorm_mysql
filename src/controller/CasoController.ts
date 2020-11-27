@@ -146,10 +146,16 @@ export class CasoController {
                         break;    
                     case 'etapa':
                         cond[nombreCampo] = Number(arreglo[campo]);
-                        break;                           
+                        break;         
+                    case 'monto_juicio':
+                        cond[nombreCampo] = Number(arreglo[campo]);
+                        break;                          
                     case 'fecha_fin':
                         cond[nombreCampo] = ExpresionAvanzadaFechas(arreglo[campo]);
                         break; 
+                    case 'visible':
+                        cond[nombreCampo] = Number(arreglo[campo]);
+                        break;    
                     
                     default:
                         break;

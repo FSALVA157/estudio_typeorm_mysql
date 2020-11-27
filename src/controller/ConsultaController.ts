@@ -87,6 +87,9 @@ export class ConsultaController {
                     case 'obs':
                         cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);  
                         break;
+                    case 'visible':
+                        cond[nombreCampo] = Number(arreglo[campo]);
+                        break;    
                                       
                     default:
                         break;

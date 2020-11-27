@@ -22,6 +22,7 @@ let MovimientoCaso = class MovimientoCaso {
             this.detalle = req.body.detalle;
             this.fecha = req.body.fecha;
             this.tipo_mov_id = req.body.tipo_mov_id;
+            this.visible = req.body.visible;
         }
     }
 };
@@ -76,6 +77,14 @@ __decorate([
     }),
     __metadata("design:type", TipoMovimiento_1.TipoMovimiento)
 ], MovimientoCaso.prototype, "tipo", void 0);
+__decorate([
+    typeorm_1.Column({
+        default: true,
+        nullable: true
+    }),
+    class_validator_1.IsOptional(),
+    __metadata("design:type", Boolean)
+], MovimientoCaso.prototype, "visible", void 0);
 MovimientoCaso = __decorate([
     typeorm_1.Entity(),
     __metadata("design:paramtypes", [Object])

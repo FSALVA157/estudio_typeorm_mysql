@@ -53,6 +53,13 @@ export class Alerta {
      })
      caso : Caso;
 
+     @Column({
+        default:true,
+        nullable: true
+     })
+     @IsOptional()
+     visible: boolean;
+
     
 
     //constructor
@@ -63,6 +70,7 @@ export class Alerta {
             this.juzgado = req.body.juzgado;
             this.estado = req.body.estado;
             this.caso_id = req.body.caso_id;
+            this.visible = req.body.visible;
       }
 
     }

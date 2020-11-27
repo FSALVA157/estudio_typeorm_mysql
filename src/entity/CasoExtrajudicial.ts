@@ -165,6 +165,13 @@ export class CasoExtrajudicial {
     @Transform(()=>Date)
     fecha_audiencia: Date;
 
+    @Column({
+        default:true,
+        nullable: true
+     })
+     @IsOptional()
+     visible: boolean;
+
   
 
     //constructor
@@ -184,6 +191,7 @@ export class CasoExtrajudicial {
             this.mediacion_domicilio = req.body.mediacion_domicilio;
             this.mediador_telef = req.body.mediador_telef;
             this.fecha_audiencia = req.body.fecha_audiencia;
+            this.visible = req.body.visible;
       }
 
     }

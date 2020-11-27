@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import config from '../config/config';
 import { getRepository } from 'typeorm';
 import { RegistroContable,TipoTransaccion } from '../entity/RegistroContable';
+import { Caso } from '../entity/Caso';
 
 
 export default class CalculosController{
@@ -35,7 +36,7 @@ export default class CalculosController{
         const data = req.body;
         let montoAux: Number;
         let monto_juicio;
-        let asiento: RegistroContable;
+        let caso: Caso;
         try {
             //control de parametros
             if(!data.id || !data.porc){
@@ -46,14 +47,20 @@ export default class CalculosController{
             const id = Number(data.id)
             //verificar si el caso tiene monto fijado
             async function buscarMontoJuicion(id: Number ){
+                let monto_obtenido;
                 try {
-                    const casoRepo = getRepository(RegistroContable); 
-                    asiento = await casoRepo.findOneOrFail({
-                        caso_id: data.id,
-                        tipo_cargo: 'monto_juicio'
-                    });
-                    console.log(asiento);
-                    return asiento.monto;
+                    const casoRepo = getRepository(Caso); 
+                    caso = await casoRepo.findOneOrFail({
+                        id_caso: data.id
+                     });
+                    console.log('EL MONTO OBTENIDO DESDE LA BD ES: ',caso.monto_juicio);
+                    monto_obtenido = caso.monto_juicio;
+                    if((monto_obtenido != null) && (monto_obtenido > 0)){
+                        return monto_obtenido;
+                    }else{
+                        throw Error();
+                        
+                    }
                      
              } catch (error) {
                  throw new Error('No existe monto de juicio establecido para el caso que intenta calcular un nuevo cargo, establezca un monto pues de este depende el cáculo porcentual');

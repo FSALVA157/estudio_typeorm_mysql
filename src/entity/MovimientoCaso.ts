@@ -54,9 +54,12 @@ export class MovimientoCaso {
     })
     tipo : TipoMovimiento;
 
-
-    
-
+    @Column({
+        default:true,
+        nullable: true
+     })
+     @IsOptional()
+     visible: boolean;
         
 
     //constructor
@@ -66,6 +69,7 @@ export class MovimientoCaso {
             this.detalle = req.body.detalle;
             this.fecha = req.body.fecha;
             this.tipo_mov_id = req.body.tipo_mov_id;
+            this.visible = req.body.visible;
       }
 
     }

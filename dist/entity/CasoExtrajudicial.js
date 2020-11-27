@@ -34,6 +34,7 @@ let CasoExtrajudicial = class CasoExtrajudicial {
             this.mediacion_domicilio = req.body.mediacion_domicilio;
             this.mediador_telef = req.body.mediador_telef;
             this.fecha_audiencia = req.body.fecha_audiencia;
+            this.visible = req.body.visible;
         }
     }
 };
@@ -210,6 +211,14 @@ __decorate([
     class_transformer_1.Transform(() => Date),
     __metadata("design:type", Date)
 ], CasoExtrajudicial.prototype, "fecha_audiencia", void 0);
+__decorate([
+    typeorm_1.Column({
+        default: true,
+        nullable: true
+    }),
+    class_validator_1.IsOptional(),
+    __metadata("design:type", Boolean)
+], CasoExtrajudicial.prototype, "visible", void 0);
 CasoExtrajudicial = __decorate([
     typeorm_1.Entity(),
     __metadata("design:paramtypes", [Object])

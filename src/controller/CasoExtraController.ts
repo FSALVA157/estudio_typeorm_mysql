@@ -124,6 +124,9 @@ export class CasoExtraController {
                     case 'fecha_audiencia':
                         cond[nombreCampo] = ExpresionAvanzadaFechas(arreglo[campo]);
                         break; 
+                    case 'visible':
+                        cond[nombreCampo] = Number(arreglo[campo]);
+                        break;
                     
                     default:
                         break;

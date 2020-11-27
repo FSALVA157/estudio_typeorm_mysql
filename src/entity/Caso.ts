@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, OneToMany, AfterLoad, getRepository } from 'typeorm';
-import{IsInt, Length,  IsOptional, IsISO8601, Matches, MinLength} from 'class-validator';
+import{IsInt, Length,  IsOptional, IsISO8601, IsDecimal, MinLength} from 'class-validator';
 import {Transform} from 'class-transformer';
 import { Jurisdiccion } from './Jurisdiccion';
 import { Distrito } from './Distrito';
@@ -13,6 +13,7 @@ import { Instancia } from './Instancia';
 import { MovimientoCaso } from './MovimientoCaso';
 import { Alerta } from './Alerta';
 import { RegistroContable } from './RegistroContable';
+
 
 @Entity()
 export class Caso {
@@ -286,6 +287,17 @@ export class Caso {
     @IsOptional()
     @IsInt({message:'La etapa debe ser un entero'})
     etapa: number;
+
+    @Column({
+        type: "decimal",
+        precision: 11,
+        scale: 2,
+        default: 0,
+        nullable: true
+    })
+    @IsOptional()
+    @IsDecimal()
+    monto_juicio: number;
     
     @Column({
         type: "date",
@@ -293,26 +305,17 @@ export class Caso {
     })
     @IsOptional()
     @IsISO8601()
-    @Matches(/^\d{4}([\-/.])(0?[1-9]|1[0-1-2])\1(3[01]|[12][0-9]|0?[1-9])$/,{message:'La fecha   debe respetar el formato yyyy-mm-dd'})
     @Transform(()=>Date)
     fecha_fin: Date;
 
-    //metodo que actualiza el saldo cada vez que se llama a la tabla
-    // @AfterLoad()
-    // async actualizaSaldo(){
-    //           let suma: number;
-        
-    //     suma = await getRepository(RegistroContable)
-    //     .createQueryBuilder("asiento")
-    //     .select("SUM(asiento.monto)","sum")
-    //     .where("asiento.caso_id = :id",{id: this.id_caso})
-    //     .getRawOne();   
+    @Column({
+        default:true,
+        nullable: true
+     })
+     @IsOptional()
+     visible: boolean;
 
-    //     console.log('SUMA LARGADA DESDE EL LISTENER PARA id_Caso: ',this.id_caso, 'EL SALDO ES ',suma);
-        
-    // }
-
-  
+    
 
     //constructor
     constructor(req?:any){
@@ -339,6 +342,7 @@ export class Caso {
             this.estado = req.body.estado;
             this.etapa = req.body.estapa;
             this.fecha_fin = req.body.fecha_fin;
+            this.visible = req.body.visible;
       }
 
     }

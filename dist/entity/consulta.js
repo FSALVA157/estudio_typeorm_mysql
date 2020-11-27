@@ -21,6 +21,7 @@ let Consulta = class Consulta {
             this.fecha = req.body.fecha;
             this.detalle = req.body.detalle;
             this.obs = req.body.obs;
+            this.visible = req.body.visible;
         }
     }
 };
@@ -73,6 +74,14 @@ __decorate([
     class_validator_1.Length(5, 100, { message: 'Una observación debe tener entre $constraint1 y $constraint2 caracteres' }),
     __metadata("design:type", String)
 ], Consulta.prototype, "obs", void 0);
+__decorate([
+    typeorm_1.Column({
+        default: true,
+        nullable: true
+    }),
+    class_validator_1.IsOptional(),
+    __metadata("design:type", Boolean)
+], Consulta.prototype, "visible", void 0);
 Consulta = __decorate([
     typeorm_1.Entity(),
     __metadata("design:paramtypes", [Object])

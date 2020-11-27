@@ -11,6 +11,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const config_1 = require("../config/config");
 const typeorm_1 = require("typeorm");
 const RegistroContable_1 = require("../entity/RegistroContable");
+const Caso_1 = require("../entity/Caso");
 class CalculosController {
 }
 CalculosController.monto = (req, res) => __awaiter(this, void 0, void 0, function* () {
@@ -40,7 +41,7 @@ CalculosController.cargos = (req, res) => __awaiter(this, void 0, void 0, functi
     const data = req.body;
     let montoAux;
     let monto_juicio;
-    let asiento;
+    let caso;
     try {
         //control de parametros
         if (!data.id || !data.porc) {
@@ -53,14 +54,20 @@ CalculosController.cargos = (req, res) => __awaiter(this, void 0, void 0, functi
         //verificar si el caso tiene monto fijado
         function buscarMontoJuicion(id) {
             return __awaiter(this, void 0, void 0, function* () {
+                let monto_obtenido;
                 try {
-                    const casoRepo = typeorm_1.getRepository(RegistroContable_1.RegistroContable);
-                    asiento = yield casoRepo.findOneOrFail({
-                        caso_id: data.id,
-                        tipo_cargo: 'monto_juicio'
+                    const casoRepo = typeorm_1.getRepository(Caso_1.Caso);
+                    caso = yield casoRepo.findOneOrFail({
+                        id_caso: data.id
                     });
-                    console.log(asiento);
-                    return asiento.monto;
+                    console.log('EL MONTO OBTENIDO DESDE LA BD ES: ', caso.monto_juicio);
+                    monto_obtenido = caso.monto_juicio;
+                    if ((monto_obtenido != null) && (monto_obtenido > 0)) {
+                        return monto_obtenido;
+                    }
+                    else {
+                        throw Error();
+                    }
                 }
                 catch (error) {
                     throw new Error('No existe monto de juicio establecido para el caso que intenta calcular un nuevo cargo, establezca un monto pues de este depende el cáculo porcentual');

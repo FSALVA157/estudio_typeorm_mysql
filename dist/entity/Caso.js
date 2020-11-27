@@ -25,17 +25,6 @@ const MovimientoCaso_1 = require("./MovimientoCaso");
 const Alerta_1 = require("./Alerta");
 const RegistroContable_1 = require("./RegistroContable");
 let Caso = class Caso {
-    //metodo que actualiza el saldo cada vez que se llama a la tabla
-    // @AfterLoad()
-    // async actualizaSaldo(){
-    //           let suma: number;
-    //     suma = await getRepository(RegistroContable)
-    //     .createQueryBuilder("asiento")
-    //     .select("SUM(asiento.monto)","sum")
-    //     .where("asiento.caso_id = :id",{id: this.id_caso})
-    //     .getRawOne();   
-    //     console.log('SUMA LARGADA DESDE EL LISTENER PARA id_Caso: ',this.id_caso, 'EL SALDO ES ',suma);
-    // }
     //constructor
     constructor(req) {
         if (req) {
@@ -61,6 +50,7 @@ let Caso = class Caso {
             this.estado = req.body.estado;
             this.etapa = req.body.estapa;
             this.fecha_fin = req.body.fecha_fin;
+            this.visible = req.body.visible;
         }
     }
 };
@@ -364,15 +354,34 @@ __decorate([
 ], Caso.prototype, "etapa", void 0);
 __decorate([
     typeorm_1.Column({
+        type: "decimal",
+        precision: 11,
+        scale: 2,
+        default: 0,
+        nullable: true
+    }),
+    class_validator_1.IsOptional(),
+    class_validator_1.IsDecimal(),
+    __metadata("design:type", Number)
+], Caso.prototype, "monto_juicio", void 0);
+__decorate([
+    typeorm_1.Column({
         type: "date",
         nullable: true
     }),
     class_validator_1.IsOptional(),
     class_validator_1.IsISO8601(),
-    class_validator_1.Matches(/^\d{4}([\-/.])(0?[1-9]|1[0-1-2])\1(3[01]|[12][0-9]|0?[1-9])$/, { message: 'La fecha   debe respetar el formato yyyy-mm-dd' }),
     class_transformer_1.Transform(() => Date),
     __metadata("design:type", Date)
 ], Caso.prototype, "fecha_fin", void 0);
+__decorate([
+    typeorm_1.Column({
+        default: true,
+        nullable: true
+    }),
+    class_validator_1.IsOptional(),
+    __metadata("design:type", Boolean)
+], Caso.prototype, "visible", void 0);
 Caso = __decorate([
     typeorm_1.Entity(),
     __metadata("design:paramtypes", [Object])

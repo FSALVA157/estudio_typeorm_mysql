@@ -17,6 +17,10 @@ let Juzgado = class Juzgado {
     constructor(req) {
         if (req) {
             this.juzgado = req.body.juzgado;
+            this.jurisdiccion_id = req.body.jurisdiccion_id;
+            this.fuero_id = req.body.fuero_id;
+            this.distrito_id = req.body.distrito_id;
+            this.instancia_id = req.body.instancia_id;
         }
     }
 };

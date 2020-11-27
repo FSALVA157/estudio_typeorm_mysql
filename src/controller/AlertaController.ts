@@ -89,7 +89,9 @@ export class AlertaController {
                     case 'caso_id':
                         cond[nombreCampo] = Number(arreglo[campo]);
                         break;
-                                      
+                    case 'visible':
+                        cond[nombreCampo] = Number(arreglo[campo]);
+                        break;                                      
                     default:
                         break;
                 }

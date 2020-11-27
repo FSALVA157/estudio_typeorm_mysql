@@ -51,6 +51,13 @@ export class Consulta {
     @Length(5,100,{message:'Una observación debe tener entre $constraint1 y $constraint2 caracteres'})
     obs: string;
 
+    @Column({
+        default:true,
+        nullable: true
+     })
+     @IsOptional()
+     visible: boolean;
+
        
 
     //constructor
@@ -60,6 +67,7 @@ export class Consulta {
             this.fecha = req.body.fecha;
             this.detalle = req.body.detalle;
             this.obs = req.body.obs;
+            this.visible = req.body.visible;
       }
 
     }

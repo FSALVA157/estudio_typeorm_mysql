@@ -85,6 +85,9 @@ class AlertaExtraController {
                         case 'caso_extra_id':
                             cond[nombreCampo] = Number(arreglo[campo]);
                             break;
+                        case 'visible':
+                            cond[nombreCampo] = Number(arreglo[campo]);
+                            break;
                         default:
                             break;
                     }

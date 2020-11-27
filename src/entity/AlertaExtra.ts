@@ -52,6 +52,13 @@ export class AlertaExtra {
      })
      caso : Caso;
 
+     @Column({
+        default:true,
+        nullable: true
+     })
+     @IsOptional()
+     visible: boolean;
+
     
 
     //constructor
@@ -61,6 +68,7 @@ export class AlertaExtra {
             this.detalle = req.body.detalle;
             this.estado = req.body.estado;
             this.caso_extra_id = req.body.caso_extra_id;
+            this.visible = req.body.visible;
       }
 
     }

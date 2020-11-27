@@ -21,6 +21,7 @@ let AlertaExtra = class AlertaExtra {
             this.detalle = req.body.detalle;
             this.estado = req.body.estado;
             this.caso_extra_id = req.body.caso_extra_id;
+            this.visible = req.body.visible;
         }
     }
 };
@@ -72,6 +73,14 @@ __decorate([
     }),
     __metadata("design:type", Caso_1.Caso)
 ], AlertaExtra.prototype, "caso", void 0);
+__decorate([
+    typeorm_1.Column({
+        default: true,
+        nullable: true
+    }),
+    class_validator_1.IsOptional(),
+    __metadata("design:type", Boolean)
+], AlertaExtra.prototype, "visible", void 0);
 AlertaExtra = __decorate([
     typeorm_1.Entity(),
     __metadata("design:paramtypes", [Object])
