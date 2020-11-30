@@ -40,9 +40,11 @@ AuthController.login = (req, res) => __awaiter(this, void 0, void 0, function* (
         });
     }
     ;
+    delete user['password'];
     const token = jwt.sign({
         usuario: user
     }, config_1.default.jwtSecret, { expiresIn: '1h' });
+    //console.log(user);
     res.json({
         message: 'OK',
         token,

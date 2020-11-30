@@ -18,7 +18,7 @@ exports.checkJwt = (req, res, next) => {
     }
     newUser = jwtPayload.usuario;
     //delete newUser['password'];
-    //console.log('ESTE ES EL PAYLOAD',newUser);
+    console.log('ESTE ES EL PAYLOAD', newUser);
     const newToken = jwt.sign({ usuario: newUser }, config_1.default.jwtSecret, { expiresIn: '1h' });
     res.setHeader('token', newToken);
     next();

@@ -73,6 +73,9 @@ class ObjetoController {
                     //const element = arreglo[campo];
                     let nombreCampo = campo.toString();
                     switch (nombreCampo) {
+                        case 'id_objeto':
+                            cond[nombreCampo] = Number(arreglo[campo]);
+                            break;
                         case 'objeto':
                             cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
                             break;

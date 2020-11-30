@@ -37,7 +37,7 @@ export default class AuthController {
             });
         };
         
-        
+        delete user['password'];
         const token = jwt.sign(
             {
             usuario: user
@@ -45,6 +45,7 @@ export default class AuthController {
             config.jwtSecret,
             {expiresIn: '1h'}
         );
+        //console.log(user);
 
         res.json({
             message: 'OK',

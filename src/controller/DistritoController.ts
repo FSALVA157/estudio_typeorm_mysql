@@ -74,6 +74,9 @@ export class DistritoController {
                 //const element = arreglo[campo];
                 let nombreCampo = campo.toString();
                 switch (nombreCampo) {
+                    case 'id_distrito':
+                        cond[nombreCampo] = Number(arreglo[campo]);
+                        break;
                     case 'distrito':
                         cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);  
                         break;

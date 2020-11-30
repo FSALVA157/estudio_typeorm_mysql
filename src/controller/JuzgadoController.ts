@@ -74,6 +74,9 @@ export class JuzgadoController {
                 //const element = arreglo[campo];
                 let nombreCampo = campo.toString();
                 switch (nombreCampo) {
+                    case 'id_juzgado':
+                        cond[nombreCampo] = Number(arreglo[campo]);
+                        break;
                     case 'juzgado':
                         cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);  
                         break;

@@ -74,6 +74,9 @@ export class FueroController {
                 //const element = arreglo[campo];
                 let nombreCampo = campo.toString();
                 switch (nombreCampo) {
+                    case 'id_fuero':
+                        cond[nombreCampo] = Number(arreglo[campo]);
+                        break;
                     case 'fuero':
                         cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);  
                         break;
