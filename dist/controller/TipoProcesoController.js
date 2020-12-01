@@ -16,94 +16,106 @@ class TipoProcesoController {
     }
     all(request, response, next) {
         return __awaiter(this, void 0, void 0, function* () {
-            // let offset:number = Number(request.query.offset) || 0;
-            // let limit:number = Number(request.query.limit) || 10;
-            // let fields:any = null;
-            // if(request.query.fields){
-            //     let reqFields = request.query.fields;
-            //     fields = reqFields.toString().split(",");
-            //     if(!fields.includes('id_tipo_proceso')){
-            //         fields.push('id_tipo_proceso')
-            //     }
-            // };
-            // //funcion que devuelve la expresion de las consultas de parametros strings con funciones avanzadas de filtros (LIKE,NOT,IN)
-            // function ExpresionAvanzada(campo:String){
-            //     if(campo.toUpperCase() == 'NULL'){
-            //         return IsNull();
-            //     }else if(campo.toUpperCase() == 'NOT NULL'){
-            //         return Not(IsNull());
-            //     }
-            //     if(campo.toUpperCase().startsWith('NOT ')){
-            //         campo = campo.slice(4);
-            //         if(campo.toUpperCase().startsWith('LIKE ')){
-            //             campo = campo.slice(5)
-            //             return Not(Like('%'+campo+'%'));
-            //         }else{
-            //             //campo = campo.slice(4);
-            //             return Not(campo);
-            //         }
-            //     }else{
-            //         if(campo.toUpperCase().startsWith('LIKE ')){
-            //             campo = campo.slice(5)
-            //             return Like('%'+campo+'%');
-            //         }else{
-            //             return campo;
-            //         }
-            //     }
-            // }
-            // function ExpresionAvanzadaFechas(campo:string){
-            //     if(campo.toUpperCase() == 'NULL'){
-            //         return IsNull();
-            //     }else if(campo.toUpperCase() == 'NOT NULL'){
-            //         return Not(IsNull());
-            //     }
-            //     return campo;            
-            // }
-            // let arreglo: {} =  request.query;
-            // let cond = new Object();
-            // for (const campo in arreglo) {
-            //     if (Object.prototype.hasOwnProperty.call(arreglo, campo)) {
-            //         //console.log(`${campo} = ${arreglo[campo]}`);
-            //         //const element = arreglo[campo];
-            //         let nombreCampo = campo.toString();
-            //         switch (nombreCampo) {
-            //             case 'tipo_proceso':
-            //                 cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);  
-            //                 break;
-            //             case 'etapas':
-            //                 cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);  
-            //                 break;
-            //             case 'secuencia':
-            //                 cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);  
-            //                 break;                
-            //             default:
-            //                 break;
-            //         }
-            //     }
-            // }
-            // let reglas:Object;
-            // if(fields != null){
-            //     reglas = {
-            //         order:{
-            //             id_tipo_proceso:"ASC"
-            //         },
-            //         select:fields,
-            //         skip:offset,
-            //         take:limit,
-            //         where: cond
-            //        };
-            // }else{
-            //     reglas = {
-            //         order:{
-            //             id_tipo_proceso:"ASC"
-            //         },
-            //         skip:offset,
-            //         take:limit,
-            //         where: cond
-            //        };
-            // }
-            //    return await this.TipoProcesoRepository.find(reglas);   
-            return yield this.TipoProcesoRepository.find();
+            let offset = Number(request.query.offset) || 0;
+            let limit = Number(request.query.limit) || 10;
+            let fields = null;
+            if (request.query.fields) {
+                let reqFields = request.query.fields;
+                fields = reqFields.toString().split(",");
+                if (!fields.includes('id_tipo_proceso')) {
+                    fields.push('id_tipo_proceso');
+                }
+            }
+            ;
+            //funcion que devuelve la expresion de las consultas de parametros strings con funciones avanzadas de filtros (LIKE,NOT,IN)
+            function ExpresionAvanzada(campo) {
+                if (campo.toUpperCase() == 'NULL') {
+                    return typeorm_1.IsNull();
+                }
+                else if (campo.toUpperCase() == 'NOT NULL') {
+                    return typeorm_1.Not(typeorm_1.IsNull());
+                }
+                if (campo.toUpperCase().startsWith('NOT ')) {
+                    campo = campo.slice(4);
+                    if (campo.toUpperCase().startsWith('LIKE ')) {
+                        campo = campo.slice(5);
+                        return typeorm_1.Not(typeorm_1.Like('%' + campo + '%'));
+                    }
+                    else {
+                        //campo = campo.slice(4);
+                        return typeorm_1.Not(campo);
+                    }
+                }
+                else {
+                    if (campo.toUpperCase().startsWith('LIKE ')) {
+                        campo = campo.slice(5);
+                        return typeorm_1.Like('%' + campo + '%');
+                    }
+                    else {
+                        return campo;
+                    }
+                }
+            }
+            function ExpresionAvanzadaFechas(campo) {
+                if (campo.toUpperCase() == 'NULL') {
+                    return typeorm_1.IsNull();
+                }
+                else if (campo.toUpperCase() == 'NOT NULL') {
+                    return typeorm_1.Not(typeorm_1.IsNull());
+                }
+                return campo;
+            }
+            let arreglo = request.query;
+            let cond = new Object();
+            for (const campo in arreglo) {
+                if (Object.prototype.hasOwnProperty.call(arreglo, campo)) {
+                    //console.log(`${campo} = ${arreglo[campo]}`);
+                    //const element = arreglo[campo];
+                    let nombreCampo = campo.toString();
+                    switch (nombreCampo) {
+                        case 'id_tipo_proceso':
+                            cond[nombreCampo] = Number(arreglo[campo]);
+                            break;
+                        case 'tipo_proceso':
+                            cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
+                            break;
+                        // case 'etapas':
+                        //     cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);  
+                        //     break;
+                        // case 'secuencia':
+                        //     cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);  
+                        //     break;                
+                        default:
+                            break;
+                    }
+                }
+            }
+            let reglas;
+            if (fields != null) {
+                reglas = {
+                    relations: ["objetos"],
+                    order: {
+                        id_tipo_proceso: "ASC"
+                    },
+                    select: fields,
+                    skip: offset,
+                    take: limit,
+                    where: cond
+                };
+            }
+            else {
+                reglas = {
+                    relations: ["objetos"],
+                    order: {
+                        id_tipo_proceso: "ASC"
+                    },
+                    skip: offset,
+                    take: limit,
+                    where: cond
+                };
+            }
+            return yield this.TipoProcesoRepository.find(reglas);
+            // return await this.TipoProcesoRepository.find();   
         });
     }
     one(request, response, next) {

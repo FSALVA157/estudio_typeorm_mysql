@@ -1,4 +1,5 @@
-import {Entity, PrimaryGeneratedColumn, Column} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn} from "typeorm";
+import { TipoProceso } from './TipoProceso';
 import{IsInt, IsOptional, Length} from 'class-validator';
 
 
@@ -20,6 +21,13 @@ export class Objeto {
          })
     @IsInt({message:'El tipo de proceso debe ser una clave entera'})
     tipo_id: number;
+
+    @ManyToOne(type => TipoProceso,  {eager:true})
+    @JoinColumn({
+        name: 'tipo_id',
+        referencedColumnName: 'id_tipo_proceso'
+    })
+    tipo_de_proceso: TipoProceso;
 
     @Column({
         type: "int",

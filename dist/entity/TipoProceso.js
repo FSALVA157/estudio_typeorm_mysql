@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
 const class_validator_1 = require("class-validator");
+const Objeto_1 = require("./Objeto");
 let TipoProceso = class TipoProceso {
     //constructor
     constructor(req) {
@@ -36,23 +37,31 @@ __decorate([
     __metadata("design:type", String)
 ], TipoProceso.prototype, "tipo_proceso", void 0);
 __decorate([
+    typeorm_1.OneToMany(type => Objeto_1.Objeto, objeto => objeto.tipo_de_proceso),
+    __metadata("design:type", Array)
+], TipoProceso.prototype, "objetos", void 0);
+__decorate([
     typeorm_1.Column({
-        type: "simple-array"
+        type: "simple-array",
+        nullable: true
     }),
+    class_validator_1.IsOptional(),
     __metadata("design:type", Array)
 ], TipoProceso.prototype, "etapas", void 0);
 __decorate([
     typeorm_1.Column({
-        type: "simple-json"
+        type: "simple-json",
+        nullable: true
     }),
+    class_validator_1.IsOptional(),
     __metadata("design:type", Object)
 ], TipoProceso.prototype, "secuencia", void 0);
 __decorate([
     typeorm_1.Column({
         type: "varchar",
-        length: 50
+        nullable: true
     }),
-    class_validator_1.Length(3, 50, { message: 'Este campo entre $constraint1 y $constraint2 caracteres' }),
+    class_validator_1.IsOptional(),
     __metadata("design:type", String)
 ], TipoProceso.prototype, "campo", void 0);
 TipoProceso = __decorate([

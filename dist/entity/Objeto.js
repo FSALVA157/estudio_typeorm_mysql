@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
+const TipoProceso_1 = require("./TipoProceso");
 const class_validator_1 = require("class-validator");
 let Objeto = class Objeto {
     //constructor
@@ -40,6 +41,14 @@ __decorate([
     class_validator_1.IsInt({ message: 'El tipo de proceso debe ser una clave entera' }),
     __metadata("design:type", Number)
 ], Objeto.prototype, "tipo_id", void 0);
+__decorate([
+    typeorm_1.ManyToOne(type => TipoProceso_1.TipoProceso, { eager: true }),
+    typeorm_1.JoinColumn({
+        name: 'tipo_id',
+        referencedColumnName: 'id_tipo_proceso'
+    }),
+    __metadata("design:type", TipoProceso_1.TipoProceso)
+], Objeto.prototype, "tipo_de_proceso", void 0);
 __decorate([
     typeorm_1.Column({
         type: "int",

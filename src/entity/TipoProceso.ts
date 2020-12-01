@@ -1,5 +1,7 @@
-import {Entity, PrimaryGeneratedColumn, Column} from "typeorm";
-import{IsInt, IsOptional, Length} from 'class-validator';
+import {Entity, PrimaryGeneratedColumn, Column, OneToMany} from "typeorm";
+import { IsOptional, Length } from 'class-validator';
+import { Objeto } from './Objeto';
+
 
 
 @Entity()
@@ -16,23 +18,29 @@ export class TipoProceso {
     @Length(3,50,{message:'El tipo de proceso debe tener entre $constraint1 y $constraint2 caracteres'})
     tipo_proceso: string;
 
+    @OneToMany(type => Objeto, objeto => objeto.tipo_de_proceso)
+    objetos: Objeto[]
+
     @Column({
-      type: "simple-array"
+      type: "simple-array",
+      nullable: true
     })
+    @IsOptional()
     etapas: string[];
 
     @Column({
-        type: "simple-json"
+        type: "simple-json",
+        nullable: true
     })
+    @IsOptional()
     secuencia: { etapas: string[]};
 
     @Column({
         type: "varchar",
-        length: 50
-        
+        nullable: true
      })
-    @Length(3,50,{message:'Este campo entre $constraint1 y $constraint2 caracteres'})
-    campo: string;
+     @IsOptional()
+     campo: string;
 
         //constructor
     constructor(req?:any){
