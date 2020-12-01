@@ -25,6 +25,7 @@ let CasoExtrajudicial = class CasoExtrajudicial {
             this.detalle = req.body.detalle;
             this.expediente_nro = req.body.expediente_nro;
             this.contraparte_nombre = req.body.contraparte_nombre;
+            this.contraparte_razon_social = req.body.contraparte_razon_social;
             this.contraparte_dni = req.body.contraparte_dni;
             this.contraparte_domicilio = req.body.contraparte_domicilio;
             this.contraparte_telefono = req.body.contraparte_telefono;
@@ -94,7 +95,7 @@ __decorate([
         nullable: true
     }),
     class_validator_1.IsOptional(),
-    class_validator_1.Length(5, 100, { message: 'El nombre de la contraparte debe tener entre $constraint1 y $constraint2 caracteres' }),
+    class_validator_1.Length(2, 100, { message: 'El nombre de la contraparte debe tener entre $constraint1 y $constraint2 caracteres' }),
     __metadata("design:type", String)
 ], CasoExtrajudicial.prototype, "contraparte_nombre", void 0);
 __decorate([
@@ -104,9 +105,19 @@ __decorate([
         nullable: true
     }),
     class_validator_1.IsOptional(),
-    class_validator_1.Length(5, 100, { message: 'El apellido de la contraparte debe tener entre $constraint1 y $constraint2 caracteres' }),
+    class_validator_1.Length(2, 100, { message: 'El apellido de la contraparte debe tener entre $constraint1 y $constraint2 caracteres' }),
     __metadata("design:type", String)
 ], CasoExtrajudicial.prototype, "contraparte_apellido", void 0);
+__decorate([
+    typeorm_1.Column({
+        type: "varchar",
+        length: 100,
+        nullable: true
+    }),
+    class_validator_1.IsOptional(),
+    class_validator_1.Length(2, 100, { message: 'La Razón Social de la contraparte debe tener entre $constraint1 y $constraint2 caracteres' }),
+    __metadata("design:type", String)
+], CasoExtrajudicial.prototype, "contraparte_razon_social", void 0);
 __decorate([
     typeorm_1.Column({
         type: "varchar",
@@ -124,7 +135,7 @@ __decorate([
         nullable: true
     }),
     class_validator_1.IsOptional(),
-    class_validator_1.Length(5, 100, { message: 'El domicilio  de la contraparte  debe tener entre $constraint1 y $constraint2 caracteres' }),
+    class_validator_1.Length(2, 100, { message: 'El domicilio  de la contraparte  debe tener entre $constraint1 y $constraint2 caracteres' }),
     __metadata("design:type", String)
 ], CasoExtrajudicial.prototype, "contraparte_domicilio", void 0);
 __decorate([

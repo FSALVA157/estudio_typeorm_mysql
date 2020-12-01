@@ -58,7 +58,7 @@ export class CasoExtrajudicial {
         nullable: true
          })
     @IsOptional()
-    @Length(5,100,{message:'El nombre de la contraparte debe tener entre $constraint1 y $constraint2 caracteres'})
+    @Length(2,100,{message:'El nombre de la contraparte debe tener entre $constraint1 y $constraint2 caracteres'})
     contraparte_nombre: string;
 
     @Column({
@@ -67,8 +67,17 @@ export class CasoExtrajudicial {
         nullable: true
          })
     @IsOptional()
-    @Length(5,100,{message:'El apellido de la contraparte debe tener entre $constraint1 y $constraint2 caracteres'})
+    @Length(2,100,{message:'El apellido de la contraparte debe tener entre $constraint1 y $constraint2 caracteres'})
     contraparte_apellido: string;
+
+    @Column({
+        type: "varchar",
+        length: 100,
+        nullable: true
+         })
+    @IsOptional()
+    @Length(2,100,{message:'La Razón Social de la contraparte debe tener entre $constraint1 y $constraint2 caracteres'})
+    contraparte_razon_social: string;
 
     @Column({
         type: "varchar",
@@ -85,7 +94,7 @@ export class CasoExtrajudicial {
         nullable:true
            })
     @IsOptional()
-    @Length(5,100,{message:'El domicilio  de la contraparte  debe tener entre $constraint1 y $constraint2 caracteres'})
+    @Length(2,100,{message:'El domicilio  de la contraparte  debe tener entre $constraint1 y $constraint2 caracteres'})
     contraparte_domicilio: string;
 
     @Column({
@@ -182,6 +191,7 @@ export class CasoExtrajudicial {
             this.detalle = req.body.detalle;
             this.expediente_nro = req.body.expediente_nro;
             this.contraparte_nombre = req.body.contraparte_nombre;
+            this.contraparte_razon_social = req.body.contraparte_razon_social;
             this.contraparte_dni = req.body.contraparte_dni;
             this.contraparte_domicilio = req.body.contraparte_domicilio;
             this.contraparte_telefono = req.body.contraparte_telefono;

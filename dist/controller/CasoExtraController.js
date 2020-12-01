@@ -98,6 +98,9 @@ class CasoExtraController {
                         case 'contraparte_apellido':
                             cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
                             break;
+                        case 'contraparte_razon_social':
+                            cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
+                            break;
                         case 'contraparte_dni':
                             cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
                             break;
