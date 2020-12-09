@@ -11,6 +11,7 @@ export const checkJwt = (req: Request, res:Response, next: NextFunction) => {
     try {
         jwtPayload = <any> jwt.verify(token,config.jwtSecret);
         res.locals.jwtPayload = jwtPayload;
+        
     } catch (error) {
         return res.status(401).send({
             message: 'Ingreso No Autorizado'
@@ -20,7 +21,7 @@ export const checkJwt = (req: Request, res:Response, next: NextFunction) => {
     
     newUser = jwtPayload.usuario;
     //delete newUser['password'];
-    console.log('ESTE ES EL PAYLOAD',newUser);
+    //console.log('ESTE ES EL PAYLOAD',newUser);
     const newToken = jwt.sign({usuario: newUser},config.jwtSecret,{expiresIn:'1h'});
     res.setHeader('token', newToken);
 

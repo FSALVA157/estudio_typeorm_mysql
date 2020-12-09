@@ -35,6 +35,7 @@ import { RegistroContable } from './entity/RegistroContable';
 import balanceCaso from './routes/balanceCaso';
 import calculos from './routes/calculos';
 import * as cors from 'cors';
+import { checkRole } from './middleware/role';
 
 
 process.on('unhandledRejection',(error) => {
@@ -107,8 +108,9 @@ var opciones:ConnectionOptions;
         app.listen(puerto_activo);
         app.use('/auth',auth);
         app.use('/balance',balanceCaso);
-        app.get('/usuarios',[checkJwt]);
         app.use('/calculos',calculos);
+        //validando rutas de usuarios
+        app.get('/usuarios',[checkJwt,checkRole('admin')]);
             
         
         

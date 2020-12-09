@@ -123,6 +123,15 @@ export class Caso {
     contraparte_telefono: string;
 
     @Column({
+        type: "varchar",
+        length: 300,
+        nullable: true
+         })
+    @IsOptional()
+    @Length(5,100,{message:'Los datos del abogado deben tener entre $constraint1 y $constraint2 caracteres'})
+    contraparte_abogado: string;
+
+    @Column({
         type: "int",
         nullable:true,
         default:1
@@ -290,7 +299,7 @@ export class Caso {
 
     @Column({
         type: "decimal",
-        precision: 11,
+        precision: 14,
         scale: 2,
         default: 0,
         nullable: true

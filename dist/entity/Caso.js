@@ -174,6 +174,16 @@ __decorate([
 ], Caso.prototype, "contraparte_telefono", void 0);
 __decorate([
     typeorm_1.Column({
+        type: "varchar",
+        length: 300,
+        nullable: true
+    }),
+    class_validator_1.IsOptional(),
+    class_validator_1.Length(5, 100, { message: 'Los datos del abogado deben tener entre $constraint1 y $constraint2 caracteres' }),
+    __metadata("design:type", String)
+], Caso.prototype, "contraparte_abogado", void 0);
+__decorate([
+    typeorm_1.Column({
         type: "int",
         nullable: true,
         default: 1
@@ -355,7 +365,7 @@ __decorate([
 __decorate([
     typeorm_1.Column({
         type: "decimal",
-        precision: 11,
+        precision: 14,
         scale: 2,
         default: 0,
         nullable: true

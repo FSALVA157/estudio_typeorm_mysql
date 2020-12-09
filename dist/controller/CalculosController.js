@@ -14,6 +14,7 @@ const RegistroContable_1 = require("../entity/RegistroContable");
 const Caso_1 = require("../entity/Caso");
 class CalculosController {
 }
+//cualquiero monto que deba ser calculado como un producto por valor IUS
 CalculosController.monto = (req, res) => __awaiter(this, void 0, void 0, function* () {
     let nuevoMonto;
     try {
@@ -37,6 +38,7 @@ CalculosController.monto = (req, res) => __awaiter(this, void 0, void 0, functio
         });
     }
 });
+//cualquier monto que se calcule como porcentaje del MONTO DEL JUICIO
 CalculosController.cargos = (req, res) => __awaiter(this, void 0, void 0, function* () {
     const data = req.body;
     let montoAux;
@@ -108,35 +110,33 @@ CalculosController.plan = (req, res) => __awaiter(this, void 0, void 0, function
     let fechaVencimiento;
     try {
         //control de parametros
-        if (!data.id || !data.porc || !data.cuotas) {
+        if (!data.monto || !data.porc || !data.cuotas || !data.id) {
             return res.status(400).json({
-                message: "El cálculo requiere parámetros: 'cuotas', 'id' y 'porc'"
+                message: "El cálculo requiere parámetros: 'cuotas', 'monto', 'id' y 'porc'"
             });
         }
         ;
-        const id = Number(data.id);
-        //verificar si el caso tiene monto fijado
-        function buscarMontoJuicion(id) {
-            return __awaiter(this, void 0, void 0, function* () {
-                try {
-                    const casoRepo = typeorm_1.getRepository(RegistroContable_1.RegistroContable);
-                    asiento = yield casoRepo.findOneOrFail({
-                        caso_id: data.id,
-                        tipo_cargo: 'monto_juicio'
-                    });
-                    // console.log(asiento);
-                    return asiento.monto;
-                }
-                catch (error) {
-                    throw new Error('No existe monto de juicio establecido para el caso que intenta calcular un plan de pagos, establezca un monto pues de este depende el cáculo porcentual');
-                }
-            });
-        }
+        // const id = Number(data.id)
+        // //verificar si el caso tiene monto fijado
+        // async function buscarMontoJuicion(id: Number ){
+        //     try {
+        //         const casoRepo = getRepository(RegistroContable); 
+        //         asiento = await casoRepo.findOneOrFail({
+        //             caso_id: data.id,
+        //             tipo_cargo: 'monto_juicio'
+        //         });
+        //        // console.log(asiento);
+        //         return asiento.monto;
+        //  } catch (error) {
+        //      throw new Error('No existe monto de juicio establecido para el caso que intenta calcular un plan de pagos, establezca un monto pues de este depende el cáculo porcentual');
+        //     }
+        //}
         //calculos
         let porcentaje = Number(data.porc);
         let cuotas = parseInt(data.cuotas);
         if ((porcentaje > 0) && (cuotas > 0)) {
-            monto_juicio = yield buscarMontoJuicion(id);
+            //monto_juicio = await buscarMontoJuicion(id);
+            monto_juicio = data.monto;
             console.log('PORCENTAJE: ', porcentaje, 'MONTO DEL JUICIO: ', monto_juicio, 'NUMERO DE CUOTAS: ', cuotas);
             porcentaje = porcentaje / 100;
             montoTotal = (Number(monto_juicio) * Number(porcentaje)) + Number(monto_juicio);
@@ -147,7 +147,7 @@ CalculosController.plan = (req, res) => __awaiter(this, void 0, void 0, function
                 //calculo fecha de vencimiento
                 fechaVencimiento = new Date();
                 let newCuota = new RegistroContable_1.RegistroContable();
-                newCuota.caso_id = id;
+                newCuota.caso_id = data.id;
                 newCuota.tipo_registro = RegistroContable_1.TipoTransaccion.ENTRADA;
                 newCuota.monto = montoCuota;
                 newCuota.fecha = fechaVencimiento;
