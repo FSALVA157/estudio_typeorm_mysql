@@ -44,6 +44,7 @@ const balanceCaso_1 = require("./routes/balanceCaso");
 const calculos_1 = require("./routes/calculos");
 const cors = require("cors");
 const role_1 = require("./middleware/role");
+const TipoUsuario_1 = require("./entity/TipoUsuario");
 process.on('unhandledRejection', (error) => {
     console.log(error);
     throw error;
@@ -142,6 +143,15 @@ typeorm_1.createConnection(opciones).then((connection) => __awaiter(this, void 0
                     try {
                         let data;
                         switch (route.entity) {
+                            case 'TipoUsuario':
+                                data = new TipoUsuario_1.TipoUsuario(req);
+                                //console.log(req);
+                                if (req.body.id_tipo_usuario) {
+                                    throw errorSobreescritura;
+                                }
+                                else {
+                                    break;
+                                }
                             case 'RegistroContable':
                                 data = new RegistroContable_1.RegistroContable(req);
                                 //console.log(req);

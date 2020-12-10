@@ -173,7 +173,7 @@ export class CasoController {
             reglas = {
                 relations: ["movimientos","alertas","asientos"],
                 order:{
-                    id_caso:"ASC",
+                    id_caso:"DESC",
                 },
                 select:fields,
                 skip:offset,
@@ -185,7 +185,7 @@ export class CasoController {
             reglas = {
                 relations: ["movimientos","alertas","asientos"],
                 order:{
-                    id_caso:"ASC",
+                    id_caso:"DESC",
                 },
                 skip:offset,
                 take:limit,

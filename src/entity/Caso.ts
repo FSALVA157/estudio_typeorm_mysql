@@ -21,13 +21,13 @@ export class Caso {
     @PrimaryGeneratedColumn()
     id_caso: number;
 
-    @OneToMany(type => MovimientoCaso,movimiento => movimiento.caso)
+    @OneToMany(type => MovimientoCaso,movimiento => movimiento.caso,{cascade: true})
     movimientos : MovimientoCaso[];
 
-    @OneToMany(type => Alerta,alerta => alerta.caso)
+    @OneToMany(type => Alerta,alerta => alerta.caso,{cascade: true})
     alertas : Alerta[];
 
-    @OneToMany(type => RegistroContable,asiento => asiento.caso)
+    @OneToMany(type => RegistroContable,asiento => asiento.caso,{cascade: true})
     asientos: RegistroContable[];
 
     @Column({
@@ -74,7 +74,7 @@ export class Caso {
         nullable: true
          })
     @IsOptional()
-    @Length(5,100,{message:'El nombre de la contraparte debe tener entre $constraint1 y $constraint2 caracteres'})
+    @Length(2,100,{message:'El nombre de la contraparte debe tener entre $constraint1 y $constraint2 caracteres'})
     contraparte_nombre: string;
 
     @Column({
@@ -83,7 +83,7 @@ export class Caso {
         nullable: true
          })
     @IsOptional()
-    @Length(5,100,{message:'El apellido de la contraparte debe tener entre $constraint1 y $constraint2 caracteres'})
+    @Length(2,100,{message:'El apellido de la contraparte debe tener entre $constraint1 y $constraint2 caracteres'})
     contraparte_apellido: string;
 
     @Column({
@@ -245,7 +245,7 @@ export class Caso {
         name : 'tipo_proceso_id',
         referencedColumnName : 'id_tipo_proceso'
     })
-    // tipo : TipoProceso;
+    tipo : TipoProceso;
 
 
     @Column({
@@ -286,7 +286,7 @@ export class Caso {
     name : 'estado_id',
     referencedColumnName : 'id_estado'
     })
-    estado : TipoProceso;
+    estado : EstadoCaso;
     
 
    @Column({

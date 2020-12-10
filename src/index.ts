@@ -36,6 +36,8 @@ import balanceCaso from './routes/balanceCaso';
 import calculos from './routes/calculos';
 import * as cors from 'cors';
 import { checkRole } from './middleware/role';
+import { CasoController } from './controller/CasoController';
+import { TipoUsuario } from './entity/TipoUsuario';
 
 
 process.on('unhandledRejection',(error) => {
@@ -111,7 +113,7 @@ var opciones:ConnectionOptions;
         app.use('/calculos',calculos);
         //validando rutas de usuarios
         app.get('/usuarios',[checkJwt,checkRole('admin')]);
-            
+                    
         
         
 
@@ -169,6 +171,15 @@ var opciones:ConnectionOptions;
                              try {
                                  let data;
                                         switch (route.entity) {
+                                            case 'TipoUsuario':
+                                                data = new TipoUsuario(req);
+                                                //console.log(req);
+                                                if(req.body.id_tipo_usuario){
+                                                   throw errorSobreescritura;
+                                                }else{
+                                                    break;
+
+                                                }
                                             case 'RegistroContable':
                                                 data = new RegistroContable(req);
                                                 //console.log(req);

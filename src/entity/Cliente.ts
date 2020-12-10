@@ -12,10 +12,10 @@ export class Cliente {
     @PrimaryGeneratedColumn()
     id_cliente: number;
 
-    @OneToMany(type => Caso,caso => caso.cliente)
+    @OneToMany(type => Caso,caso => caso.cliente,{cascade: true})
     casos : Caso[];
 
-    @OneToMany(type => Consulta,consulta => consulta.cliente)
+    @OneToMany(type => Consulta,consulta => consulta.cliente,{cascade: true})
     consultas : Consulta[];
     
     @Column({

@@ -1,7 +1,8 @@
-import {Entity, PrimaryGeneratedColumn, Column, BeforeInsert} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, BeforeInsert, ManyToOne, JoinColumn} from "typeorm";
 import{IsInt, Min, Length, IsAlphanumeric, MinLength, IsEmail, IsOptional, IsISO8601, Matches, IsEnum} from 'class-validator';
 import {Exclude, Transform} from 'class-transformer';
 import { EncryptionTransformer } from "typeorm-encrypted";
+import { TipoUsuario } from './TipoUsuario';
 
 enum UserRole{
     ADMIN = 'admin',
@@ -33,9 +34,21 @@ export class  Usuario {
    @Length(4,50,{message:'El apellido debe tener entre $constraint1 y $constraint2 caracteres en este momento tu texto tiene una longitud de $value letras'})
     apellido: string;
 
-    @Column({type: "int",unsigned: true })
+    @Column({
+        type: "int",
+        nullable: true
+     })
+    @IsOptional()
     @IsInt({message:'El tipo debe ser una clave entera'})
     tipo_id: number;
+
+    @ManyToOne(type => TipoUsuario,{eager:true})
+    @JoinColumn({
+        name: 'tipo_id',
+        referencedColumnName: 'id_tipo_usuario'
+    })
+    tipoDeUsuario: TipoUsuario;
+
 
     @Column({
         type: "varchar",

@@ -47,11 +47,11 @@ __decorate([
     __metadata("design:type", Number)
 ], Cliente.prototype, "id_cliente", void 0);
 __decorate([
-    typeorm_1.OneToMany(type => Caso_1.Caso, caso => caso.cliente),
+    typeorm_1.OneToMany(type => Caso_1.Caso, caso => caso.cliente, { cascade: true }),
     __metadata("design:type", Array)
 ], Cliente.prototype, "casos", void 0);
 __decorate([
-    typeorm_1.OneToMany(type => consulta_1.Consulta, consulta => consulta.cliente),
+    typeorm_1.OneToMany(type => consulta_1.Consulta, consulta => consulta.cliente, { cascade: true }),
     __metadata("design:type", Array)
 ], Cliente.prototype, "consultas", void 0);
 __decorate([

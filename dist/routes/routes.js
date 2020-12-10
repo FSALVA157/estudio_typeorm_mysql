@@ -20,6 +20,7 @@ const AlertaController_1 = require("../controller/AlertaController");
 const AlertaExtraController_1 = require("../controller/AlertaExtraController");
 const ConsultaController_1 = require("../controller/ConsultaController");
 const RegistroContableController_1 = require("../controller/RegistroContableController");
+const TipoUsuarioController_1 = require("../controller/TipoUsuarioController");
 exports.Routes = [{
         method: "get",
         route: "/usuarios",
@@ -623,6 +624,36 @@ exports.Routes = [{
         controller: RegistroContableController_1.RegistroContableController,
         action: "update",
         entity: "RegistroContable"
+    }, {
+        method: "get",
+        route: "/tipo_usuario",
+        controller: TipoUsuarioController_1.TipoUsuarioController,
+        action: "all",
+        entity: "TipoUsuario"
+    }, {
+        method: "get",
+        route: "/tipo_usuario/:id",
+        controller: TipoUsuarioController_1.TipoUsuarioController,
+        action: "one",
+        entity: "TipoUsuario"
+    }, {
+        method: "post",
+        route: "/tipo_usuario",
+        controller: TipoUsuarioController_1.TipoUsuarioController,
+        action: "save",
+        entity: "TipoUsuario"
+    }, {
+        method: "delete",
+        route: "/tipo_usuario/:id",
+        controller: TipoUsuarioController_1.TipoUsuarioController,
+        action: "remove",
+        entity: "TipoUsuario"
+    }, {
+        method: "put",
+        route: "/tipo_usuario/:id",
+        controller: TipoUsuarioController_1.TipoUsuarioController,
+        action: "update",
+        entity: "TipoUsuario"
     }
 ];
 //# sourceMappingURL=routes.js.map

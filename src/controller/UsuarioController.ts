@@ -122,6 +122,7 @@ export class UsuarioController {
                 
         return await this.userRepository.find({
             select:fields,
+            relations: ['tipoDeUsuario'],
             order:{
                 apellido:"ASC"
             },

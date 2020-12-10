@@ -13,6 +13,7 @@ const typeorm_1 = require("typeorm");
 const class_validator_1 = require("class-validator");
 const class_transformer_1 = require("class-transformer");
 const typeorm_encrypted_1 = require("typeorm-encrypted");
+const TipoUsuario_1 = require("./TipoUsuario");
 var UserRole;
 (function (UserRole) {
     UserRole["ADMIN"] = "admin";
@@ -69,10 +70,22 @@ __decorate([
     __metadata("design:type", String)
 ], Usuario.prototype, "apellido", void 0);
 __decorate([
-    typeorm_1.Column({ type: "int", unsigned: true }),
+    typeorm_1.Column({
+        type: "int",
+        nullable: true
+    }),
+    class_validator_1.IsOptional(),
     class_validator_1.IsInt({ message: 'El tipo debe ser una clave entera' }),
     __metadata("design:type", Number)
 ], Usuario.prototype, "tipo_id", void 0);
+__decorate([
+    typeorm_1.ManyToOne(type => TipoUsuario_1.TipoUsuario, { eager: true }),
+    typeorm_1.JoinColumn({
+        name: 'tipo_id',
+        referencedColumnName: 'id_tipo_usuario'
+    }),
+    __metadata("design:type", TipoUsuario_1.TipoUsuario)
+], Usuario.prototype, "tipoDeUsuario", void 0);
 __decorate([
     typeorm_1.Column({
         type: "varchar",

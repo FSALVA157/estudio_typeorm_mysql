@@ -37,7 +37,7 @@ __decorate([
     __metadata("design:type", String)
 ], TipoProceso.prototype, "tipo_proceso", void 0);
 __decorate([
-    typeorm_1.OneToMany(type => Objeto_1.Objeto, objeto => objeto.tipo_de_proceso),
+    typeorm_1.OneToMany(type => Objeto_1.Objeto, objeto => objeto.tipo_de_proceso, { cascade: true }),
     __metadata("design:type", Array)
 ], TipoProceso.prototype, "objetos", void 0);
 __decorate([

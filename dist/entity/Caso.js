@@ -59,15 +59,15 @@ __decorate([
     __metadata("design:type", Number)
 ], Caso.prototype, "id_caso", void 0);
 __decorate([
-    typeorm_1.OneToMany(type => MovimientoCaso_1.MovimientoCaso, movimiento => movimiento.caso),
+    typeorm_1.OneToMany(type => MovimientoCaso_1.MovimientoCaso, movimiento => movimiento.caso, { cascade: true }),
     __metadata("design:type", Array)
 ], Caso.prototype, "movimientos", void 0);
 __decorate([
-    typeorm_1.OneToMany(type => Alerta_1.Alerta, alerta => alerta.caso),
+    typeorm_1.OneToMany(type => Alerta_1.Alerta, alerta => alerta.caso, { cascade: true }),
     __metadata("design:type", Array)
 ], Caso.prototype, "alertas", void 0);
 __decorate([
-    typeorm_1.OneToMany(type => RegistroContable_1.RegistroContable, asiento => asiento.caso),
+    typeorm_1.OneToMany(type => RegistroContable_1.RegistroContable, asiento => asiento.caso, { cascade: true }),
     __metadata("design:type", Array)
 ], Caso.prototype, "asientos", void 0);
 __decorate([
@@ -119,7 +119,7 @@ __decorate([
         nullable: true
     }),
     class_validator_1.IsOptional(),
-    class_validator_1.Length(5, 100, { message: 'El nombre de la contraparte debe tener entre $constraint1 y $constraint2 caracteres' }),
+    class_validator_1.Length(2, 100, { message: 'El nombre de la contraparte debe tener entre $constraint1 y $constraint2 caracteres' }),
     __metadata("design:type", String)
 ], Caso.prototype, "contraparte_nombre", void 0);
 __decorate([
@@ -129,7 +129,7 @@ __decorate([
         nullable: true
     }),
     class_validator_1.IsOptional(),
-    class_validator_1.Length(5, 100, { message: 'El apellido de la contraparte debe tener entre $constraint1 y $constraint2 caracteres' }),
+    class_validator_1.Length(2, 100, { message: 'El apellido de la contraparte debe tener entre $constraint1 y $constraint2 caracteres' }),
     __metadata("design:type", String)
 ], Caso.prototype, "contraparte_apellido", void 0);
 __decorate([
@@ -306,9 +306,10 @@ __decorate([
     typeorm_1.JoinColumn({
         name: 'tipo_proceso_id',
         referencedColumnName: 'id_tipo_proceso'
-    })
-    // tipo : TipoProceso;
-    ,
+    }),
+    __metadata("design:type", TipoProceso_1.TipoProceso)
+], Caso.prototype, "tipo", void 0);
+__decorate([
     typeorm_1.Column({
         type: "int",
         nullable: true
@@ -351,7 +352,7 @@ __decorate([
         name: 'estado_id',
         referencedColumnName: 'id_estado'
     }),
-    __metadata("design:type", TipoProceso_1.TipoProceso)
+    __metadata("design:type", EstadoCaso_1.EstadoCaso)
 ], Caso.prototype, "estado", void 0);
 __decorate([
     typeorm_1.Column({

@@ -18,7 +18,7 @@ export class TipoProceso {
     @Length(3,50,{message:'El tipo de proceso debe tener entre $constraint1 y $constraint2 caracteres'})
     tipo_proceso: string;
 
-    @OneToMany(type => Objeto, objeto => objeto.tipo_de_proceso)
+    @OneToMany(type => Objeto, objeto => objeto.tipo_de_proceso,{cascade: true})
     objetos: Objeto[]
 
     @Column({
