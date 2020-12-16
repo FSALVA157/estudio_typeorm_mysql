@@ -171,6 +171,15 @@ var opciones:ConnectionOptions;
                              try {
                                  let data;
                                         switch (route.entity) {
+                                            case 'MovimientoCaso':
+                                                data = new TipoUsuario(req);
+                                                //console.log(req);
+                                                if(req.body.id_mov_caso){
+                                                   throw errorSobreescritura;
+                                                }else{
+                                                    break;
+
+                                                }
                                             case 'TipoUsuario':
                                                 data = new TipoUsuario(req);
                                                 //console.log(req);
@@ -408,205 +417,7 @@ var opciones:ConnectionOptions;
     
     app.use(middleware);
     
-    
-
-    // await connection.manager.save(connection.manager.create(TipoProceso,{
-    //     id_tipo_proceso:1,
-    //     tipo_proceso: 'ORDINARIO',
-    //     etapas: [
-    //         'Demanda',
-    //         'Contesta Demanda',
-    //         'Prueba',
-    //         'Alegato',
-    //         'Sentencia'
-    //     ],
-    //     secuencia: {
-    //         etapas: [
-    //             'Demanda',
-    //             'Contesta Demanda',
-    //             'Prueba',
-    //             'Alegato',
-    //             'Sentencia'
-    //         ]   
-    //     },
-    //     campo: "var1,var2,var3"
-    // }));
-    // await connection.manager.save(connection.manager.create(TipoProceso,{
-    //     id_tipo_proceso:2,
-    //     tipo_proceso: 'SUMARIO',
-    //     etapas: [
-    //         'Demanda',
-    //         'Contesta Demanda',
-    //         'Prueba',
-    //         'Alegato',
-    //         'Sentencia'
-    //     ],
-    //     secuencia: {
-    //         etapas: [
-    //             'Demanda',
-    //             'Contesta Demanda',
-    //             'Prueba',
-    //             'Alegato',
-    //             'Sentencia'
-    //         ]   
-    //     },
-    //     campo: "var1,var2,var3"
-    // }));
-    // await connection.manager.save(connection.manager.create(TipoProceso,{
-    //     id_tipo_proceso:3,
-    //     tipo_proceso: 'SUMARISIMO',
-    //     etapas: [
-    //         'Demanda',
-    //         'Audiencia de Conciliación',
-    //         'Contesta Demanda',
-    //         'Prueba',
-    //         'Alegato',
-    //         'Sentencia'
-    //     ],
-    //     secuencia: {
-    //         etapas: [
-    //             'Demanda',
-    //             'Audiencia de Conciliación',
-    //             'Contesta Demanda',
-    //             'Prueba',
-    //             'Alegato',
-    //             'Sentencia'
-    //         ]   
-    //     },
-    //     campo: "var1,var2,var3"
-    // }));
-    // await connection.manager.save(connection.manager.create(TipoProceso,{
-    //     id_tipo_proceso:4,
-    //     tipo_proceso: 'VOLUNTARIO',
-    //     etapas: [
-    //         'Demanda',
-    //         'Prueba',
-    //         'Sentencia'
-    //     ],
-    //     secuencia: {
-    //         etapas: [
-    //             'Demanda',
-    //             'Prueba',
-    //             'Sentencia'
-    //         ]   
-    //     },
-    //     campo: "var1,var2,var3"
-    // }));
-    // await connection.manager.save(connection.manager.create(TipoProceso,{
-    //     id_tipo_proceso:5,
-    //     tipo_proceso: 'EJECUTIVO',
-    //     etapas: [
-    //         'Demanda',
-    //         'Imtimación de Pago',
-    //         'Mandamiento de Embargo',
-    //        'Opone Excepciones - Prueba',
-    //         'Alegato',
-    //         'Sentencia',
-    //         'Sentencia de Remate',
-    //         'Liquidación de Capital e Intereses',
-    //         'Pago',
-    //         'Preparación Vía Ejecutiva',
-    //         'Citación del Demandado',
-    //         'Sentencia Interlocutoria'
-    //     ],
-    //     secuencia: {
-    //         etapas: [
-    //             'Demanda',
-    //             'Imtimación de Pago',
-    //             'Mandamiento de Embargo',
-    //             'Opone Excepciones - Prueba',
-    //             'Alegato',
-    //             'Sentencia',
-    //             'Sentencia de Remate',
-    //             'Liquidación de Capital e Intereses',
-    //             'Pago',
-    //             'Preparación Vía Ejecutiva',
-    //             'Citación del Demandado',
-    //             'Sentencia Interlocutoria'
-    //         ]   
-    //     },
-    //     campo: "var1,var2,var3"
-    // }));
-    // await connection.manager.save(connection.manager.create(TipoProceso,{
-    //     id_tipo_proceso:6,
-    //     tipo_proceso: 'UNIVERSAL',
-    //     etapas: [
-    //         'Inicio Juicio Sucesorio',
-    //         'Apertura de Sucesión',
-    //         'Edictos',
-    //         'Declaratoria de Herederos',
-    //         'Inventario',
-    //         'Partición y Adjudicación',
-    //         'Hijuelas'
-    //     ],
-    //     secuencia: {
-    //         etapas: [
-    //             'Inicio Juicio Sucesorio',
-    //             'Apertura de Sucesión',
-    //             'Edictos',
-    //             'Declaratoria de Herederos',
-    //             'Inventario',
-    //             'Partición y Adjudicación',
-    //             'Hijuelas'
-    //         ]   
-    //     },
-    //     campo: "var1,var2,var3"
-    // }));
-    // await connection.manager.save(connection.manager.create(TipoProceso,{
-    //     id_tipo_proceso:7,
-    //     tipo_proceso: 'INCIDENTE',
-    //     etapas: [
-    //         'Incidente',
-    //         'Contestación de Incidente',
-    //         'Prueba',
-    //         'Sentencia Interlocutoria'
-    //     ],
-    //     secuencia: {
-    //         etapas: [
-    //             'Incidente',
-    //             'Contestación de Incidente',
-    //             'Prueba',
-    //             'Sentencia Interlocutoria'
-    //         ]   
-    //     },
-    //     campo: "var1,var2,var3"
-    // }));
-    // await connection.manager.save(connection.manager.create(TipoProceso,{
-    //     id_tipo_proceso:8,
-    //     tipo_proceso: 'ESPECIAL LEY 7.403',
-    //     etapas: [
-    //         'Denuncia por Violencia',
-    //         'Medidas Previas',
-    //         'Audiencia',
-    //         'Resolución'
-    //     ],
-    //     secuencia: {
-    //         etapas: [
-    //             'Denuncia por Violencia',
-    //             'Medidas Previas',
-    //             'Audiencia',
-    //             'Resolución'
-    //         ]   
-    //     },
-    //     campo: "var1,var2,var3"
-    // }));
-    // await connection.manager.save(connection.manager.create(TipoProceso,{
-    //     id_tipo_proceso:9,
-    //     tipo_proceso: 'MEDIDAS CAUTELARES',
-    //     etapas: [
-    //         'Inicia Medida Cautelar',
-    //         'Sentencia Interlocutoria'
-    //     ],
-    //     secuencia: {
-    //         etapas: [
-    //             'Inicia Medida Cautelar',
-    //             'Sentencia Interlocutoria'
-    //         ]   
-    //     },
-    //     campo: "var1,var2,var3"
-    // }));
-
-    
+   
 
     console.log(`Express iniciado en puerto ${puerto_activo}. Open http://localhost:${puerto_activo}/usuarios para ver los resultados`);
 
