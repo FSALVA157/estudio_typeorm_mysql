@@ -128,6 +128,10 @@ __decorate([
     class_validator_1.Length(2, 50, { message: 'El tipo de cargo debe tener entre $constraint1 y $constraint2 caracteres' }),
     __metadata("design:type", String)
 ], RegistroContable.prototype, "tipo_cargo", void 0);
+__decorate([
+    typeorm_1.DeleteDateColumn(),
+    __metadata("design:type", Date)
+], RegistroContable.prototype, "fecha_baja", void 0);
 RegistroContable = __decorate([
     typeorm_1.Entity(),
     __metadata("design:paramtypes", [Object])

@@ -1,4 +1,4 @@
-import {Entity, PrimaryGeneratedColumn, Column, OneToMany} from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, DeleteDateColumn } from 'typeorm';
 import { IsOptional, Length } from 'class-validator';
 import { Objeto } from './Objeto';
 import { Usuario } from './Usuario';
@@ -19,8 +19,11 @@ export class TipoUsuario {
     @Length(3,50,{message:'El tipo de usuario debe tener entre $constraint1 y $constraint2 caracteres'})
     tipo_usuario: string;
 
-    @OneToMany(type => Usuario, usuario => usuario.tipoDeUsuario, {cascade: true})
-    usuarios: Objeto[]
+    @DeleteDateColumn()
+    fecha_baja: Date;
+
+    @OneToMany(type => Usuario, usuario => usuario.tipoDeUsuario,{onDelete: "CASCADE",cascade: true})
+    public usuarios: Usuario[]
 
     
 

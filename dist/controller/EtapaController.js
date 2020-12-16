@@ -9,10 +9,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
-const TipoProceso_1 = require("../entity/TipoProceso");
-class TipoProcesoController {
+const Etapas_1 = require("../entity/Etapas");
+class EtapaController {
     constructor() {
-        this.TipoProcesoRepository = typeorm_1.getRepository(TipoProceso_1.TipoProceso);
+        this.EtapaRepository = typeorm_1.getRepository(Etapas_1.Etapa);
     }
     all(request, response, next) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -22,8 +22,8 @@ class TipoProcesoController {
             if (request.query.fields) {
                 let reqFields = request.query.fields;
                 fields = reqFields.toString().split(",");
-                if (!fields.includes('id_tipo_proceso')) {
-                    fields.push('id_tipo_proceso');
+                if (!fields.includes('id_etapa')) {
+                    fields.push('id_etapa');
                 }
             }
             ;
@@ -73,18 +73,18 @@ class TipoProcesoController {
                     //const element = arreglo[campo];
                     let nombreCampo = campo.toString();
                     switch (nombreCampo) {
-                        case 'id_tipo_proceso':
+                        case 'id_etapa':
                             cond[nombreCampo] = Number(arreglo[campo]);
                             break;
-                        case 'tipo_proceso':
+                        case 'tipo_id':
+                            cond[nombreCampo] = Number(arreglo[campo]);
+                            break;
+                        case 'etapa':
                             cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
                             break;
-                        // case 'etapas':
-                        //     cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);  
-                        //     break;
-                        // case 'secuencia':
-                        //     cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);  
-                        //     break;                
+                        case 'orden':
+                            cond[nombreCampo] = Number(arreglo[campo]);
+                            break;
                         default:
                             break;
                     }
@@ -93,9 +93,8 @@ class TipoProcesoController {
             let reglas;
             if (fields != null) {
                 reglas = {
-                    relations: ["objetos", "etapas"],
                     order: {
-                        id_tipo_proceso: "ASC"
+                        id_etapa: "ASC"
                     },
                     select: fields,
                     skip: offset,
@@ -105,40 +104,38 @@ class TipoProcesoController {
             }
             else {
                 reglas = {
-                    relations: ["objetos", "etapas"],
                     order: {
-                        id_tipo_proceso: "ASC"
+                        id_objeto: "ASC"
                     },
                     skip: offset,
                     take: limit,
                     where: cond
                 };
             }
-            return yield this.TipoProcesoRepository.find(reglas);
-            // return await this.TipoProcesoRepository.find();   
+            return yield this.EtapaRepository.find(reglas);
         });
     }
     one(request, response, next) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.TipoProcesoRepository.findOne(request.params.id);
+            return yield this.EtapaRepository.findOne(request.params.id);
         });
     }
     save(request, response, next) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.TipoProcesoRepository.save(request.body);
+            return yield this.EtapaRepository.save(request.body);
         });
     }
     remove(request, response, next) {
         return __awaiter(this, void 0, void 0, function* () {
-            let userToRemove = yield this.TipoProcesoRepository.findOne(request.params.id);
-            return yield this.TipoProcesoRepository.remove(userToRemove);
+            let userToRemove = yield this.EtapaRepository.findOne(request.params.id);
+            return yield this.EtapaRepository.remove(userToRemove);
         });
     }
     update(request, response, next) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.TipoProcesoRepository.update(request.params.id, request.body);
+            return yield this.EtapaRepository.update(request.params.id, request.body);
         });
     }
 }
-exports.TipoProcesoController = TipoProcesoController;
-//# sourceMappingURL=TipoProcesoController.js.map
+exports.EtapaController = EtapaController;
+//# sourceMappingURL=EtapaController.js.map

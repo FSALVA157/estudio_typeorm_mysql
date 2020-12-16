@@ -22,7 +22,7 @@ let MovimientoCaso = class MovimientoCaso {
             this.detalle = req.body.detalle;
             this.fecha = req.body.fecha;
             this.tipo_mov_id = req.body.tipo_mov_id;
-            this.visible = req.body.visible;
+            this.etapa = req.body.etapa;
         }
     }
 };
@@ -48,7 +48,6 @@ __decorate([
 __decorate([
     typeorm_1.Column({ type: "date" }),
     class_validator_1.IsISO8601(),
-    class_validator_1.Matches(/^\d{4}([\-/.])(0?[1-9]|1[0-1-2])\1(3[01]|[12][0-9]|0?[1-9])$/, { message: 'La fecha   debe respetar el formato yyyy-mm-dd' }),
     class_transformer_1.Transform(() => Date),
     __metadata("design:type", Date)
 ], MovimientoCaso.prototype, "fecha", void 0);
@@ -79,12 +78,16 @@ __decorate([
 ], MovimientoCaso.prototype, "tipo", void 0);
 __decorate([
     typeorm_1.Column({
-        default: true,
-        nullable: true
+        type: "varchar",
+        length: 100,
     }),
-    class_validator_1.IsOptional(),
-    __metadata("design:type", Boolean)
-], MovimientoCaso.prototype, "visible", void 0);
+    class_validator_1.Length(3, 100, { message: 'La etapa debe tener entre $constraint1 y $constraint2 caracteres' }),
+    __metadata("design:type", String)
+], MovimientoCaso.prototype, "etapa", void 0);
+__decorate([
+    typeorm_1.DeleteDateColumn(),
+    __metadata("design:type", Date)
+], MovimientoCaso.prototype, "fecha_baja", void 0);
 MovimientoCaso = __decorate([
     typeorm_1.Entity(),
     __metadata("design:paramtypes", [Object])

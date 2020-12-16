@@ -158,6 +158,8 @@ export class UsuarioController {
     async remove(request: Request, response: Response, next: NextFunction) {
         let userToRemove = await this.userRepository.findOne(request.params.id);
        return  await this.userRepository.remove(userToRemove);
+            
+
     }
 
     async update(request: Request, response: Response, next: NextFunction) {

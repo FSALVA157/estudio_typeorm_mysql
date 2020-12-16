@@ -47,11 +47,11 @@ __decorate([
     __metadata("design:type", Number)
 ], Cliente.prototype, "id_cliente", void 0);
 __decorate([
-    typeorm_1.OneToMany(type => Caso_1.Caso, caso => caso.cliente, { cascade: true }),
+    typeorm_1.OneToMany(type => Caso_1.Caso, caso => caso.cliente, { onDelete: "CASCADE", cascade: true }),
     __metadata("design:type", Array)
 ], Cliente.prototype, "casos", void 0);
 __decorate([
-    typeorm_1.OneToMany(type => consulta_1.Consulta, consulta => consulta.cliente, { cascade: true }),
+    typeorm_1.OneToMany(type => consulta_1.Consulta, consulta => consulta.cliente, { onDelete: "CASCADE", cascade: true }),
     __metadata("design:type", Array)
 ], Cliente.prototype, "consultas", void 0);
 __decorate([
@@ -247,6 +247,10 @@ __decorate([
     typeorm_1.Column({ default: true }),
     __metadata("design:type", Boolean)
 ], Cliente.prototype, "visible", void 0);
+__decorate([
+    typeorm_1.DeleteDateColumn(),
+    __metadata("design:type", Date)
+], Cliente.prototype, "fecha_baja", void 0);
 Cliente = __decorate([
     typeorm_1.Entity(),
     __metadata("design:paramtypes", [Object])

@@ -114,7 +114,9 @@ class TipoUsuarioController {
     }
     one(request, response, next) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.TipoUsuarioRepository.findOne(request.params.id);
+            return yield this.TipoUsuarioRepository.findOne(request.params.id, {
+                relations: ['usuarios']
+            });
         });
     }
     save(request, response, next) {
@@ -124,8 +126,13 @@ class TipoUsuarioController {
     }
     remove(request, response, next) {
         return __awaiter(this, void 0, void 0, function* () {
-            let userToRemove = yield this.TipoUsuarioRepository.findOne(request.params.id);
-            return yield this.TipoUsuarioRepository.remove(userToRemove);
+            //  let userToRemove = await this.TipoUsuarioRepository.findOneOrFail(request.params.id,{
+            //     relations: ['usuarios']
+            // });
+            //console.log('EL REGISTRO A ELIMINAR ES: ', userToRemove);
+            //    return  await this.TipoUsuarioRepository.remove(userToRemove);
+            return yield this.TipoUsuarioRepository.softDelete({ id_tipo_usuario: Number(request.params.id) });
+            //   return this.TipoUsuarioRepository.restore({id_tipo_usuario: Number(request.params.id)})
         });
     }
     update(request, response, next) {

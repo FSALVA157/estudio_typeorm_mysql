@@ -9,6 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
+const Caso_1 = require("../entity/Caso");
 const Cliente_1 = require("../entity/Cliente");
 class ClienteController {
     constructor() {
@@ -174,7 +175,7 @@ class ClienteController {
     }
     one(request, response, next) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.clientRepository.findOne(request.params.id);
+            return yield this.clientRepository.findOne(request.params.id, { relations: ['casos'] });
         });
     }
     save(request, response, next) {
@@ -184,8 +185,14 @@ class ClienteController {
     }
     remove(request, response, next) {
         return __awaiter(this, void 0, void 0, function* () {
-            let userToRemove = yield this.clientRepository.findOne(request.params.id);
-            return yield this.clientRepository.remove(userToRemove);
+            //     let userToRemove = await this.clientRepository.findOne(request.params.id);
+            //    return  await this.clientRepository.remove(userToRemove);
+            //borrando las causas relacionadas con el cliente
+            const casosRepo = typeorm_1.getRepository(Caso_1.Caso);
+            const casos = yield casosRepo.find({ cliente_id: Number(request.params.id) });
+            //casosRepo.softDelete({cliente_id: Number(request.params.id)});
+            return casos;
+            // return await this.clientRepository.softDelete({id_cliente: Number(request.params.id)});
         });
     }
     update(request, response, next) {

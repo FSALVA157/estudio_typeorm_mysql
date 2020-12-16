@@ -21,6 +21,7 @@ import { checkJwt } from '../middleware/jwt';
 import { ConsultaController } from '../controller/ConsultaController';
 import { RegistroContableController } from '../controller/RegistroContableController';
 import { TipoUsuarioController } from '../controller/TipoUsuarioController';
+import { EtapaController } from '../controller/EtapaController';
 
 
 export const Routes = [{
@@ -656,5 +657,35 @@ export const Routes = [{
     controller: TipoUsuarioController,
     action: "update",
     entity: "TipoUsuario"
+},{
+    method: "get",
+    route: "/etapas",
+    controller: EtapaController,
+    action: "all",
+    entity: "Etapa"
+}, {
+    method: "get",
+    route: "/etapas/:id",
+    controller:EtapaController,
+    action: "one",
+    entity: "Etapa"
+}, {
+    method: "post",
+    route: "/etapas",
+    controller: EtapaController,
+    action: "save",
+    entity: "Etapa"
+}, {
+    method: "delete",
+    route: "/etapas/:id",
+    controller: EtapaController,
+    action: "remove",
+    entity: "Etapa"
+},{
+    method: "put",
+    route: "/etapas/:id",
+    controller: EtapaController,
+    action: "update",
+    entity: "Etapa"
 }
 ];

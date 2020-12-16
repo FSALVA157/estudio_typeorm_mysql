@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, DeleteDateColumn } from 'typeorm';
 import { Caso } from './Caso';
 import { Transform } from 'class-transformer';
 import { TipoMovimiento } from './TipoMovimiento';
@@ -27,7 +27,6 @@ export class MovimientoCaso {
 
     @Column({type: "date"})
     @IsISO8601()
-    @Matches(/^\d{4}([\-/.])(0?[1-9]|1[0-1-2])\1(3[01]|[12][0-9]|0?[1-9])$/,{message:'La fecha   debe respetar el formato yyyy-mm-dd'})
     @Transform(()=>Date)
     fecha: Date;
 
@@ -55,11 +54,21 @@ export class MovimientoCaso {
     tipo : TipoMovimiento;
 
     @Column({
-        default:true,
-        nullable: true
-     })
-     @IsOptional()
-     visible: boolean;
+        type: "varchar",
+        length: 100,
+    })
+    @Length(3,100,{message:'La etapa debe tener entre $constraint1 y $constraint2 caracteres'})
+    etapa: string;
+
+    // @Column({
+    //     default:true,
+    //     nullable: true
+    //  })
+    //  @IsOptional()
+    //  visible: boolean;
+
+     @DeleteDateColumn()
+    fecha_baja: Date;
         
 
     //constructor
@@ -69,7 +78,7 @@ export class MovimientoCaso {
             this.detalle = req.body.detalle;
             this.fecha = req.body.fecha;
             this.tipo_mov_id = req.body.tipo_mov_id;
-            this.visible = req.body.visible;
+            this.etapa = req.body.etapa;
       }
 
     }

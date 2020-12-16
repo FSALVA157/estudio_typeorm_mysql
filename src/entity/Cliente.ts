@@ -1,5 +1,5 @@
-import {Entity, PrimaryGeneratedColumn, Column,ManyToOne, JoinColumn, OneToMany} from "typeorm";
-import{IsInt, Min, Length, IsAlphanumeric, MinLength, IsEmail,  IsOptional, IsISO8601, Matches} from 'class-validator';
+import {Entity, PrimaryGeneratedColumn, Column,ManyToOne, JoinColumn, OneToMany, DeleteDateColumn} from "typeorm";
+import{IsInt, Length, IsEmail,  IsOptional, IsISO8601, Matches} from 'class-validator';
 import {Transform} from 'class-transformer';
 import { CategoriaCliente } from './CategoriaCliente';
 import { Caso } from './Caso';
@@ -12,10 +12,10 @@ export class Cliente {
     @PrimaryGeneratedColumn()
     id_cliente: number;
 
-    @OneToMany(type => Caso,caso => caso.cliente,{cascade: true})
+    @OneToMany(type => Caso,caso => caso.cliente,{onDelete: "CASCADE",cascade: true})
     casos : Caso[];
 
-    @OneToMany(type => Consulta,consulta => consulta.cliente,{cascade: true})
+    @OneToMany(type => Consulta,consulta => consulta.cliente,{onDelete: "CASCADE",cascade: true})
     consultas : Consulta[];
     
     @Column({
@@ -190,6 +190,9 @@ export class Cliente {
 
    @Column({default:true })
    visible: boolean;
+
+   @DeleteDateColumn()
+    fecha_baja: Date;
 
        //constructor
     constructor(req?:any){

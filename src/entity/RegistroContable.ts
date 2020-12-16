@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, DeleteDateColumn } from 'typeorm';
 import { Caso } from './Caso';
 import { Transform } from 'class-transformer';
 import {IsDecimal, IsEnum, IsInt, IsISO8601, IsOptional, Length, Matches} from 'class-validator';
@@ -96,7 +96,8 @@ export class RegistroContable {
     @Length(2,50,{message:'El tipo de cargo debe tener entre $constraint1 y $constraint2 caracteres'})
     tipo_cargo: string;
 
-    
+    @DeleteDateColumn()
+    fecha_baja: Date;
         
 
     //constructor

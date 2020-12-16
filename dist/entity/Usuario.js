@@ -166,10 +166,7 @@ __decorate([
     __metadata("design:type", Date)
 ], Usuario.prototype, "fecha_alta", void 0);
 __decorate([
-    typeorm_1.Column({ type: "date", nullable: true }),
-    class_validator_1.IsOptional(),
-    class_validator_1.IsISO8601(),
-    class_transformer_1.Transform(() => Date),
+    typeorm_1.DeleteDateColumn(),
     __metadata("design:type", Date)
 ], Usuario.prototype, "fecha_baja", void 0);
 Usuario = __decorate([

@@ -89,6 +89,9 @@ export class MovimientoCasoController {
                     case 'visible':
                         cond[nombreCampo] = Number(arreglo[campo]);
                         break;    
+                    case 'etapa':
+                        cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);  
+                        break;
                                       
                     default:
                         break;

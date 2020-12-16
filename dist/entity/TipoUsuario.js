@@ -35,7 +35,11 @@ __decorate([
     __metadata("design:type", String)
 ], TipoUsuario.prototype, "tipo_usuario", void 0);
 __decorate([
-    typeorm_1.OneToMany(type => Usuario_1.Usuario, usuario => usuario.tipoDeUsuario, { cascade: true }),
+    typeorm_1.DeleteDateColumn(),
+    __metadata("design:type", Date)
+], TipoUsuario.prototype, "fecha_baja", void 0);
+__decorate([
+    typeorm_1.OneToMany(type => Usuario_1.Usuario, usuario => usuario.tipoDeUsuario, { onDelete: "CASCADE", cascade: true }),
     __metadata("design:type", Array)
 ], TipoUsuario.prototype, "usuarios", void 0);
 TipoUsuario = __decorate([

@@ -82,6 +82,10 @@ __decorate([
     class_validator_1.IsOptional(),
     __metadata("design:type", Boolean)
 ], Consulta.prototype, "visible", void 0);
+__decorate([
+    typeorm_1.DeleteDateColumn(),
+    __metadata("design:type", Date)
+], Consulta.prototype, "fecha_baja", void 0);
 Consulta = __decorate([
     typeorm_1.Entity(),
     __metadata("design:paramtypes", [Object])

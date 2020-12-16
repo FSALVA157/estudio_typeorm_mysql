@@ -12,14 +12,31 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
 const class_validator_1 = require("class-validator");
 const Objeto_1 = require("./Objeto");
+const Etapas_1 = require("./Etapas");
 let TipoProceso = class TipoProceso {
+    // @Column({
+    //   type: "simple-array",
+    //   nullable: true
+    // })
+    // @IsOptional()
+    // etapas: string[];
+    // @Column({
+    //     type: "simple-json",
+    //     nullable: true
+    // })
+    // @IsOptional()
+    // secuencia: { etapas: string[]};
+    // @Column({
+    //     type: "varchar",
+    //     nullable: true
+    //  })
+    //  @IsOptional()
+    //  campo: string;
     //constructor
     constructor(req) {
         if (req) {
             this.id_tipo_proceso = req.body.id_tipo_proceso;
             this.tipo_proceso = req.body.tipo_proceso;
-            this.etapas = req.body.etapas;
-            this.secuencia = req.body.secuencia;
         }
     }
 };
@@ -27,6 +44,10 @@ __decorate([
     typeorm_1.PrimaryGeneratedColumn(),
     __metadata("design:type", Number)
 ], TipoProceso.prototype, "id_tipo_proceso", void 0);
+__decorate([
+    typeorm_1.OneToMany(type => Etapas_1.Etapa, etapa => etapa.tipo, { onDelete: "CASCADE", cascade: true }),
+    __metadata("design:type", Array)
+], TipoProceso.prototype, "etapas", void 0);
 __decorate([
     typeorm_1.Column({
         type: "varchar",
@@ -40,30 +61,6 @@ __decorate([
     typeorm_1.OneToMany(type => Objeto_1.Objeto, objeto => objeto.tipo_de_proceso, { cascade: true }),
     __metadata("design:type", Array)
 ], TipoProceso.prototype, "objetos", void 0);
-__decorate([
-    typeorm_1.Column({
-        type: "simple-array",
-        nullable: true
-    }),
-    class_validator_1.IsOptional(),
-    __metadata("design:type", Array)
-], TipoProceso.prototype, "etapas", void 0);
-__decorate([
-    typeorm_1.Column({
-        type: "simple-json",
-        nullable: true
-    }),
-    class_validator_1.IsOptional(),
-    __metadata("design:type", Object)
-], TipoProceso.prototype, "secuencia", void 0);
-__decorate([
-    typeorm_1.Column({
-        type: "varchar",
-        nullable: true
-    }),
-    class_validator_1.IsOptional(),
-    __metadata("design:type", String)
-], TipoProceso.prototype, "campo", void 0);
 TipoProceso = __decorate([
     typeorm_1.Entity(),
     __metadata("design:paramtypes", [Object])

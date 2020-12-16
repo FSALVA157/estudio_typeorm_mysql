@@ -85,7 +85,7 @@ __decorate([
         nullable: true
     }),
     class_validator_1.IsOptional(),
-    class_validator_1.Length(5, 30, { message: 'El numero de expediente debe tener entre $constraint1 y $constraint2 caracteres' }),
+    class_validator_1.Length(2, 30, { message: 'El numero de expediente debe tener entre $constraint1 y $constraint2 caracteres' }),
     __metadata("design:type", String)
 ], CasoExtrajudicial.prototype, "expediente_nro", void 0);
 __decorate([
@@ -188,7 +188,7 @@ __decorate([
         length: 100,
         nullable: true
     }),
-    class_validator_1.Length(10, 100, { message: 'El mediador es un texto que debe tener entre $constraint1 y $constraint2 caracteres' }),
+    class_validator_1.Length(2, 100, { message: 'El mediador es un texto que debe tener entre $constraint1 y $constraint2 caracteres' }),
     class_validator_1.IsOptional(),
     __metadata("design:type", String)
 ], CasoExtrajudicial.prototype, "mediador", void 0);
@@ -198,7 +198,7 @@ __decorate([
         length: 100,
         nullable: true
     }),
-    class_validator_1.Length(10, 100, { message: 'El lugar de mediación es un texto que debe tener entre $constraint1 y $constraint2 caracteres' }),
+    class_validator_1.Length(2, 100, { message: 'El lugar de mediación es un texto que debe tener entre $constraint1 y $constraint2 caracteres' }),
     class_validator_1.IsOptional(),
     __metadata("design:type", String)
 ], CasoExtrajudicial.prototype, "mediacion_domicilio", void 0);
@@ -208,7 +208,7 @@ __decorate([
         length: 50,
         nullable: true
     }),
-    class_validator_1.Length(10, 50, { message: 'El telefono del mediador es un texto que debe tener entre $constraint1 y $constraint2 caracteres' }),
+    class_validator_1.Length(2, 50, { message: 'El telefono del mediador es un texto que debe tener entre $constraint1 y $constraint2 caracteres' }),
     class_validator_1.IsOptional(),
     __metadata("design:type", String)
 ], CasoExtrajudicial.prototype, "mediador_telef", void 0);

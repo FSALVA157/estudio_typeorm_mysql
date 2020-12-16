@@ -1,5 +1,6 @@
 import {getRepository,Like,Not,IsNull} from "typeorm";
 import {NextFunction, Request, Response} from "express";
+import { Caso } from '../entity/Caso';
 import{Cliente} from '../entity/Cliente';
 
 
@@ -178,7 +179,7 @@ export class ClienteController {
 
     async one(request: Request, response: Response, next: NextFunction) {
         
-        return await this.clientRepository.findOne(request.params.id);
+        return await this.clientRepository.findOne(request.params.id,{relations:['casos']});
     }
 
     async save(request: Request, response: Response, next: NextFunction) {
@@ -186,8 +187,16 @@ export class ClienteController {
     }
 
     async remove(request: Request, response: Response, next: NextFunction) {
-        let userToRemove = await this.clientRepository.findOne(request.params.id);
-       return  await this.clientRepository.remove(userToRemove);
+    //     let userToRemove = await this.clientRepository.findOne(request.params.id);
+    //    return  await this.clientRepository.remove(userToRemove);
+    //borrando las causas relacionadas con el cliente
+    
+    const casosRepo = getRepository(Caso);
+    const casos:Caso[] = await casosRepo.find({cliente_id: Number(request.params.id)});
+    //casosRepo.softDelete({cliente_id: Number(request.params.id)});
+    return casos;
+    // return await this.clientRepository.softDelete({id_cliente: Number(request.params.id)});
+
     }
 
     async update(request: Request, response: Response, next: NextFunction) {

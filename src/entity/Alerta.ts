@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, DeleteDateColumn } from 'typeorm';
 import { Transform } from 'class-transformer';
 import { Caso } from './Caso';
 import{IsInt, IsISO8601, IsOptional, Length, Matches} from 'class-validator';
@@ -59,6 +59,9 @@ export class Alerta {
      })
      @IsOptional()
      visible: boolean;
+
+     @DeleteDateColumn()
+     fecha_baja: Date;
 
     
 

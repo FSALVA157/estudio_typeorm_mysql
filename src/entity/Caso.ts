@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, OneToMany, AfterLoad, getRepository } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, OneToMany, AfterLoad, getRepository, DeleteDateColumn } from 'typeorm';
 import{IsInt, Length,  IsOptional, IsISO8601, IsDecimal, MinLength} from 'class-validator';
 import {Transform} from 'class-transformer';
 import { Jurisdiccion } from './Jurisdiccion';
@@ -21,13 +21,39 @@ export class Caso {
     @PrimaryGeneratedColumn()
     id_caso: number;
 
-    @OneToMany(type => MovimientoCaso,movimiento => movimiento.caso,{cascade: true})
+    @OneToMany(type => MovimientoCaso,movimiento => movimiento.caso,{onDelete: "CASCADE",cascade: true})
     movimientos : MovimientoCaso[];
 
-    @OneToMany(type => Alerta,alerta => alerta.caso,{cascade: true})
+    
+    @Column({
+        type: "simple-array",
+        nullable: true
+    })
+    @IsOptional()
+    etapas: string[];
+    
+    @AfterLoad()
+    misEtapas(){
+        let arreglo: string[] = [];
+        if(this.movimientos != undefined){
+            this.movimientos.forEach(element => {
+                if(!arreglo.includes(element.etapa)){
+                    arreglo.push(element.etapa);
+                }
+                this.etapas = arreglo;
+                
+            });
+
+        }else{
+            this.etapas = [];
+        }
+        
+    }
+
+    @OneToMany(type => Alerta,alerta => alerta.caso,{onDelete: "CASCADE",cascade: true})
     alertas : Alerta[];
 
-    @OneToMany(type => RegistroContable,asiento => asiento.caso,{cascade: true})
+    @OneToMany(type => RegistroContable,asiento => asiento.caso,{onDelete: "CASCADE",cascade: true})
     asientos: RegistroContable[];
 
     @Column({
@@ -101,7 +127,7 @@ export class Caso {
         nullable:true
            })
     @IsOptional()
-    @Length(5,100,{message:'El domicilio real de la contraparte  debe tener entre $constraint1 y $constraint2 caracteres'})
+    @Length(2,100,{message:'El domicilio real de la contraparte  debe tener entre $constraint1 y $constraint2 caracteres'})
     contraparte_dom_real: string;
 
     @Column({
@@ -110,7 +136,7 @@ export class Caso {
         nullable:true
            })
     @IsOptional()
-    @Length(5,100,{message:'El domicilio procesal de la contraparte  debe tener entre $constraint1 y $constraint2 caracteres'})
+    @Length(2,100,{message:'El domicilio procesal de la contraparte  debe tener entre $constraint1 y $constraint2 caracteres'})
     contraparte_dom_proc: string;
 
     @Column({
@@ -324,7 +350,9 @@ export class Caso {
      @IsOptional()
      visible: boolean;
 
-    
+     @DeleteDateColumn()
+     fecha_baja: Date;
+   
 
     //constructor
     constructor(req?:any){

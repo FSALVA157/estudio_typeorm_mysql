@@ -1,12 +1,12 @@
 import {getRepository,Like,Not,IsNull} from "typeorm";
 import {NextFunction, Request, Response} from "express";
-import { TipoUsuario } from '../entity/TipoUsuario';
+import { Etapa } from '../entity/Etapas';
 
 
 
-export class TipoUsuarioController {
+export class EtapaController {
 
-    private TipoUsuarioRepository = getRepository(TipoUsuario);
+    private EtapaRepository = getRepository(Etapa);
 
     async all(request: Request, response: Response, next: NextFunction) {
         let offset:number = Number(request.query.offset) || 0;
@@ -17,8 +17,8 @@ export class TipoUsuarioController {
             let reqFields = request.query.fields;
             fields = reqFields.toString().split(",");
                        
-            if(!fields.includes('id_tipo_usuario')){
-                fields.push('id_tipo_usuario')
+            if(!fields.includes('id_etapa')){
+                fields.push('id_etapa')
             }
         
         };
@@ -74,13 +74,19 @@ export class TipoUsuarioController {
                 //const element = arreglo[campo];
                 let nombreCampo = campo.toString();
                 switch (nombreCampo) {
-                    case 'id_tipo_usuario':
+                    case 'id_etapa':
                         cond[nombreCampo] = Number(arreglo[campo]);
                         break;
-                    case 'tipo_usuario':
+                    case 'tipo_id':
+                        cond[nombreCampo] = Number(arreglo[campo]);
+                        break;
+                    case 'etapa':
                         cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);  
                         break;
-                                                                              
+                    case 'orden':
+                        cond[nombreCampo] = Number(arreglo[campo]);
+                        break;
+                                   
                     default:
                         break;
                 }
@@ -92,9 +98,9 @@ export class TipoUsuarioController {
         if(fields != null){
             
             reglas = {
-                relations: ["usuarios"],
+               
                 order:{
-                    id_tipo_usuario:"ASC"
+                    id_etapa:"ASC"
                 },
                 select:fields,
                 skip:offset,
@@ -104,9 +110,9 @@ export class TipoUsuarioController {
         
         }else{
             reglas = {
-                relations: ["usuarios"],
+                
                 order:{
-                    id_tipo_usuario:"ASC"
+                    id_objeto:"ASC"
                 },
                 skip:offset,
                 take:limit,
@@ -114,34 +120,27 @@ export class TipoUsuarioController {
                };
         }
 
-           return await this.TipoUsuarioRepository.find(reglas);   
-       // return await this.TipoProcesoRepository.find();   
+           return await this.EtapaRepository.find(reglas);     
        
     }
 
     async one(request: Request, response: Response, next: NextFunction) {
         
-        return await this.TipoUsuarioRepository.findOne(request.params.id,{
-            relations: ['usuarios']
-        });
+        return await this.EtapaRepository.findOne(request.params.id);
     }
 
     async save(request: Request, response: Response, next: NextFunction) {
-        return await this.TipoUsuarioRepository.save(request.body);
+        return await this.EtapaRepository.save(request.body);
     }
 
     async remove(request: Request, response: Response, next: NextFunction) {
-        //  let userToRemove = await this.TipoUsuarioRepository.findOneOrFail(request.params.id,{
-        //     relations: ['usuarios']
-        // });
-        //console.log('EL REGISTRO A ELIMINAR ES: ', userToRemove);
-    //    return  await this.TipoUsuarioRepository.remove(userToRemove);
-          return await this.TipoUsuarioRepository.softDelete({id_tipo_usuario: Number(request.params.id)});
-        //   return this.TipoUsuarioRepository.restore({id_tipo_usuario: Number(request.params.id)})
+        let userToRemove = await this.EtapaRepository.findOne(request.params.id);
+       return  await this.EtapaRepository.remove(userToRemove);
     }
 
     async update(request: Request, response: Response, next: NextFunction) {
-          return await this.TipoUsuarioRepository.update(request.params.id,request.body);
+       
+        return await this.EtapaRepository.update(request.params.id,request.body);
     }
 
 }

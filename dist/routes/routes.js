@@ -21,6 +21,7 @@ const AlertaExtraController_1 = require("../controller/AlertaExtraController");
 const ConsultaController_1 = require("../controller/ConsultaController");
 const RegistroContableController_1 = require("../controller/RegistroContableController");
 const TipoUsuarioController_1 = require("../controller/TipoUsuarioController");
+const EtapaController_1 = require("../controller/EtapaController");
 exports.Routes = [{
         method: "get",
         route: "/usuarios",
@@ -654,6 +655,36 @@ exports.Routes = [{
         controller: TipoUsuarioController_1.TipoUsuarioController,
         action: "update",
         entity: "TipoUsuario"
+    }, {
+        method: "get",
+        route: "/etapas",
+        controller: EtapaController_1.EtapaController,
+        action: "all",
+        entity: "Etapa"
+    }, {
+        method: "get",
+        route: "/etapas/:id",
+        controller: EtapaController_1.EtapaController,
+        action: "one",
+        entity: "Etapa"
+    }, {
+        method: "post",
+        route: "/etapas",
+        controller: EtapaController_1.EtapaController,
+        action: "save",
+        entity: "Etapa"
+    }, {
+        method: "delete",
+        route: "/etapas/:id",
+        controller: EtapaController_1.EtapaController,
+        action: "remove",
+        entity: "Etapa"
+    }, {
+        method: "put",
+        route: "/etapas/:id",
+        controller: EtapaController_1.EtapaController,
+        action: "update",
+        entity: "Etapa"
     }
 ];
 //# sourceMappingURL=routes.js.map

@@ -1,4 +1,4 @@
-import {Entity, PrimaryGeneratedColumn, Column, BeforeInsert, ManyToOne, JoinColumn} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, BeforeInsert, ManyToOne, JoinColumn, DeleteDateColumn} from "typeorm";
 import{IsInt, Min, Length, IsAlphanumeric, MinLength, IsEmail, IsOptional, IsISO8601, Matches, IsEnum} from 'class-validator';
 import {Exclude, Transform} from 'class-transformer';
 import { EncryptionTransformer } from "typeorm-encrypted";
@@ -125,10 +125,13 @@ export class  Usuario {
     @Transform(()=>Date)
     fecha_alta: Date;
     
-    @Column({type: "date",nullable:true})
-    @IsOptional()
-    @IsISO8601()
-    @Transform(()=>Date)
+    // @Column({type: "date",nullable:true})
+    // @IsOptional()
+    // @IsISO8601()
+    // @Transform(()=>Date)
+    // fecha_baja: Date;
+
+    @DeleteDateColumn()
     fecha_baja: Date;
 
     verificarPassword(pass: string): boolean{

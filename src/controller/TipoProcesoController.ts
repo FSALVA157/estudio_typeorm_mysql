@@ -100,7 +100,7 @@ export class TipoProcesoController {
         if(fields != null){
             
             reglas = {
-                relations: ["objetos"],
+                relations: ["objetos","etapas"],
                 order:{
                     id_tipo_proceso:"ASC"
                 },
@@ -112,7 +112,7 @@ export class TipoProcesoController {
         
         }else{
             reglas = {
-                relations: ["objetos"],
+                relations: ["objetos","etapas"],
                 order:{
                     id_tipo_proceso:"ASC"
                 },

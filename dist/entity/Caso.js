@@ -53,21 +53,49 @@ let Caso = class Caso {
             this.visible = req.body.visible;
         }
     }
+    misEtapas() {
+        let arreglo = [];
+        if (this.movimientos != undefined) {
+            this.movimientos.forEach(element => {
+                if (!arreglo.includes(element.etapa)) {
+                    arreglo.push(element.etapa);
+                }
+                this.etapas = arreglo;
+            });
+        }
+        else {
+            this.etapas = [];
+        }
+    }
 };
 __decorate([
     typeorm_1.PrimaryGeneratedColumn(),
     __metadata("design:type", Number)
 ], Caso.prototype, "id_caso", void 0);
 __decorate([
-    typeorm_1.OneToMany(type => MovimientoCaso_1.MovimientoCaso, movimiento => movimiento.caso, { cascade: true }),
+    typeorm_1.OneToMany(type => MovimientoCaso_1.MovimientoCaso, movimiento => movimiento.caso, { onDelete: "CASCADE", cascade: true }),
     __metadata("design:type", Array)
 ], Caso.prototype, "movimientos", void 0);
 __decorate([
-    typeorm_1.OneToMany(type => Alerta_1.Alerta, alerta => alerta.caso, { cascade: true }),
+    typeorm_1.Column({
+        type: "simple-array",
+        nullable: true
+    }),
+    class_validator_1.IsOptional(),
+    __metadata("design:type", Array)
+], Caso.prototype, "etapas", void 0);
+__decorate([
+    typeorm_1.AfterLoad(),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], Caso.prototype, "misEtapas", null);
+__decorate([
+    typeorm_1.OneToMany(type => Alerta_1.Alerta, alerta => alerta.caso, { onDelete: "CASCADE", cascade: true }),
     __metadata("design:type", Array)
 ], Caso.prototype, "alertas", void 0);
 __decorate([
-    typeorm_1.OneToMany(type => RegistroContable_1.RegistroContable, asiento => asiento.caso, { cascade: true }),
+    typeorm_1.OneToMany(type => RegistroContable_1.RegistroContable, asiento => asiento.caso, { onDelete: "CASCADE", cascade: true }),
     __metadata("design:type", Array)
 ], Caso.prototype, "asientos", void 0);
 __decorate([
@@ -149,7 +177,7 @@ __decorate([
         nullable: true
     }),
     class_validator_1.IsOptional(),
-    class_validator_1.Length(5, 100, { message: 'El domicilio real de la contraparte  debe tener entre $constraint1 y $constraint2 caracteres' }),
+    class_validator_1.Length(2, 100, { message: 'El domicilio real de la contraparte  debe tener entre $constraint1 y $constraint2 caracteres' }),
     __metadata("design:type", String)
 ], Caso.prototype, "contraparte_dom_real", void 0);
 __decorate([
@@ -159,7 +187,7 @@ __decorate([
         nullable: true
     }),
     class_validator_1.IsOptional(),
-    class_validator_1.Length(5, 100, { message: 'El domicilio procesal de la contraparte  debe tener entre $constraint1 y $constraint2 caracteres' }),
+    class_validator_1.Length(2, 100, { message: 'El domicilio procesal de la contraparte  debe tener entre $constraint1 y $constraint2 caracteres' }),
     __metadata("design:type", String)
 ], Caso.prototype, "contraparte_dom_proc", void 0);
 __decorate([
@@ -393,6 +421,10 @@ __decorate([
     class_validator_1.IsOptional(),
     __metadata("design:type", Boolean)
 ], Caso.prototype, "visible", void 0);
+__decorate([
+    typeorm_1.DeleteDateColumn(),
+    __metadata("design:type", Date)
+], Caso.prototype, "fecha_baja", void 0);
 Caso = __decorate([
     typeorm_1.Entity(),
     __metadata("design:paramtypes", [Object])
