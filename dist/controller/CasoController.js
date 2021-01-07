@@ -9,6 +9,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
+const MovimientoCaso_1 = require("../entity/MovimientoCaso");
+const RegistroContable_1 = require("../entity/RegistroContable");
+const Alerta_1 = require("../entity/Alerta");
 const Caso_1 = require("../entity/Caso");
 class CasoController {
     constructor() {
@@ -205,8 +208,40 @@ class CasoController {
     }
     remove(request, response, next) {
         return __awaiter(this, void 0, void 0, function* () {
-            let userToRemove = yield this.casoRepository.findOne(request.params.id);
-            return yield this.casoRepository.remove(userToRemove);
+            //     let userToRemove = await this.casoRepository.findOne(request.params.id);
+            //    return  await this.casoRepository.remove(userToRemove);
+            const movimientoRepo = typeorm_1.getRepository(MovimientoCaso_1.MovimientoCaso);
+            const asientoRepo = typeorm_1.getRepository(RegistroContable_1.RegistroContable);
+            const alertaRepo = typeorm_1.getRepository(Alerta_1.Alerta);
+            const claveCaso = Number(request.params.id);
+            yield movimientoRepo.softDelete({
+                caso_id: claveCaso
+            });
+            yield asientoRepo.softDelete({
+                caso_id: claveCaso
+            });
+            yield alertaRepo.softDelete({
+                caso_id: claveCaso
+            });
+            return yield this.casoRepository.softDelete({
+                id_caso: claveCaso
+            });
+            //     const caso: Caso=  await this.casoRepository.findOne({
+            //         where: {
+            //             id_caso: Number(request.params.id)
+            //         },
+            //         relations: ["movimientos","alertas","asientos"],
+            //     });
+            //     caso.movimientos.forEach(async movimiento => {
+            //         await movimientoRepo.softDelete({id_mov_caso: Number(movimiento.id_mov_caso)});
+            //  });
+            //  caso.asientos.forEach(async asiento => {
+            //     await asientoRepo.softDelete({id_registro: Number(asiento.id_registro)});
+            //  });
+            //  caso.alertas.forEach(async alerta => {
+            //     await alertaRepo.softDelete({id_alerta: Number(alerta.id_alerta)});
+            //  });
+            // await casosRepo.softDelete({id_caso: Number(caso.id_caso)});
         });
     }
     update(request, response, next) {

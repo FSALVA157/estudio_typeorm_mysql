@@ -1,6 +1,12 @@
 import {getRepository,Like,Not,IsNull} from "typeorm";
 import {NextFunction, Request, Response} from "express";
 import { Caso } from '../entity/Caso';
+import { MovimientoCaso } from '../entity/MovimientoCaso';
+import { RegistroContable } from '../entity/RegistroContable';
+import { Alerta } from '../entity/Alerta';
+import { Consulta } from '../entity/consulta';
+import { CasoExtrajudicial } from '../entity/CasoExtrajudicial';
+import { AlertaExtra } from '../entity/AlertaExtra';
 import{Cliente} from '../entity/Cliente';
 
 
@@ -151,7 +157,7 @@ export class ClienteController {
         if(fields != null){
             
             reglas = {
-                relations: ["casos"],
+                relations: ["casos","consultas","casos_extra"],
                 order:{
                     id_cliente:"ASC",
                 },
@@ -163,7 +169,7 @@ export class ClienteController {
         
         }else{
             reglas = {
-                relations: ["casos"],
+                relations: ["casos","consultas","casos_extra"],
                 order:{
                     id_cliente:"ASC",
                 },
@@ -187,16 +193,93 @@ export class ClienteController {
     }
 
     async remove(request: Request, response: Response, next: NextFunction) {
-    //     let userToRemove = await this.clientRepository.findOne(request.params.id);
-    //    return  await this.clientRepository.remove(userToRemove);
-    //borrando las causas relacionadas con el cliente
-    
-    const casosRepo = getRepository(Caso);
-    const casos:Caso[] = await casosRepo.find({cliente_id: Number(request.params.id)});
-    //casosRepo.softDelete({cliente_id: Number(request.params.id)});
-    return casos;
-    // return await this.clientRepository.softDelete({id_cliente: Number(request.params.id)});
+//         //     let userToRemove = await this.clientRepository.findOne(request.params.id);
+//         //    return  await this.clientRepository.remove(userToRemove);
+//         //borrando las causas relacionadas con el cliente
+        
+//         //funcion1: se ocupa de borrar las consultas
+//         async function removeConsultas(){
+//             const consultaRepo = getRepository(Consulta);
+//             await consultaRepo.softDelete({
+//                 cliente_id: Number(request.params.id)
+//             });
+//         }
+        
+//         //function2: se ocupad e borrar los casos extrajudiciales y sus hijos
+//         async function removeCasosExtra(){
+//             const asientoRepo = getRepository(RegistroContable);
+//             const alertaExtRepo = getRepository(AlertaExtra);
+//             const casosExtraRepo = getRepository(CasoExtrajudicial);
+//             const casos_extra:CasoExtrajudicial[] = await casosExtraRepo.find({
+//                 where: {
+//                     cliente_id: Number(request.params.id)
+//                 },
+//                 relations: ["asientos","alertasExtra"]
+//             });
+            
+//             casos_extra.forEach(async extra => {
+//                    extra.asientos.forEach(async asiento => {
+//                         await asientoRepo.softDelete({id_registro: Number(asiento.id_registro)});
+//                     });
+//                     extra.alertasExtra.forEach(async alerta => {
+//                         alertaExtRepo.softDelete({
+//                             id_alerta_extra: Number(alerta.id_alerta_extra)
+//                         });
+//             });
+//             await casosExtraRepo.softDelete({id_caso_ext: Number(extra.id_caso_ext)});
+//                 });
+//         }
+        
+//         //function3: Se ocupa de borrar los casos y sus hijos
+//         async function removeCasos(){
+//             const movimientoRepo = getRepository(MovimientoCaso);
+//             const asientoRepo = getRepository(RegistroContable);
+//             const alertaRepo = getRepository(Alerta);
+//             const casosRepo = getRepository(Caso);
+//             const casos:Caso[] = await casosRepo.find({
+//                 where: {
+//                     cliente_id: Number(request.params.id)
+//                 },
+//                 relations: ["movimientos","alertas","asientos"],
+//             });
+            
+//             casos.forEach(async caso => {
+                
+//                 caso.movimientos.forEach(async movimiento => {
+//                        await movimientoRepo.softDelete({id_mov_caso: Number(movimiento.id_mov_caso)});
+//                 });
+//                 caso.asientos.forEach(async asiento => {
+//                    await asientoRepo.softDelete({id_registro: Number(asiento.id_registro)});
+//                 });
+//                 caso.alertas.forEach(async alerta => {
+//                    await alertaRepo.softDelete({id_alerta: Number(alerta.id_alerta)});
+//                 });
+//                await casosRepo.softDelete({id_caso: Number(caso.id_caso)});
+//             // return     {
+//             //         casos: caso.etapas,
+//             //         movimientos: caso.movimientos,
+//             //         alertas: caso.alertas
+//             //     }
+//             });
+//         }
+        
+//     //casosRepo.softDelete({cliente_id: Number(request.params.id)});
+//     //casosRepo.restore({cliente_id: Number(request.params.id)});
+//     //bloque destinado a tratar casos extra
 
+        
+
+//     //fin bloque de casos extra
+
+//     //return casos;
+//     //removeConsultas();
+//    // removeCasosExtra();
+//   //  removeCasos();
+
+  
+//       return await this.clientRepository.softDelete({id_cliente: Number(request.params.id)});
+        let cliente_id = Number(request.params.id)
+        return await this.clientRepository.query(`CALL SP_SOFTDELETE_CLIENTE(${cliente_id})`);
     }
 
     async update(request: Request, response: Response, next: NextFunction) {

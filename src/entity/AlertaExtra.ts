@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, DeleteDateColumn } from 'typeorm';
 import { Transform } from 'class-transformer';
 import { Caso } from './Caso';
 import { CasoExtrajudicial } from './CasoExtrajudicial';
@@ -58,6 +58,9 @@ export class AlertaExtra {
      })
      @IsOptional()
      visible: boolean;
+
+     @DeleteDateColumn()
+     fecha_baja: Date;
 
     
 

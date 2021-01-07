@@ -61,7 +61,7 @@ export class Consulta {
      @DeleteDateColumn()
      fecha_baja: Date;
 
-       
+          
 
     //constructor
     constructor(req?:any){

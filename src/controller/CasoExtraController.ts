@@ -1,6 +1,7 @@
 import {getRepository,Like,Not,IsNull} from "typeorm";
 import {NextFunction, Request, Response} from "express";
 import { CasoExtrajudicial } from '../entity/CasoExtrajudicial';
+import { RegistroContable } from '../entity/RegistroContable';
 
 
 
@@ -142,7 +143,7 @@ export class CasoExtraController {
         if(fields != null){
             
             reglas = {
-                relations: ["asientos"],
+                relations: ["asientos","alertasExtra"],
                 order:{
                     id_caso_ext:"ASC"
                 },
@@ -154,7 +155,7 @@ export class CasoExtraController {
         
         }else{
             reglas = {
-                relations: ["asientos"],
+                relations: ["asientos","alertasExtra"],
                 order:{
                     id_caso_ext:"ASC"
                 },
@@ -170,7 +171,7 @@ export class CasoExtraController {
 
     async one(request: Request, response: Response, next: NextFunction) {
         
-        return await this.casoExtraRepository.findOne(request.params.id);
+        return await this.casoExtraRepository.findOne(request.params.id,{relations: ["asientos"]});
     }
 
     async save(request: Request, response: Response, next: NextFunction) {
@@ -178,8 +179,19 @@ export class CasoExtraController {
     }
 
     async remove(request: Request, response: Response, next: NextFunction) {
-        let userToRemove = await this.casoExtraRepository.findOne(request.params.id);
-       return  await this.casoExtraRepository.remove(userToRemove);
+    //     let userToRemove = await this.casoExtraRepository.findOne(request.params.id);
+    //    return  await this.casoExtraRepository.remove(userToRemove);
+    const claveCasoExtra: number = Number(request.params.id); 
+    const asientoRepo = getRepository(RegistroContable);
+    
+    await asientoRepo.softDelete({
+        caso_id_ext: claveCasoExtra
+    });
+    
+    return await this.casoExtraRepository.softDelete({
+            id_caso_ext: claveCasoExtra
+    });
+
     }
 
     async update(request: Request, response: Response, next: NextFunction) {

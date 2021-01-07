@@ -1,10 +1,11 @@
-import {Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, OneToMany} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, OneToMany, DeleteDateColumn} from "typeorm";
 import{IsInt, Length,  IsOptional, IsISO8601, Matches, MinLength} from 'class-validator';
 import {Transform} from 'class-transformer';
 import { Fuero } from './Fuero';
 import { Cliente } from './Cliente';
 import { ObjetoExtrajudicial } from './ObjetoExtrajudicial';
 import { RegistroContable } from './RegistroContable';
+import { AlertaExtra } from './AlertaExtra';
 
 @Entity()
 export class CasoExtrajudicial {
@@ -14,6 +15,9 @@ export class CasoExtrajudicial {
 
     @OneToMany(type => RegistroContable, asiento => asiento.caso_extrajudicial)
     asientos: RegistroContable[];
+
+    @OneToMany(type => AlertaExtra, alertaEx => alertaEx.caso)
+    alertasExtra: AlertaExtra[];
 
     @Column({
         type: "int",
@@ -181,6 +185,8 @@ export class CasoExtrajudicial {
      @IsOptional()
      visible: boolean;
 
+     @DeleteDateColumn()
+     fecha_baja: Date;
   
 
     //constructor

@@ -16,6 +16,7 @@ const Fuero_1 = require("./Fuero");
 const Cliente_1 = require("./Cliente");
 const ObjetoExtrajudicial_1 = require("./ObjetoExtrajudicial");
 const RegistroContable_1 = require("./RegistroContable");
+const AlertaExtra_1 = require("./AlertaExtra");
 let CasoExtrajudicial = class CasoExtrajudicial {
     //constructor
     constructor(req) {
@@ -47,6 +48,10 @@ __decorate([
     typeorm_1.OneToMany(type => RegistroContable_1.RegistroContable, asiento => asiento.caso_extrajudicial),
     __metadata("design:type", Array)
 ], CasoExtrajudicial.prototype, "asientos", void 0);
+__decorate([
+    typeorm_1.OneToMany(type => AlertaExtra_1.AlertaExtra, alertaEx => alertaEx.caso),
+    __metadata("design:type", Array)
+], CasoExtrajudicial.prototype, "alertasExtra", void 0);
 __decorate([
     typeorm_1.Column({
         type: "int",
@@ -230,6 +235,10 @@ __decorate([
     class_validator_1.IsOptional(),
     __metadata("design:type", Boolean)
 ], CasoExtrajudicial.prototype, "visible", void 0);
+__decorate([
+    typeorm_1.DeleteDateColumn(),
+    __metadata("design:type", Date)
+], CasoExtrajudicial.prototype, "fecha_baja", void 0);
 CasoExtrajudicial = __decorate([
     typeorm_1.Entity(),
     __metadata("design:paramtypes", [Object])

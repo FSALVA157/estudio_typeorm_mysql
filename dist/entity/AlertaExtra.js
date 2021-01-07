@@ -81,6 +81,10 @@ __decorate([
     class_validator_1.IsOptional(),
     __metadata("design:type", Boolean)
 ], AlertaExtra.prototype, "visible", void 0);
+__decorate([
+    typeorm_1.DeleteDateColumn(),
+    __metadata("design:type", Date)
+], AlertaExtra.prototype, "fecha_baja", void 0);
 AlertaExtra = __decorate([
     typeorm_1.Entity(),
     __metadata("design:paramtypes", [Object])

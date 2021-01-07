@@ -10,6 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
 const CasoExtrajudicial_1 = require("../entity/CasoExtrajudicial");
+const RegistroContable_1 = require("../entity/RegistroContable");
 class CasoExtraController {
     constructor() {
         this.casoExtraRepository = typeorm_1.getRepository(CasoExtrajudicial_1.CasoExtrajudicial);
@@ -139,7 +140,7 @@ class CasoExtraController {
             let reglas;
             if (fields != null) {
                 reglas = {
-                    relations: ["asientos"],
+                    relations: ["asientos", "alertasExtra"],
                     order: {
                         id_caso_ext: "ASC"
                     },
@@ -151,7 +152,7 @@ class CasoExtraController {
             }
             else {
                 reglas = {
-                    relations: ["asientos"],
+                    relations: ["asientos", "alertasExtra"],
                     order: {
                         id_caso_ext: "ASC"
                     },
@@ -165,7 +166,7 @@ class CasoExtraController {
     }
     one(request, response, next) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.casoExtraRepository.findOne(request.params.id);
+            return yield this.casoExtraRepository.findOne(request.params.id, { relations: ["asientos"] });
         });
     }
     save(request, response, next) {
@@ -175,8 +176,16 @@ class CasoExtraController {
     }
     remove(request, response, next) {
         return __awaiter(this, void 0, void 0, function* () {
-            let userToRemove = yield this.casoExtraRepository.findOne(request.params.id);
-            return yield this.casoExtraRepository.remove(userToRemove);
+            //     let userToRemove = await this.casoExtraRepository.findOne(request.params.id);
+            //    return  await this.casoExtraRepository.remove(userToRemove);
+            const claveCasoExtra = Number(request.params.id);
+            const asientoRepo = typeorm_1.getRepository(RegistroContable_1.RegistroContable);
+            yield asientoRepo.softDelete({
+                caso_id_ext: claveCasoExtra
+            });
+            return yield this.casoExtraRepository.softDelete({
+                id_caso_ext: claveCasoExtra
+            });
         });
     }
     update(request, response, next) {

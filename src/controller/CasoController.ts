@@ -1,5 +1,8 @@
 import {getRepository,Like,Not,IsNull} from "typeorm";
 import {NextFunction, Request, Response} from "express";
+import { MovimientoCaso } from '../entity/MovimientoCaso';
+import { RegistroContable } from '../entity/RegistroContable';
+import { Alerta } from '../entity/Alerta';
 import{Caso} from '../entity/Caso';
 
 
@@ -207,8 +210,40 @@ export class CasoController {
     }
 
     async remove(request: Request, response: Response, next: NextFunction) {
-        let userToRemove = await this.casoRepository.findOne(request.params.id);
-       return  await this.casoRepository.remove(userToRemove);
+    //     let userToRemove = await this.casoRepository.findOne(request.params.id);
+    //    return  await this.casoRepository.remove(userToRemove);
+        const movimientoRepo = getRepository(MovimientoCaso);
+        const asientoRepo = getRepository(RegistroContable);
+        const alertaRepo = getRepository(Alerta);
+        const claveCaso: number = Number(request.params.id); 
+        await movimientoRepo.softDelete({
+            caso_id: claveCaso
+        });
+        await asientoRepo.softDelete({
+            caso_id: claveCaso
+        });
+        await alertaRepo.softDelete({
+            caso_id: claveCaso
+        });
+        return await this.casoRepository.softDelete({
+                id_caso: claveCaso
+        });
+    //     const caso: Caso=  await this.casoRepository.findOne({
+    //         where: {
+    //             id_caso: Number(request.params.id)
+    //         },
+    //         relations: ["movimientos","alertas","asientos"],
+    //     });
+    //     caso.movimientos.forEach(async movimiento => {
+    //         await movimientoRepo.softDelete({id_mov_caso: Number(movimiento.id_mov_caso)});
+    //  });
+    //  caso.asientos.forEach(async asiento => {
+    //     await asientoRepo.softDelete({id_registro: Number(asiento.id_registro)});
+    //  });
+    //  caso.alertas.forEach(async alerta => {
+    //     await alertaRepo.softDelete({id_alerta: Number(alerta.id_alerta)});
+    //  });
+    // await casosRepo.softDelete({id_caso: Number(caso.id_caso)});
     }
 
     async update(request: Request, response: Response, next: NextFunction) {

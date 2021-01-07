@@ -4,6 +4,7 @@ import {Transform} from 'class-transformer';
 import { CategoriaCliente } from './CategoriaCliente';
 import { Caso } from './Caso';
 import { Consulta } from './consulta';
+import { CasoExtrajudicial } from './CasoExtrajudicial';
 
 
 @Entity()
@@ -12,12 +13,25 @@ export class Cliente {
     @PrimaryGeneratedColumn()
     id_cliente: number;
 
-    @OneToMany(type => Caso,caso => caso.cliente,{onDelete: "CASCADE",cascade: true})
+    @OneToMany(type => Caso,caso => caso.cliente,{
+        onDelete: "CASCADE",
+        cascade: true,
+        
+    })
     casos : Caso[];
 
-    @OneToMany(type => Consulta,consulta => consulta.cliente,{onDelete: "CASCADE",cascade: true})
+    @OneToMany(type => CasoExtrajudicial,caso_extra => caso_extra.cliente,{
+        onDelete: "CASCADE",
+        cascade: true,
+        
+    })
+    casos_extra : CasoExtrajudicial[];
+
+    @OneToMany(type => Consulta,consulta => consulta.cliente,{onDelete: "CASCADE",
+    onUpdate: 'CASCADE',cascade: true})
     consultas : Consulta[];
-    
+
+     
     @Column({
         type: "int"
     })
