@@ -104,7 +104,7 @@ export class ConsultaController {
             reglas = {
                 
                 order:{
-                    id_consulta:"ASC"
+                    id_consulta:"DESC"
                 },
                 select:fields,
                 skip:offset,
@@ -115,7 +115,7 @@ export class ConsultaController {
         }else{
             reglas = {
                 order:{
-                    id_consulta:"ASC"
+                    id_consulta:"DESC"
                 },
                 skip:offset,
                 take:limit,

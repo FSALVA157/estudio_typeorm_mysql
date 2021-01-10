@@ -159,7 +159,7 @@ export class ClienteController {
             reglas = {
                 relations: ["casos","consultas","casos_extra"],
                 order:{
-                    id_cliente:"ASC",
+                    id_cliente:"DESC",
                 },
                 select:fields,
                 skip:offset,
@@ -171,7 +171,7 @@ export class ClienteController {
             reglas = {
                 relations: ["casos","consultas","casos_extra"],
                 order:{
-                    id_cliente:"ASC",
+                    id_cliente:"DESC",
                 },
                 skip:offset,
                 take:limit,
