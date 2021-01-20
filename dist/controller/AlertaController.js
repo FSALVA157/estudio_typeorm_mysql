@@ -118,7 +118,8 @@ class AlertaController {
                     where: cond
                 };
             }
-            return yield this.AlertaRepository.find(reglas);
+            //  return await this.AlertaRepository.find(reglas);     
+            return yield this.AlertaRepository.findAndCount(reglas);
         });
     }
     one(request, response, next) {

@@ -125,7 +125,8 @@ export class MovimientoCasoController {
                };
         }
 
-           return await this.MovimientoRepository.find(reglas);     
+        //    return await this.MovimientoRepository.find(reglas);     
+        return await this.MovimientoRepository.findAndCount(reglas);     
        
     }
 

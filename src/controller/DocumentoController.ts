@@ -1,12 +1,12 @@
 import {getRepository,Like,Not,IsNull} from "typeorm";
 import {NextFunction, Request, Response} from "express";
-import { RegistroContable } from '../entity/RegistroContable';
+import { Documento } from '../entity/Documento';
 
 
 
-export class RegistroContableController {
+export class DocumentoController {
 
-    private RegistroRepository = getRepository(RegistroContable);
+    private DocumentoRepository = getRepository(Documento);
 
     async all(request: Request, response: Response, next: NextFunction) {
         let offset:number = Number(request.query.offset) || 0;
@@ -17,8 +17,8 @@ export class RegistroContableController {
             let reqFields = request.query.fields;
             fields = reqFields.toString().split(",");
                        
-            if(!fields.includes('id_registro')){
-                fields.push('id_registro')
+            if(!fields.includes('id_documento')){
+                fields.push('id_documento')
             }
         
         };
@@ -74,32 +74,32 @@ export class RegistroContableController {
                 //const element = arreglo[campo];
                 let nombreCampo = campo.toString();
                 switch (nombreCampo) {
+                    case 'id_documento':
+                        cond[nombreCampo] = Number(arreglo[campo]);
+                        break;
                     case 'caso_id':
-                        cond[nombreCampo] = Number(arreglo[campo]);
-                        break;
-                    case 'caso_id_ext':
-                        cond[nombreCampo] = Number(arreglo[campo]);
-                        break;
-                    case 'tipo_registro':
-                        cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);  
-                        break;
-                    case 'monto':
                         cond[nombreCampo] = Number(arreglo[campo]);
                         break;
                     case 'fecha':
                         cond[nombreCampo] = ExpresionAvanzadaFechas(arreglo[campo]);
                         break; 
+                    case 'titulo':
+                        cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);  
+                        break;
                     case 'detalle':
                         cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);  
                         break;
-                    case 'recibo':
+                    case 'url':
                         cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);  
                         break;
-                    case 'tipo_cargo':
-                        cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);  
+                    case 'folio':
+                        cond[nombreCampo] = Number(arreglo[campo]);
+                        break;
+                    case 'usuario_id':
+                        cond[nombreCampo] = Number(arreglo[campo]);
                         break;
                     
-                                      
+                                                           
                     default:
                         break;
                 }
@@ -111,9 +111,9 @@ export class RegistroContableController {
         if(fields != null){
             
             reglas = {
-                
+                relations: ["caso"],
                 order:{
-                    id_registro:"ASC"
+                    id_documento:"DESC"
                 },
                 select:fields,
                 skip:offset,
@@ -123,8 +123,9 @@ export class RegistroContableController {
         
         }else{
             reglas = {
+                relations: ["caso"],
                 order:{
-                    id_registro:"ASC"
+                    id_documento:"DESC"
                 },
                 skip:offset,
                 take:limit,
@@ -132,28 +133,27 @@ export class RegistroContableController {
                };
         }
 
-        //    return await this.RegistroRepository.find(reglas);     
-        return await this.RegistroRepository.findAndCount(reglas);     
-       
+        //    return await this.DocumentoRepository.find(reglas);     
+        return await this.DocumentoRepository.findAndCount(reglas);     
     }
 
     async one(request: Request, response: Response, next: NextFunction) {
         
-        return await this.RegistroRepository.findOne(request.params.id);
+        return await this.DocumentoRepository.findOne(request.params.id);
     }
 
     async save(request: Request, response: Response, next: NextFunction) {
-        return await this.RegistroRepository.save(request.body);
+        return await this.DocumentoRepository.save(request.body);
     }
 
     async remove(request: Request, response: Response, next: NextFunction) {
-        let userToRemove = await this.RegistroRepository.findOne(request.params.id);
-       return  await this.RegistroRepository.remove(userToRemove);
+        let userToRemove = await this.DocumentoRepository.findOne(request.params.id);
+       return  await this.DocumentoRepository.remove(userToRemove);
     }
 
     async update(request: Request, response: Response, next: NextFunction) {
        
-        return await this.RegistroRepository.update(request.params.id,request.body);
+        return await this.DocumentoRepository.update(request.params.id,request.body);
     }
 
 }

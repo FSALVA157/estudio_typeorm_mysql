@@ -22,6 +22,7 @@ import { ConsultaController } from '../controller/ConsultaController';
 import { RegistroContableController } from '../controller/RegistroContableController';
 import { TipoUsuarioController } from '../controller/TipoUsuarioController';
 import { EtapaController } from '../controller/EtapaController';
+import { DocumentoController } from '../controller/DocumentoController';
 
 
 export const Routes = [{
@@ -687,5 +688,35 @@ export const Routes = [{
     controller: EtapaController,
     action: "update",
     entity: "Etapa"
+},{
+    method: "get",
+    route: "/documentos",
+    controller: DocumentoController,
+    action: "all",
+    entity: "Documento"
+}, {
+    method: "get",
+    route: "/documentos/:id",
+    controller: DocumentoController,
+    action: "one",
+    entity: "Documento"
+}, {
+    method: "post",
+    route: "/documentos",
+    controller: DocumentoController,
+    action: "save",
+    entity: "Documento"
+}, {
+    method: "delete",
+    route: "/documentos/:id",
+    controller: DocumentoController,
+    action: "remove",
+    entity: "Documento"
+},{
+    method: "put",
+    route: "/documentos/:id",
+    controller: DocumentoController,
+    action: "update",
+    entity: "Documento"
 }
 ];

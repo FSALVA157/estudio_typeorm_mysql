@@ -115,7 +115,8 @@ class AlertaExtraController {
                     where: cond
                 };
             }
-            return yield this.AlertaExtraRepository.find(reglas);
+            //  return await this.AlertaExtraRepository.find(reglas);     
+            return yield this.AlertaExtraRepository.findAndCount(reglas);
         });
     }
     one(request, response, next) {

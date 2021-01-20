@@ -38,6 +38,7 @@ import * as cors from 'cors';
 import { checkRole } from './middleware/role';
 import { CasoController } from './controller/CasoController';
 import { TipoUsuario } from './entity/TipoUsuario';
+import { Documento } from './entity/Documento';
 
 
 process.on('unhandledRejection',(error) => {
@@ -171,6 +172,15 @@ var opciones:ConnectionOptions;
                              try {
                                  let data;
                                         switch (route.entity) {
+                                            case 'Documento':
+                                                data = new Documento(req);
+                                                //console.log(req);
+                                                if(req.body.id_documento){
+                                                   throw errorSobreescritura;
+                                                }else{
+                                                    break;
+
+                                                }
                                             case 'MovimientoCaso':
                                                 data = new TipoUsuario(req);
                                                 //console.log(req);

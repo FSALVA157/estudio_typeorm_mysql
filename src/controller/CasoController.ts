@@ -196,7 +196,8 @@ export class CasoController {
                };
         }
 
-           return await this.casoRepository.find(reglas);     
+           //return await this.casoRepository.find(reglas);     
+           return this.casoRepository.findAndCount(reglas);
        
     }
 

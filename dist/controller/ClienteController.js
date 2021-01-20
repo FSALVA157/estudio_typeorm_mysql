@@ -150,7 +150,7 @@ class ClienteController {
                 reglas = {
                     relations: ["casos", "consultas", "casos_extra"],
                     order: {
-                        id_cliente: "ASC",
+                        id_cliente: "DESC",
                     },
                     select: fields,
                     skip: offset,
@@ -162,14 +162,15 @@ class ClienteController {
                 reglas = {
                     relations: ["casos", "consultas", "casos_extra"],
                     order: {
-                        id_cliente: "ASC",
+                        id_cliente: "DESC",
                     },
                     skip: offset,
                     take: limit,
                     where: cond
                 };
             }
-            return yield this.clientRepository.find(reglas);
+            //    return await this.clientRepository.find(reglas);     
+            return yield this.clientRepository.findAndCount(reglas);
         });
     }
     one(request, response, next) {

@@ -123,7 +123,8 @@ export class ConsultaController {
                };
         }
 
-           return await this.ConsultaRepository.find(reglas);     
+        //    return await this.ConsultaRepository.find(reglas);  
+        return await this.ConsultaRepository.findAndCount(reglas);     
        
     }
 

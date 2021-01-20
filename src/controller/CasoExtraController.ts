@@ -165,7 +165,8 @@ export class CasoExtraController {
                };
         }
 
-           return await this.casoExtraRepository.find(reglas);     
+           //return await this.casoExtraRepository.find(reglas);     
+           return await this.casoExtraRepository.findAndCount(reglas);     
        
     }
 

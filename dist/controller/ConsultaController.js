@@ -97,7 +97,7 @@ class ConsultaController {
             if (fields != null) {
                 reglas = {
                     order: {
-                        id_consulta: "ASC"
+                        id_consulta: "DESC"
                     },
                     select: fields,
                     skip: offset,
@@ -108,14 +108,15 @@ class ConsultaController {
             else {
                 reglas = {
                     order: {
-                        id_consulta: "ASC"
+                        id_consulta: "DESC"
                     },
                     skip: offset,
                     take: limit,
                     where: cond
                 };
             }
-            return yield this.ConsultaRepository.find(reglas);
+            //    return await this.ConsultaRepository.find(reglas);  
+            return yield this.ConsultaRepository.findAndCount(reglas);
         });
     }
     one(request, response, next) {

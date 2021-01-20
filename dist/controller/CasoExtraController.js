@@ -161,7 +161,8 @@ class CasoExtraController {
                     where: cond
                 };
             }
-            return yield this.casoExtraRepository.find(reglas);
+            //return await this.casoExtraRepository.find(reglas);     
+            return yield this.casoExtraRepository.findAndCount(reglas);
         });
     }
     one(request, response, next) {

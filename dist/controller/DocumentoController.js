@@ -9,10 +9,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
-const RegistroContable_1 = require("../entity/RegistroContable");
-class RegistroContableController {
+const Documento_1 = require("../entity/Documento");
+class DocumentoController {
     constructor() {
-        this.RegistroRepository = typeorm_1.getRepository(RegistroContable_1.RegistroContable);
+        this.DocumentoRepository = typeorm_1.getRepository(Documento_1.Documento);
     }
     all(request, response, next) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -22,8 +22,8 @@ class RegistroContableController {
             if (request.query.fields) {
                 let reqFields = request.query.fields;
                 fields = reqFields.toString().split(",");
-                if (!fields.includes('id_registro')) {
-                    fields.push('id_registro');
+                if (!fields.includes('id_documento')) {
+                    fields.push('id_documento');
                 }
             }
             ;
@@ -73,29 +73,29 @@ class RegistroContableController {
                     //const element = arreglo[campo];
                     let nombreCampo = campo.toString();
                     switch (nombreCampo) {
+                        case 'id_documento':
+                            cond[nombreCampo] = Number(arreglo[campo]);
+                            break;
                         case 'caso_id':
-                            cond[nombreCampo] = Number(arreglo[campo]);
-                            break;
-                        case 'caso_id_ext':
-                            cond[nombreCampo] = Number(arreglo[campo]);
-                            break;
-                        case 'tipo_registro':
-                            cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
-                            break;
-                        case 'monto':
                             cond[nombreCampo] = Number(arreglo[campo]);
                             break;
                         case 'fecha':
                             cond[nombreCampo] = ExpresionAvanzadaFechas(arreglo[campo]);
                             break;
+                        case 'titulo':
+                            cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
+                            break;
                         case 'detalle':
                             cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
                             break;
-                        case 'recibo':
+                        case 'url':
                             cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
                             break;
-                        case 'tipo_cargo':
-                            cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
+                        case 'folio':
+                            cond[nombreCampo] = Number(arreglo[campo]);
+                            break;
+                        case 'usuario_id':
+                            cond[nombreCampo] = Number(arreglo[campo]);
                             break;
                         default:
                             break;
@@ -105,8 +105,9 @@ class RegistroContableController {
             let reglas;
             if (fields != null) {
                 reglas = {
+                    relations: ["caso"],
                     order: {
-                        id_registro: "ASC"
+                        id_documento: "DESC"
                     },
                     select: fields,
                     skip: offset,
@@ -116,39 +117,40 @@ class RegistroContableController {
             }
             else {
                 reglas = {
+                    relations: ["caso"],
                     order: {
-                        id_registro: "ASC"
+                        id_documento: "DESC"
                     },
                     skip: offset,
                     take: limit,
                     where: cond
                 };
             }
-            //    return await this.RegistroRepository.find(reglas);     
-            return yield this.RegistroRepository.findAndCount(reglas);
+            //    return await this.DocumentoRepository.find(reglas);     
+            return yield this.DocumentoRepository.findAndCount(reglas);
         });
     }
     one(request, response, next) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.RegistroRepository.findOne(request.params.id);
+            return yield this.DocumentoRepository.findOne(request.params.id);
         });
     }
     save(request, response, next) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.RegistroRepository.save(request.body);
+            return yield this.DocumentoRepository.save(request.body);
         });
     }
     remove(request, response, next) {
         return __awaiter(this, void 0, void 0, function* () {
-            let userToRemove = yield this.RegistroRepository.findOne(request.params.id);
-            return yield this.RegistroRepository.remove(userToRemove);
+            let userToRemove = yield this.DocumentoRepository.findOne(request.params.id);
+            return yield this.DocumentoRepository.remove(userToRemove);
         });
     }
     update(request, response, next) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.RegistroRepository.update(request.params.id, request.body);
+            return yield this.DocumentoRepository.update(request.params.id, request.body);
         });
     }
 }
-exports.RegistroContableController = RegistroContableController;
-//# sourceMappingURL=RegistroContableController.js.map
+exports.DocumentoController = DocumentoController;
+//# sourceMappingURL=DocumentoController.js.map

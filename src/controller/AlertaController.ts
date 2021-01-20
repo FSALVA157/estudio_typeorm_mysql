@@ -124,7 +124,8 @@ export class AlertaController {
                };
         }
 
-           return await this.AlertaRepository.find(reglas);     
+         //  return await this.AlertaRepository.find(reglas);     
+         return await this.AlertaRepository.findAndCount(reglas);    
        
     }
 

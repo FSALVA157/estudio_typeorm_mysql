@@ -179,7 +179,8 @@ export class ClienteController {
                };
         }
 
-           return await this.clientRepository.find(reglas);     
+       //    return await this.clientRepository.find(reglas);     
+       return await this.clientRepository.findAndCount(reglas);     
        
     }
 

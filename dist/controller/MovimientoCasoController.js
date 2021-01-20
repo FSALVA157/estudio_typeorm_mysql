@@ -118,7 +118,8 @@ class MovimientoCasoController {
                     where: cond
                 };
             }
-            return yield this.MovimientoRepository.find(reglas);
+            //    return await this.MovimientoRepository.find(reglas);     
+            return yield this.MovimientoRepository.findAndCount(reglas);
         });
     }
     one(request, response, next) {

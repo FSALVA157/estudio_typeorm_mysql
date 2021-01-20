@@ -22,6 +22,7 @@ const ConsultaController_1 = require("../controller/ConsultaController");
 const RegistroContableController_1 = require("../controller/RegistroContableController");
 const TipoUsuarioController_1 = require("../controller/TipoUsuarioController");
 const EtapaController_1 = require("../controller/EtapaController");
+const DocumentoController_1 = require("../controller/DocumentoController");
 exports.Routes = [{
         method: "get",
         route: "/usuarios",
@@ -685,6 +686,36 @@ exports.Routes = [{
         controller: EtapaController_1.EtapaController,
         action: "update",
         entity: "Etapa"
+    }, {
+        method: "get",
+        route: "/documentos",
+        controller: DocumentoController_1.DocumentoController,
+        action: "all",
+        entity: "Documento"
+    }, {
+        method: "get",
+        route: "/documentos/:id",
+        controller: DocumentoController_1.DocumentoController,
+        action: "one",
+        entity: "Documento"
+    }, {
+        method: "post",
+        route: "/documentos",
+        controller: DocumentoController_1.DocumentoController,
+        action: "save",
+        entity: "Documento"
+    }, {
+        method: "delete",
+        route: "/documentos/:id",
+        controller: DocumentoController_1.DocumentoController,
+        action: "remove",
+        entity: "Documento"
+    }, {
+        method: "put",
+        route: "/documentos/:id",
+        controller: DocumentoController_1.DocumentoController,
+        action: "update",
+        entity: "Documento"
     }
 ];
 //# sourceMappingURL=routes.js.map

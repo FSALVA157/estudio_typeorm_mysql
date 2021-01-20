@@ -193,7 +193,8 @@ class CasoController {
                     where: cond
                 };
             }
-            return yield this.casoRepository.find(reglas);
+            //return await this.casoRepository.find(reglas);     
+            return this.casoRepository.findAndCount(reglas);
         });
     }
     one(request, response, next) {
