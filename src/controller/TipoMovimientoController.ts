@@ -125,8 +125,8 @@ export class TipoMovimientoController {
     }
 
     async remove(request: Request, response: Response, next: NextFunction) {
-        let userToRemove = await this.TipoRepository.findOne(request.params.id);
-       return  await this.TipoRepository.remove(userToRemove);
+        let tipoToRemove = await this.TipoRepository.findOne(request.params.id);
+       return  await this.TipoRepository.remove(tipoToRemove);
     }
 
     async update(request: Request, response: Response, next: NextFunction) {

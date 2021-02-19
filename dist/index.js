@@ -46,6 +46,7 @@ const cors = require("cors");
 const role_1 = require("./middleware/role");
 const TipoUsuario_1 = require("./entity/TipoUsuario");
 const Documento_1 = require("./entity/Documento");
+const multer_1 = require("./libs/multer");
 process.on('unhandledRejection', (error) => {
     console.log(error);
     throw error;
@@ -100,6 +101,8 @@ typeorm_1.createConnection(opciones).then((connection) => __awaiter(this, void 0
     app.use('/calculos', calculos_1.default);
     //validando rutas de usuarios
     app.get('/usuarios', [jwt_1.checkJwt, role_1.checkRole('admin')]);
+    app.use('/uploads', express.static(path.resolve('/uploads')));
+    app.post('/documentos', multer_1.default.single('file'));
     // app.get('/',(req,res) => {
     //         res.sendFile(path.join(__dirname,'views/index.html'));
     // });
@@ -145,6 +148,7 @@ typeorm_1.createConnection(opciones).then((connection) => __awaiter(this, void 0
                         let data;
                         switch (route.entity) {
                             case 'Documento':
+                                //console.log('CAPTURA DE REQUEST EN EL INDEX',req.body);
                                 data = new Documento_1.Documento(req);
                                 //console.log(req);
                                 if (req.body.id_documento) {

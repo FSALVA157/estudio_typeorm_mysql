@@ -118,8 +118,8 @@ class TipoMovimientoController {
     }
     remove(request, response, next) {
         return __awaiter(this, void 0, void 0, function* () {
-            let userToRemove = yield this.TipoRepository.findOne(request.params.id);
-            return yield this.TipoRepository.remove(userToRemove);
+            let tipoToRemove = yield this.TipoRepository.findOne(request.params.id);
+            return yield this.TipoRepository.remove(tipoToRemove);
         });
     }
     update(request, response, next) {

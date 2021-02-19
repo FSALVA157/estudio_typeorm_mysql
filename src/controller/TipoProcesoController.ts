@@ -137,8 +137,8 @@ export class TipoProcesoController {
     }
 
     async remove(request: Request, response: Response, next: NextFunction) {
-        let userToRemove = await this.TipoProcesoRepository.findOne(request.params.id);
-       return  await this.TipoProcesoRepository.remove(userToRemove);
+        let tipoToRemove = await this.TipoProcesoRepository.findOne(request.params.id);
+       return  await this.TipoProcesoRepository.remove(tipoToRemove);
     }
 
     async update(request: Request, response: Response, next: NextFunction) {

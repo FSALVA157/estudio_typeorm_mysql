@@ -147,8 +147,8 @@ export class RegistroContableController {
     }
 
     async remove(request: Request, response: Response, next: NextFunction) {
-        let userToRemove = await this.RegistroRepository.findOne(request.params.id);
-       return  await this.RegistroRepository.remove(userToRemove);
+        let registroToRemove = await this.RegistroRepository.findOne(request.params.id);
+       return  await this.RegistroRepository.remove(registroToRemove);
     }
 
     async update(request: Request, response: Response, next: NextFunction) {

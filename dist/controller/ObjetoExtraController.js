@@ -118,8 +118,8 @@ class ObjetoExtraController {
     }
     remove(request, response, next) {
         return __awaiter(this, void 0, void 0, function* () {
-            let userToRemove = yield this.ObjetoExtraRepository.findOne(request.params.id);
-            return yield this.ObjetoExtraRepository.remove(userToRemove);
+            let extraToRemove = yield this.ObjetoExtraRepository.findOne(request.params.id);
+            return yield this.ObjetoExtraRepository.remove(extraToRemove);
         });
     }
     update(request, response, next) {

@@ -121,8 +121,8 @@ class FueroController {
     }
     remove(request, response, next) {
         return __awaiter(this, void 0, void 0, function* () {
-            let userToRemove = yield this.FueroRepository.findOne(request.params.id);
-            return yield this.FueroRepository.remove(userToRemove);
+            let fueroToRemove = yield this.FueroRepository.findOne(request.params.id);
+            return yield this.FueroRepository.remove(fueroToRemove);
         });
     }
     update(request, response, next) {

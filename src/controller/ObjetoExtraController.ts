@@ -126,8 +126,8 @@ export class ObjetoExtraController {
     }
 
     async remove(request: Request, response: Response, next: NextFunction) {
-        let userToRemove = await this.ObjetoExtraRepository.findOne(request.params.id);
-       return  await this.ObjetoExtraRepository.remove(userToRemove);
+        let extraToRemove = await this.ObjetoExtraRepository.findOne(request.params.id);
+       return  await this.ObjetoExtraRepository.remove(extraToRemove);
     }
 
     async update(request: Request, response: Response, next: NextFunction) {

@@ -127,8 +127,8 @@ class EtapaController {
     }
     remove(request, response, next) {
         return __awaiter(this, void 0, void 0, function* () {
-            let userToRemove = yield this.EtapaRepository.findOne(request.params.id);
-            return yield this.EtapaRepository.remove(userToRemove);
+            let etapaToRemove = yield this.EtapaRepository.findOne(request.params.id);
+            return yield this.EtapaRepository.remove(etapaToRemove);
         });
     }
     update(request, response, next) {

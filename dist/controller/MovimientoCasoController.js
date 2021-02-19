@@ -134,8 +134,8 @@ class MovimientoCasoController {
     }
     remove(request, response, next) {
         return __awaiter(this, void 0, void 0, function* () {
-            let userToRemove = yield this.MovimientoRepository.findOne(request.params.id);
-            return yield this.MovimientoRepository.remove(userToRemove);
+            let movimientoToRemove = yield this.MovimientoRepository.findOne(request.params.id);
+            return yield this.MovimientoRepository.remove(movimientoToRemove);
         });
     }
     update(request, response, next) {

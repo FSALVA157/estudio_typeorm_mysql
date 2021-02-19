@@ -124,8 +124,8 @@ export class CategoriaClienteController {
     }
 
     async remove(request: Request, response: Response, next: NextFunction) {
-        let userToRemove = await this.CatCliRepository.findOne(request.params.id);
-       return  await this.CatCliRepository.remove(userToRemove);
+        let categoriaToRemove = await this.CatCliRepository.findOne(request.params.id);
+       return  await this.CatCliRepository.remove(categoriaToRemove);
     }
 
     async update(request: Request, response: Response, next: NextFunction) {

@@ -1,7 +1,8 @@
 import {getRepository,Like,Not,IsNull} from "typeorm";
 import {NextFunction, Request, Response} from "express";
 import { Documento } from '../entity/Documento';
-
+import * as fs from "fs-extra";
+import  * as path  from "path";
 
 
 export class DocumentoController {
@@ -138,22 +139,42 @@ export class DocumentoController {
     }
 
     async one(request: Request, response: Response, next: NextFunction) {
-        
         return await this.DocumentoRepository.findOne(request.params.id);
     }
 
+   
     async save(request: Request, response: Response, next: NextFunction) {
-        return await this.DocumentoRepository.save(request.body);
+        //en este controller en especial debo armar una instancia de documento antes del save
+        
+        let data = new Documento(request);
+        return await this.DocumentoRepository.save(data);
+      
     }
 
     async remove(request: Request, response: Response, next: NextFunction) {
-        let userToRemove = await this.DocumentoRepository.findOne(request.params.id);
-       return  await this.DocumentoRepository.remove(userToRemove);
+        let documentToRemove = await this.DocumentoRepository.findOne(request.params.id);
+        if(documentToRemove){
+            
+                fs.unlink(path.resolve(documentToRemove.url)).then().catch(error=>{
+                    console.log('No existe el archivo referenciado no se ha eliminado ningun pdf! pero si el registro de tabla');
+                });
+            
+        }
+       return await this.DocumentoRepository.remove(documentToRemove);
     }
 
     async update(request: Request, response: Response, next: NextFunction) {
+        //en este caso en específico no permitire la actualización de la url del archivo pues en ese caso es mejor hacer un delete y carga nueva
+        //entonces en caso de recibir el campo url voy a lanzar un error
+        if(request.body.url){
+            response.json({
+                message: "NO esta permitido actualizar la url del archivo almacenado, se recomienda eliminar y cargar nuevamente"
+            });
+        }else{
+
+            return await this.DocumentoRepository.update(request.params.id,request.body);
+        }
        
-        return await this.DocumentoRepository.update(request.params.id,request.body);
     }
 
 }

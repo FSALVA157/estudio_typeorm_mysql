@@ -121,8 +121,8 @@ class CaracterLetradoController {
     }
     remove(request, response, next) {
         return __awaiter(this, void 0, void 0, function* () {
-            let userToRemove = yield this.caracterRepository.findOne(request.params.id);
-            return yield this.caracterRepository.remove(userToRemove);
+            let caracterToRemove = yield this.caracterRepository.findOne(request.params.id);
+            return yield this.caracterRepository.remove(caracterToRemove);
         });
     }
     update(request, response, next) {

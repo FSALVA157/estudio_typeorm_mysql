@@ -134,8 +134,8 @@ class AlertaController {
     }
     remove(request, response, next) {
         return __awaiter(this, void 0, void 0, function* () {
-            let userToRemove = yield this.AlertaRepository.findOne(request.params.id);
-            return yield this.AlertaRepository.remove(userToRemove);
+            let alertaToRemove = yield this.AlertaRepository.findOne(request.params.id);
+            return yield this.AlertaRepository.remove(alertaToRemove);
         });
     }
     update(request, response, next) {

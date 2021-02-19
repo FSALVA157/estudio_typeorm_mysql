@@ -132,8 +132,8 @@ class JuzgadoController {
     }
     remove(request, response, next) {
         return __awaiter(this, void 0, void 0, function* () {
-            let userToRemove = yield this.JuzgadoRepository.findOne(request.params.id);
-            return yield this.JuzgadoRepository.remove(userToRemove);
+            let juzgadoToRemove = yield this.JuzgadoRepository.findOne(request.params.id);
+            return yield this.JuzgadoRepository.remove(juzgadoToRemove);
         });
     }
     update(request, response, next) {

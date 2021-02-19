@@ -140,8 +140,8 @@ export class MovimientoCasoController {
     }
 
     async remove(request: Request, response: Response, next: NextFunction) {
-        let userToRemove = await this.MovimientoRepository.findOne(request.params.id);
-       return  await this.MovimientoRepository.remove(userToRemove);
+        let movimientoToRemove = await this.MovimientoRepository.findOne(request.params.id);
+       return  await this.MovimientoRepository.remove(movimientoToRemove);
     }
 
     async update(request: Request, response: Response, next: NextFunction) {

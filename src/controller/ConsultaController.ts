@@ -138,8 +138,8 @@ export class ConsultaController {
     }
 
     async remove(request: Request, response: Response, next: NextFunction) {
-        let userToRemove = await this.ConsultaRepository.findOne(request.params.id);
-       return  await this.ConsultaRepository.remove(userToRemove);
+        let consultaToRemove = await this.ConsultaRepository.findOne(request.params.id);
+       return  await this.ConsultaRepository.remove(consultaToRemove);
     }
 
     async update(request: Request, response: Response, next: NextFunction) {

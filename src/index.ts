@@ -39,6 +39,7 @@ import { checkRole } from './middleware/role';
 import { CasoController } from './controller/CasoController';
 import { TipoUsuario } from './entity/TipoUsuario';
 import { Documento } from './entity/Documento';
+import multer from "./libs/multer";
 
 
 process.on('unhandledRejection',(error) => {
@@ -114,6 +115,8 @@ var opciones:ConnectionOptions;
         app.use('/calculos',calculos);
         //validando rutas de usuarios
         app.get('/usuarios',[checkJwt,checkRole('admin')]);
+        app.use('/uploads', express.static(path.resolve('/uploads')));
+        app.post('/documentos',multer.single('file'));
                     
         
         
@@ -173,6 +176,7 @@ var opciones:ConnectionOptions;
                                  let data;
                                         switch (route.entity) {
                                             case 'Documento':
+                                                //console.log('CAPTURA DE REQUEST EN EL INDEX',req.body);
                                                 data = new Documento(req);
                                                 //console.log(req);
                                                 if(req.body.id_documento){

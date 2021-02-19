@@ -124,8 +124,8 @@ export class InstanciaController {
     }
 
     async remove(request: Request, response: Response, next: NextFunction) {
-        let userToRemove = await this.InstanciaRepository.findOne(request.params.id);
-       return  await this.InstanciaRepository.remove(userToRemove);
+        let instanciaToRemove = await this.InstanciaRepository.findOne(request.params.id);
+       return  await this.InstanciaRepository.remove(instanciaToRemove);
     }
 
     async update(request: Request, response: Response, next: NextFunction) {

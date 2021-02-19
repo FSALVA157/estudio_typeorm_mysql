@@ -118,8 +118,8 @@ class CategoriaClienteController {
     }
     remove(request, response, next) {
         return __awaiter(this, void 0, void 0, function* () {
-            let userToRemove = yield this.CatCliRepository.findOne(request.params.id);
-            return yield this.CatCliRepository.remove(userToRemove);
+            let categoriaToRemove = yield this.CatCliRepository.findOne(request.params.id);
+            return yield this.CatCliRepository.remove(categoriaToRemove);
         });
     }
     update(request, response, next) {

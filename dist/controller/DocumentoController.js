@@ -10,6 +10,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
 const Documento_1 = require("../entity/Documento");
+const fs = require("fs-extra");
+const path = require("path");
 class DocumentoController {
     constructor() {
         this.DocumentoRepository = typeorm_1.getRepository(Documento_1.Documento);
@@ -137,18 +139,34 @@ class DocumentoController {
     }
     save(request, response, next) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.DocumentoRepository.save(request.body);
+            //en este controller en especial debo armar una instancia de documento antes del save
+            let data = new Documento_1.Documento(request);
+            return yield this.DocumentoRepository.save(data);
         });
     }
     remove(request, response, next) {
         return __awaiter(this, void 0, void 0, function* () {
-            let userToRemove = yield this.DocumentoRepository.findOne(request.params.id);
-            return yield this.DocumentoRepository.remove(userToRemove);
+            let documentToRemove = yield this.DocumentoRepository.findOne(request.params.id);
+            if (documentToRemove) {
+                fs.unlink(path.resolve(documentToRemove.url)).then().catch(error => {
+                    console.log('No existe el archivo referenciado no se ha eliminado ningun pdf! pero si el registro de tabla');
+                });
+            }
+            return yield this.DocumentoRepository.remove(documentToRemove);
         });
     }
     update(request, response, next) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.DocumentoRepository.update(request.params.id, request.body);
+            //en este caso en específico no permitire la actualización de la url del archivo pues en ese caso es mejor hacer un delete y carga nueva
+            //entonces en caso de recibir el campo url voy a lanzar un error
+            if (request.body.url) {
+                response.json({
+                    message: "NO esta permitido actualizar la url del archivo almacenado, se recomienda eliminar y cargar nuevamente"
+                });
+            }
+            else {
+                return yield this.DocumentoRepository.update(request.params.id, request.body);
+            }
         });
     }
 }

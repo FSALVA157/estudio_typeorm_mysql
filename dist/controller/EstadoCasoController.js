@@ -118,8 +118,8 @@ class EstadoCasoController {
     }
     remove(request, response, next) {
         return __awaiter(this, void 0, void 0, function* () {
-            let userToRemove = yield this.EstadoRepository.findOne(request.params.id);
-            return yield this.EstadoRepository.remove(userToRemove);
+            let estadoToRemove = yield this.EstadoRepository.findOne(request.params.id);
+            return yield this.EstadoRepository.remove(estadoToRemove);
         });
     }
     update(request, response, next) {

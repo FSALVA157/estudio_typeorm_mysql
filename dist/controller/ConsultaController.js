@@ -131,8 +131,8 @@ class ConsultaController {
     }
     remove(request, response, next) {
         return __awaiter(this, void 0, void 0, function* () {
-            let userToRemove = yield this.ConsultaRepository.findOne(request.params.id);
-            return yield this.ConsultaRepository.remove(userToRemove);
+            let consultaToRemove = yield this.ConsultaRepository.findOne(request.params.id);
+            return yield this.ConsultaRepository.remove(consultaToRemove);
         });
     }
     update(request, response, next) {

@@ -139,8 +139,8 @@ export class AlertaController {
     }
 
     async remove(request: Request, response: Response, next: NextFunction) {
-        let userToRemove = await this.AlertaRepository.findOne(request.params.id);
-       return  await this.AlertaRepository.remove(userToRemove);
+        let alertaToRemove = await this.AlertaRepository.findOne(request.params.id);
+       return  await this.AlertaRepository.remove(alertaToRemove);
     }
 
     async update(request: Request, response: Response, next: NextFunction) {

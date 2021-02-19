@@ -126,8 +126,8 @@ class DistritoController {
     }
     remove(request, response, next) {
         return __awaiter(this, void 0, void 0, function* () {
-            let userToRemove = yield this.DistritoRepository.findOne(request.params.id);
-            return yield this.DistritoRepository.remove(userToRemove);
+            let distritoToRemove = yield this.DistritoRepository.findOne(request.params.id);
+            return yield this.DistritoRepository.remove(distritoToRemove);
         });
     }
     update(request, response, next) {

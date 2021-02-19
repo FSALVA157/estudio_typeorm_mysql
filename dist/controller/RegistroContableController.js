@@ -140,8 +140,8 @@ class RegistroContableController {
     }
     remove(request, response, next) {
         return __awaiter(this, void 0, void 0, function* () {
-            let userToRemove = yield this.RegistroRepository.findOne(request.params.id);
-            return yield this.RegistroRepository.remove(userToRemove);
+            let registroToRemove = yield this.RegistroRepository.findOne(request.params.id);
+            return yield this.RegistroRepository.remove(registroToRemove);
         });
     }
     update(request, response, next) {

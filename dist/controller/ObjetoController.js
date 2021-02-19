@@ -127,8 +127,8 @@ class ObjetoController {
     }
     remove(request, response, next) {
         return __awaiter(this, void 0, void 0, function* () {
-            let userToRemove = yield this.ObjetoRepository.findOne(request.params.id);
-            return yield this.ObjetoRepository.remove(userToRemove);
+            let objetoToRemove = yield this.ObjetoRepository.findOne(request.params.id);
+            return yield this.ObjetoRepository.remove(objetoToRemove);
         });
     }
     update(request, response, next) {

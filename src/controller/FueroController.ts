@@ -127,8 +127,8 @@ export class FueroController {
     }
 
     async remove(request: Request, response: Response, next: NextFunction) {
-        let userToRemove = await this.FueroRepository.findOne(request.params.id);
-       return  await this.FueroRepository.remove(userToRemove);
+        let fueroToRemove = await this.FueroRepository.findOne(request.params.id);
+       return  await this.FueroRepository.remove(fueroToRemove);
     }
 
     async update(request: Request, response: Response, next: NextFunction) {

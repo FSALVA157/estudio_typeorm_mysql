@@ -134,8 +134,8 @@ export class EtapaController {
     }
 
     async remove(request: Request, response: Response, next: NextFunction) {
-        let userToRemove = await this.EtapaRepository.findOne(request.params.id);
-       return  await this.EtapaRepository.remove(userToRemove);
+        let etapaToRemove = await this.EtapaRepository.findOne(request.params.id);
+       return  await this.EtapaRepository.remove(etapaToRemove);
     }
 
     async update(request: Request, response: Response, next: NextFunction) {

@@ -128,8 +128,8 @@ export class CaracterLetradoController {
     }
 
     async remove(request: Request, response: Response, next: NextFunction) {
-        let userToRemove = await this.caracterRepository.findOne(request.params.id);
-       return  await this.caracterRepository.remove(userToRemove);
+        let caracterToRemove = await this.caracterRepository.findOne(request.params.id);
+       return  await this.caracterRepository.remove(caracterToRemove);
     }
 
     async update(request: Request, response: Response, next: NextFunction) {

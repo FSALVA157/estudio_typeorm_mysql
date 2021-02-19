@@ -118,8 +118,8 @@ class InstanciaController {
     }
     remove(request, response, next) {
         return __awaiter(this, void 0, void 0, function* () {
-            let userToRemove = yield this.InstanciaRepository.findOne(request.params.id);
-            return yield this.InstanciaRepository.remove(userToRemove);
+            let instanciaToRemove = yield this.InstanciaRepository.findOne(request.params.id);
+            return yield this.InstanciaRepository.remove(instanciaToRemove);
         });
     }
     update(request, response, next) {

@@ -137,8 +137,8 @@ export class JuzgadoController {
     }
 
     async remove(request: Request, response: Response, next: NextFunction) {
-        let userToRemove = await this.JuzgadoRepository.findOne(request.params.id);
-       return  await this.JuzgadoRepository.remove(userToRemove);
+        let juzgadoToRemove = await this.JuzgadoRepository.findOne(request.params.id);
+       return  await this.JuzgadoRepository.remove(juzgadoToRemove);
     }
 
     async update(request: Request, response: Response, next: NextFunction) {

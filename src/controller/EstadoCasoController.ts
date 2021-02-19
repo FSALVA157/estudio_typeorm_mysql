@@ -124,8 +124,8 @@ export class EstadoCasoController {
     }
 
     async remove(request: Request, response: Response, next: NextFunction) {
-        let userToRemove = await this.EstadoRepository.findOne(request.params.id);
-       return  await this.EstadoRepository.remove(userToRemove);
+        let estadoToRemove = await this.EstadoRepository.findOne(request.params.id);
+       return  await this.EstadoRepository.remove(estadoToRemove);
     }
 
     async update(request: Request, response: Response, next: NextFunction) {

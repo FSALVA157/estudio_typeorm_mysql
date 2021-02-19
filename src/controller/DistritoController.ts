@@ -132,8 +132,8 @@ export class DistritoController {
     }
 
     async remove(request: Request, response: Response, next: NextFunction) {
-        let userToRemove = await this.DistritoRepository.findOne(request.params.id);
-       return  await this.DistritoRepository.remove(userToRemove);
+        let distritoToRemove = await this.DistritoRepository.findOne(request.params.id);
+       return  await this.DistritoRepository.remove(distritoToRemove);
     }
 
     async update(request: Request, response: Response, next: NextFunction) {

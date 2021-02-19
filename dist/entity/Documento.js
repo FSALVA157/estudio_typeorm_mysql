@@ -17,13 +17,17 @@ let Documento = class Documento {
     //constructor
     constructor(req) {
         if (req) {
-            this.caso_id = req.body.caso_id;
+            console.log('DATOS DEL REQUEST', req);
+            let idDelCaso = parseInt(req.body.caso_id) || null;
+            let folio = parseInt(req.body.folio) || null;
+            let idUsuario = parseInt(req.body.usuario_id) || null;
+            this.caso_id = idDelCaso;
             this.fecha = req.body.fecha;
             this.titulo = req.body.titulo;
             this.detalle = req.body.detalle;
-            this.url = req.body.url;
-            this.folio = req.body.folio;
-            this.usuario_id = req.body.usuario_id;
+            this.url = req.file.path || null;
+            this.folio = folio;
+            this.usuario_id = idUsuario;
         }
     }
 };
@@ -75,9 +79,7 @@ __decorate([
 __decorate([
     typeorm_1.Column({
         type: "varchar",
-        length: 100,
     }),
-    class_validator_1.Length(5, 100, { message: 'la url no puede ser nula ni menor a 5 caracteres' }),
     __metadata("design:type", String)
 ], Documento.prototype, "url", void 0);
 __decorate([

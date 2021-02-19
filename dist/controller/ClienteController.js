@@ -19,6 +19,7 @@ class ClienteController {
             let offset = Number(request.query.offset) || 0;
             let limit = Number(request.query.limit) || 10;
             let fields = null;
+            let clave = request.query.clave || null;
             // let fields:any =  ["id_cliente","dni_cuit","categoria_id","razon_social","nombre","apellido","domicilio_real","domicilio_alternativo","provincia","departamento","localidad","telefono_celular","telefono_alternativo","ocupacion","email","fecha_alta"];
             if (request.query.fields) {
                 let reqFields = request.query.fields;
@@ -71,79 +72,88 @@ class ClienteController {
             }
             let arreglo = request.query;
             let cond = new Object();
-            for (const campo in arreglo) {
-                if (Object.prototype.hasOwnProperty.call(arreglo, campo)) {
-                    //console.log(`${campo} = ${arreglo[campo]}`);
-                    //const element = arreglo[campo];
-                    let nombreCampo = campo.toString();
-                    switch (nombreCampo) {
-                        case 'id_cliente':
-                            cond[nombreCampo] = Number(arreglo[campo]);
-                            break;
-                        case 'categoria_id':
-                            cond[nombreCampo] = Number(arreglo[campo]);
-                            break;
-                        case 'razon_social':
-                            cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
-                            break;
-                        case 'cuit':
-                            cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
-                            break;
-                        case 'domicilio_cliente':
-                            cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
-                            break;
-                        case 'provincia_cliente':
-                            cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
-                            break;
-                        case 'departamento_cliente':
-                            cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
-                            break;
-                        case 'localidad_cliente':
-                            cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
-                            break;
-                        case 'nombre':
-                            cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
-                            break;
-                        case 'apellido':
-                            cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
-                            break;
-                        case 'dni':
-                            cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
-                            break;
-                        case 'email':
-                            cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
-                            break;
-                        case 'provincia_representante':
-                            cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
-                            break;
-                        case 'departamento_representante':
-                            cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
-                            break;
-                        case 'localidad_representante':
-                            cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
-                            break;
-                        case 'domicilio_representante':
-                            cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
-                            break;
-                        case 'telefono':
-                            cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
-                            break;
-                        case 'telefono_alt':
-                            cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
-                            break;
-                        case 'contacto_alt':
-                            cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
-                            break;
-                        case 'fecha_alta':
-                            cond[nombreCampo] = ExpresionAvanzadaFechas(arreglo[campo]);
-                            break;
-                        case 'visible':
-                            cond[nombreCampo] = Number(arreglo[campo]);
-                            break;
-                        default:
-                            break;
+            if (!clave) {
+                for (const campo in arreglo) {
+                    if (Object.prototype.hasOwnProperty.call(arreglo, campo)) {
+                        //console.log(`${campo} = ${arreglo[campo]}`);
+                        //const element = arreglo[campo];
+                        let nombreCampo = campo.toString();
+                        switch (nombreCampo) {
+                            case 'id_cliente':
+                                cond[nombreCampo] = Number(arreglo[campo]);
+                                break;
+                            case 'categoria_id':
+                                cond[nombreCampo] = Number(arreglo[campo]);
+                                break;
+                            case 'razon_social':
+                                cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
+                                break;
+                            case 'cuit':
+                                cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
+                                break;
+                            case 'domicilio_cliente':
+                                cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
+                                break;
+                            case 'provincia_cliente':
+                                cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
+                                break;
+                            case 'departamento_cliente':
+                                cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
+                                break;
+                            case 'localidad_cliente':
+                                cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
+                                break;
+                            case 'nombre':
+                                cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
+                                break;
+                            case 'apellido':
+                                cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
+                                break;
+                            case 'dni':
+                                cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
+                                break;
+                            case 'email':
+                                cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
+                                break;
+                            case 'provincia_representante':
+                                cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
+                                break;
+                            case 'departamento_representante':
+                                cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
+                                break;
+                            case 'localidad_representante':
+                                cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
+                                break;
+                            case 'domicilio_representante':
+                                cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
+                                break;
+                            case 'telefono':
+                                cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
+                                break;
+                            case 'telefono_alt':
+                                cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
+                                break;
+                            case 'contacto_alt':
+                                cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
+                                break;
+                            case 'fecha_alta':
+                                cond[nombreCampo] = ExpresionAvanzadaFechas(arreglo[campo]);
+                                break;
+                            case 'visible':
+                                cond[nombreCampo] = Number(arreglo[campo]);
+                                break;
+                            default:
+                                break;
+                        }
                     }
                 }
+            }
+            else {
+                cond = [
+                    { nombre: typeorm_1.Like('%' + clave + '%') },
+                    { apellido: typeorm_1.Like('%' + clave + '%') },
+                    { razon_social: typeorm_1.Like('%' + clave + '%') }
+                ];
             }
             let reglas;
             if (fields != null) {

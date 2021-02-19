@@ -130,8 +130,8 @@ class TipoProcesoController {
     }
     remove(request, response, next) {
         return __awaiter(this, void 0, void 0, function* () {
-            let userToRemove = yield this.TipoProcesoRepository.findOne(request.params.id);
-            return yield this.TipoProcesoRepository.remove(userToRemove);
+            let tipoToRemove = yield this.TipoProcesoRepository.findOne(request.params.id);
+            return yield this.TipoProcesoRepository.remove(tipoToRemove);
         });
     }
     update(request, response, next) {
