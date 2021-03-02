@@ -114,6 +114,15 @@ export class Caso {
 
     @Column({
         type: "varchar",
+        length: 100,
+        nullable: true
+         })
+    @IsOptional()
+    @Length(2,100,{message:'La Razón Social de la contraparte debe tener entre $constraint1 y $constraint2 caracteres'})
+    contraparte_razon_social: string;
+
+    @Column({
+        type: "varchar",
         length: 20,
         nullable:true
      })
@@ -239,7 +248,7 @@ export class Caso {
         length: 100,
         nullable: true
            })
-   @Length(10,100,{message:'La caratula debe tener entre $constraint1 y $constraint2 caracteres'})
+   @Length(1,100,{message:'La caratula debe tener entre $constraint1 y $constraint2 caracteres'})
    @IsOptional()
     mesa: string;
 

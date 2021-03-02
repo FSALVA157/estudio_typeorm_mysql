@@ -111,6 +111,15 @@ export class CasoExtrajudicial {
     contraparte_telefono: string;
 
     @Column({
+        type: "varchar",
+        length: 300,
+        nullable: true
+         })
+    @IsOptional()
+    @Length(5,100,{message:'Los datos del abogado deben tener entre $constraint1 y $constraint2 caracteres'})
+    contraparte_abogado: string;
+
+    @Column({
         type: "int",
         nullable:true
        })

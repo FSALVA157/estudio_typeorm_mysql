@@ -110,6 +110,9 @@ export class CasoExtraController {
                     case 'contraparte_telefono':
                         cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);  
                         break;
+                    case 'contraparte_abogado':
+                        cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);  
+                        break;
                     case 'materia_id':
                         cond[nombreCampo] = Number(arreglo[campo]);
                         break;
