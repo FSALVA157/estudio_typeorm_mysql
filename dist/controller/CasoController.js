@@ -101,13 +101,16 @@ class CasoController {
                         case 'contraparte_apellido':
                             cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
                             break;
+                        case 'contraparte_razon_social':
+                            cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
+                            break;
                         case 'contraparte_dni':
                             cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
                             break;
                         case 'contraparte_dom_real':
                             cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
                             break;
-                        case 'contraparte_dom_procesal':
+                        case 'contraparte_dom_proc':
                             cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
                             break;
                         case 'contraparte_telefono':

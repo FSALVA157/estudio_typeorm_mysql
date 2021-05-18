@@ -157,15 +157,14 @@ typeorm_1.createConnection(opciones).then((connection) => __awaiter(this, void 0
                                 else {
                                     break;
                                 }
-                            case 'MovimientoCaso':
-                                data = new TipoUsuario_1.TipoUsuario(req);
-                                //console.log(req);
-                                if (req.body.id_mov_caso) {
-                                    throw errorSobreescritura;
-                                }
-                                else {
-                                    break;
-                                }
+                            // case 'MovimientoCaso':
+                            //     data = new TipoUsuario(req);
+                            //     //console.log(req);
+                            //     if(req.body.id_mov_caso){
+                            //        throw errorSobreescritura;
+                            //     }else{
+                            //         break;
+                            //     }
                             case 'TipoUsuario':
                                 data = new TipoUsuario_1.TipoUsuario(req);
                                 //console.log(req);

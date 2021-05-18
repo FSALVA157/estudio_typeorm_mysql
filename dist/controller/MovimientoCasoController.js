@@ -85,9 +85,6 @@ class MovimientoCasoController {
                         case 'tipo_mov_id':
                             cond[nombreCampo] = Number(arreglo[campo]);
                             break;
-                        case 'visible':
-                            cond[nombreCampo] = Number(arreglo[campo]);
-                            break;
                         case 'etapa':
                             cond[nombreCampo] = ExpresionAvanzada(arreglo[campo]);
                             break;

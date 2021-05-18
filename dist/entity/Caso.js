@@ -163,6 +163,16 @@ __decorate([
 __decorate([
     typeorm_1.Column({
         type: "varchar",
+        length: 100,
+        nullable: true
+    }),
+    class_validator_1.IsOptional(),
+    class_validator_1.Length(2, 100, { message: 'La Razón Social de la contraparte debe tener entre $constraint1 y $constraint2 caracteres' }),
+    __metadata("design:type", String)
+], Caso.prototype, "contraparte_razon_social", void 0);
+__decorate([
+    typeorm_1.Column({
+        type: "varchar",
         length: 20,
         nullable: true
     }),
@@ -299,7 +309,7 @@ __decorate([
         length: 100,
         nullable: true
     }),
-    class_validator_1.Length(10, 100, { message: 'La caratula debe tener entre $constraint1 y $constraint2 caracteres' }),
+    class_validator_1.Length(1, 100, { message: 'La caratula debe tener entre $constraint1 y $constraint2 caracteres' }),
     class_validator_1.IsOptional(),
     __metadata("design:type", String)
 ], Caso.prototype, "mesa", void 0);
